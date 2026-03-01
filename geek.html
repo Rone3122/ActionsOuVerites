@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Geeks - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie Geeks 🧠</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Pour les geeks 🧠</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+const verites = [
+    // --- ERREURS ET CATASTROPHES ---
+    "Raconte la fois où tu as passé toute la nuit à coder pour réaliser au matin que le bug venait d'une seule faute de frappe.",
+    "As-tu déjà crashé ton PC (ou celui de quelqu'un d'autre) en installant un logiciel douteux ?",
+    "Quelle est la pire erreur de code (le 'bug' de l'année) que tu aies produite et qui a tout cassé ?",
+    "Raconte la fois où tu as accidentellement supprimé un fichier ultra important sans sauvegarde.",
+    "As-tu déjà oublié ton mot de passe principal et dû réinitialiser toute ta vie numérique en paniquant ?",
+    "Quelle est la pire galère que tu aies vécue avec une connexion Internet qui lâche au pire moment possible ?",
+    "Raconte la fois où tu as envoyé un message privé (ou un screenshot) à la mauvaise personne sur Discord.",
+    "As-tu déjà essayé de réparer un composant physique (PC, console) et fini par aggraver la situation ?",
+    "Quelle est la pire réaction d'un proche quand tu as essayé de lui expliquer un problème technique ?",
+    "Raconte la fois où une mise à jour a totalement rendu ton appareil inutilisable pendant des heures.",
+
+    // --- GAMING ET OBSESSIONS ---
+    "As-tu déjà été pris en flagrant délit de triche (cheat code ou glitch) dans un jeu en ligne ?",
+    "Quel est le moment le plus embarrassant que tu aies vécu à cause d'un micro resté ouvert en plein jeu ?",
+    "As-tu déjà tellement 'ragé' contre un jeu que tu as failli (ou réussi à) casser ton matériel ?",
+    "Raconte la fois où tu as été tellement absorbé par un jeu que tu as oublié un rendez-vous ou de manger.",
+    "Quel est ton pseudo ou avatar le plus ridicule que tu aies utilisé par le passé ?",
+    "As-tu déjà ressenti une jalousie intense face au setup (PC, clavier, écran) d'un ami ?",
+    "Quelle est la chose la plus absurde ou inutile que tu aies faite dans un jeu en monde ouvert ?",
+    "Raconte la fois où tu as perdu une partie cruciale à cause d'un 'lag' ou d'une déconnexion injuste.",
+    "As-tu déjà passé des heures à chercher un Easter Egg qui n'existait pas du tout ?",
+    "Quel est le gadget ou périphérique tech le plus inutile que tu possèdes mais que tu refuses de jeter ?",
+
+    // --- PASSION ET COMPORTEMENTS (31-100) ---
+    "Quelle est la chose la plus 'geek' que tu aies faite en public (parler en code, référence obscure) ?",
+    "Raconte la fois où tu as essayé de 'hacker' quelque chose de simple (comme un site d'école) juste pour voir.",
+    "As-tu déjà trollé un ami avec un script inoffensif (genre un faux virus ou une fenêtre qui s'ouvre sans arrêt) ?",
+    "Quelle est la chose la plus drôle qu'un bug graphique ait fait apparaître dans l'un de tes jeux ?",
+    "Raconte la fois où tu as testé une IA et que ses réponses t'ont fait flipper ou mourir de rire.",
+    "As-tu déjà passé une semaine entière sur un problème qui se résolvait en un seul clic ?",
+    "Quelle est la collection geek (cartes, figurines, vieux composants) dont tu as un peu honte ?",
+    "Raconte la fois où tu as essayé d'apprendre un langage de programmation et abandonné après 10 minutes.",
+    "As-tu déjà utilisé tes 'compétences' tech pour impressionner quelqu'un qui n'y connaissait rien ?",
+    "Quelle est la pire vidéo ou recherche que tu aies faite et que tu aurais peur de voir dans ton historique ?",
+    "Raconte la fois où tu as installé un Mod sur un jeu et que ça a créé un monstre visuel.",
+    "As-tu déjà fait un 'rage quit' tellement violent que tu as quitté le groupe Discord sans rien dire ?",
+    "Quelle est la fonctionnalité cachée d'un logiciel que tu as découverte par pur hasard ?",
+    "Raconte la fois où tu as dû faire du support technique pour ta famille pendant tout un repas.",
+    "As-tu déjà passé des heures à optimiser ton PC pour gagner seulement 2 FPS ?",
+    "Quelle est la situation la plus absurde vécue dans un terminal ou une ligne de commande ?",
+    "Raconte la fois où tu as eu une idée de génie pour une appli, pour réaliser qu'elle existait déjà.",
+    "As-tu déjà eu peur d'un virus alors que c'était juste une notification Windows normale ?",
+    "Quelle est la chose la plus bizarre que tu aies bricolée avec un Raspberry Pi ou un Arduino ?",
+    "Raconte ta première expérience en VR (chute, vertige ou coup dans un mur).",
+    "As-tu déjà menti sur tes compétences en informatique pour obtenir un job ou un service ?",
+    "Quelle est la musique de jeu vidéo que tu écoutes en boucle sans l'assumer totalement ?",
+    "Raconte la fois où tu as été banni d'un serveur ou d'un forum injustement (ou pas).",
+    "As-tu déjà passé plus de temps à configurer tes raccourcis clavier qu'à vraiment bosser ?",
+    "Quelle est la pire erreur que tu aies vue sur un flux de stream ou une vidéo tech ?",
+    "Raconte la fois où tu as oublié de sauvegarder ton travail et que le courant a coupé.",
+    "As-tu déjà eu une discussion sérieuse avec un bot ou une IA par pure solitude ?",
+    "Quelle est la touche de ton clavier qui souffre le plus et pourquoi ?",
+    "Raconte la fois où tu as essayé d'overclocker ton PC et que ça a commencé à sentir le chaud.",
+    "As-tu déjà été fier d'un script qui automatisait une tâche de 5 secondes mais qui t'a pris 5 heures à coder ?",
+    "Quelle est la chose la plus ridicule que tu aies vue sur un Discord communautaire ?",
+    "Raconte la fois où tu as cru avoir découvert une faille de sécurité majeure (spoiler: non).",
+    "As-tu déjà ressenti une satisfaction immense en voyant 'Process finished with exit code 0' ?",
+    "Quelle est la pire configuration réseau que tu aies jamais installée (câbles partout, Wi-Fi instable) ?",
+    "Raconte la fois où tu as été surpris par un son très fort au démarrage d'un PC en pleine nuit.",
+    "As-tu déjà passé des heures à personnaliser un skin ou un personnage pour ne jamais jouer avec ?",
+    "Quelle est la commande Linux (ou raccourci) que tu oublies systématiquement ?",
+    "Raconte la fois où tu as essayé d'expliquer un mème geek à quelqu'un qui n'a pas souri du tout.",
+    "As-tu déjà eu l'impression que ton PC te détestait personnellement ?",
+    "Quelle est la chose la plus geek que tu aies achetée sur un coup de tête et regrettée ?",
+    "Raconte la fois où tu as été pris en train de parler tout seul en codant ou en jouant.",
+    "As-tu déjà simulé une panne informatique pour éviter de faire quelque chose ?",
+    "Quelle est la pire expérience de SAV (Service Après Vente) que tu aies eue ?",
+    "Raconte la fois où tu as trouvé une solution à un bug dans ton sommeil.",
+    "As-tu déjà été frustré par une interface utilisateur (UI) tellement mal faite que tu as crié ?",
+    "Quelle est la chose la plus étrange que tu aies trouvée en fouillant dans les fichiers d'un jeu ?",
+    "Raconte la fois où tu as monté ton propre PC et qu'il n'a pas démarré du premier coup.",
+    "As-tu déjà passé une soirée entière à nettoyer ton setup au lieu de produire quoi que ce soit ?",
+    "Quelle est la plus grande quantité de données que tu aies perdue d'un coup ?",
+    "Raconte la fois où tu as été bluffé par un mod graphique 'photo-réaliste'.",
+    "As-tu déjà eu une 'guerre' de commentaires sur un forum ou Reddit ?",
+    "Quelle est la chose la plus ridicule qu'un 'noob' t'ait demandée en informatique ?",
+    "Raconte la fois où tu as dû réinstaller Windows (ou autre) en urgence absolue.",
+    "As-tu déjà été jaloux des stats ou des succès Steam d'un ami ?",
+    "Quelle est la chose la plus bizarre que tu aies apprise grâce à un tutoriel indien sur YouTube ?",
+    "Raconte la fois où tu as cru avoir hacké la matrice en changeant juste le code source (Inspecter l'élément).",
+    "As-tu déjà eu un bug tellement persistant que tu as voulu changer de carrière / d'études ?",
+    "Quelle est la pire habitude que tu as quand tu es devant ton écran ?",
+    "Raconte la fois où tu as fait une démonstration tech et que rien n'a fonctionné (l'effet démo).",
+    "As-tu déjà passé du temps à coder un truc qui servait juste à faire une blague à tes amis ?",
+    "Quelle est la pièce de ton setup dont tu es le plus fier, même si elle est invisible ?",
+    "Raconte la fois où tu as téléchargé un fichier immense pour réaliser que ce n'était pas le bon.",
+    "As-tu déjà essayé de miner de la crypto-monnaie et réalisé que ça coûtait plus cher en électricité ?",
+    "Quelle est la chose la plus geek que tu as réussi à réparer avec du ruban adhésif ou un élastique ?",
+    "Raconte la fois où tu as été impressionné par la vitesse de frappe de quelqu'un d'autre.",
+    "As-tu déjà ressenti de la nostalgie pour un vieux logiciel ou OS (Windows 95, MSN...) ?",
+    "Quelle est la situation la plus absurde vécue lors d'une LAN party ?",
+    "Raconte la fois où tu as cru être observé par ta webcam et que tu l'as cachée.",
+    "As-tu déjà passé des heures à lire des documentations techniques par pur plaisir ?",
+    "Quelle est la chose la plus drôle ou étrange qui te soit arrivée en réalité augmentée ?",
+    "Raconte la fois où tu as oublié que tu étais en partage d'écran devant tout le monde.",
+    "As-tu déjà été surpris par une mise à jour qui a supprimé ta fonctionnalité préférée ?",
+    "Quelle est la pire erreur de débutant que tu fais encore aujourd'hui ?",
+    "Raconte la fois où tu as bricolé un truc tellement instable que tu avais peur de le toucher.",
+    "As-tu déjà eu une discussion philosophique avec Siri, Alexa ou Google Home ?",
+    "Quelle est la chose la plus ridicule que tu ferais si tu étais le meilleur hacker du monde ?",
+    "Raconte la fois où tu as été fier d'avoir trouvé la réponse sur Stack Overflow avant tout le monde.",
+    "As-tu déjà regretté d'avoir donné un conseil informatique à quelqu'un ?",
+    "Quelle est la chose la plus inattendue que tu aies apprise sur la technologie cette année ?",
+    "Raconte ton moment 'Eureka' le plus satisfaisant face à un écran."
+];
+
+const actions = [
+    // --- MIMES ET GESTES ---
+    "Mime un développeur qui tape frénétiquement sur son clavier, s'arrête net, se prend la tête à deux mains et hurle silencieusement.",
+    "Fais semblant d'être un streamer qui reçoit un don énorme en plein milieu d'une action intense.",
+    "Imite quelqu'un qui essaie désespérément de brancher une prise USB dans le bon sens (3 essais minimum).",
+    "Mime un gamer en VR qui essaie d'attraper un objet virtuel mais qui se cogne dans un meuble réel.",
+    "Fais semblant d'ouvrir un ordinateur portable, de voir un message d'erreur bleu (BSOD) et de pleurer de désespoir.",
+    "Imite un hackeur de film qui tape n'importe quoi en disant 'Je craque le pare-feu en 10 secondes !'.",
+    "Mime la réaction de quelqu'un dont le jeu plante juste avant une sauvegarde importante.",
+    "Fais semblant de démêler une montagne de câbles emmêlés derrière un bureau imaginaire.",
+    "Imite un joueur qui vient de subir un lag de 2 secondes et qui se retrouve téléporté dans le vide.",
+    "Mime un développeur qui vient de trouver LE point-virgule manquant et qui fait une danse de la victoire.",
+
+    // --- DÉFIS GEEK (11-100) ---
+    "Fais semblant de nettoyer ton écran avec une précision chirurgicale.",
+    "Mime un combat épique contre un boss de jeu vidéo en utilisant uniquement tes mains comme manette.",
+    "Imite le bruit d'un vieux modem 56k ou d'une imprimante qui bugge.",
+    "Fais semblant de configurer un clavier RGB en changeant les couleurs avec des gestes magiques.",
+    "Mime un streamer qui fait un 'facepalm' après avoir lu un commentaire troll dans le chat.",
+    "Fais semblant de taper du code avec une seule main parce que tu manges une pizza imaginaire de l'autre.",
+    "Imite quelqu'un qui essaie de trouver du réseau Wi-Fi en levant son téléphone très haut.",
+    "Mime un personnage de jeu vidéo dont l'animation bugge (marche contre un mur ou bras qui tremble).",
+    "Fais semblant d'être un robot dont la batterie tombe à 1% en plein milieu d'une phrase.",
+    "Imite la réaction d'un pro-gamer qui gagne une compétition mondiale.",
+    "Mime quelqu'un qui essaie de lire un texte écrit en minuscule sur un écran trop brillant.",
+    "Fais semblant d'installer une carte graphique géante dans un tout petit boîtier.",
+    "Imite un bot Discord qui envoie des notifications non-stop (fais des 'bip bip').",
+    "Mime un développeur qui s'endort sur son clavier et dont le front tape sur la touche 'Entrée'.",
+    "Fais semblant de passer un appel en visio mais ta caméra et ton micro ne marchent pas (mime la frustration).",
+    "Imite un joueur de speedrun qui saute partout pour gagner 1 milliseconde.",
+    "Mime quelqu'un qui essaie de 'cliquer' sur un livre en papier par réflexe.",
+    "Fais semblant de configurer trois écrans en même temps en bougeant la tête partout.",
+    "Imite un personnage de Sims qui a un besoin urgent d'aller aux toilettes.",
+    "Mime la panique d'avoir renversé un soda imaginaire sur ton clavier mécanique.",
+    "Fais semblant de taper sur un clavier invisible à la vitesse de la lumière.",
+    "Imite un ordinateur qui surchauffe et qui finit par s'éteindre bruyamment.",
+    "Mime la joie de recevoir un nouveau composant PC et de l'ouvrir avec précaution.",
+    "Fais semblant d'être coincé derrière un 'mur invisible' dans un jeu vidéo.",
+    "Imite un PNJ (personnage non-joueur) qui répète la même phrase en boucle.",
+    "Mime quelqu'un qui essaie d'expliquer le cloud à sa grand-mère avec des gestes désespérés.",
+    "Fais semblant de chasser un bug invisible dans l'air avec un marteau imaginaire.",
+    "Imite un hacker qui se fait repérer : 'Ils m'ont trouvé ! Je dois couper le serveur !'.",
+    "Mime la réaction de quelqu'un qui voit un spoiler de sa série préférée sur Twitter.",
+    "Fais semblant d'utiliser une souris dont le capteur est sale (le curseur saute partout).",
+    "Imite un joueur qui fait un 'rage quit' en éteignant tout d'un coup.",
+    "Mime un développeur qui présente son projet et tout crash en direct.",
+    "Fais semblant de porter un casque audio trop serré qui te fait mal aux oreilles.",
+    "Imite le mouvement d'un joystick qui dérive tout seul (Joy-Con drift).",
+    "Mime la recherche d'une clé USB perdue au fond d'un sac rempli de vieux câbles.",
+    "Fais semblant de coder une IA maléfique qui commence à te répondre.",
+    "Imite un joueur de Minecraft qui creuse un trou sans s'arrêter.",
+    "Mime la déception de voir un téléchargement s'arrêter à 99%.",
+    "Fais semblant d'être une fenêtre Windows qui refuse de se fermer.",
+    "Imite un techos qui souffle dans une cartouche de jeu pour la faire marcher.",
+    "Mime quelqu'un qui essaie de faire un selfie avec une webcam de mauvaise qualité.",
+    "Fais semblant de construire un PC pièce par pièce dans le vide.",
+    "Imite un gamer qui transpire en fin de partie de Battle Royale.",
+    "Mime un codeur qui boit son 10ème café de la nuit.",
+    "Fais semblant de scanner ton index pour entrer dans une base secrète.",
+    "Imite un bug de collision : traverse un meuble imaginaire et reste coincé.",
+    "Mime la frustration d'un écran tactile qui ne répond pas aux doigts mouillés.",
+    "Fais semblant de lancer un script qui 'nettoie' tout ton appart en 2 secondes.",
+    "Imite la marche d'un personnage de jeu vidéo à la troisième personne.",
+    "Mime quelqu'un qui essaie de cacher son écran rapidement quand quelqu'un entre.",
+    "Fais semblant de changer la pile d'une souris en plein combat.",
+    "Imite une notification de message qui arrive toutes les 2 secondes.",
+    "Mime la découverte d'un Easter Egg incroyable (yeux écarquillés, pointage du doigt).",
+    "Fais semblant d'être un robot qui essaie de prouver qu'il n'est pas un robot (Captcha).",
+    "Imite le bruit et les gestes d'une imprimante en plein bourrage papier.",
+    "Mime quelqu'un qui porte des lunettes connectées et voit des infos partout.",
+    "Fais semblant de taper un mot de passe ultra complexe et de te rater à la fin.",
+    "Imite un joueur qui utilise une manette pour la première fois de sa vie.",
+    "Mime la sensation de porter un casque VR pour la toute première fois.",
+    "Fais semblant de debugger un programme en parlant à un canard en plastique (Rubber Ducking).",
+    "Imite un curseur de souris qui poursuit une mouche sur l'écran.",
+    "Mime un joueur qui gagne un skin légendaire dans une lootbox.",
+    "Fais semblant d'installer un ventilateur de PC géant qui fait s'envoler tes cheveux.",
+    "Imite un PNJ de quête qui attend que tu lui parles.",
+    "Mime la panique d'un écran qui commence à glitcher et à changer de couleur.",
+    "Fais semblant de dessiner un logo tech futuriste sur une tablette invisible.",
+    "Imite un hacker qui tape 'sudo rm -rf /' et qui réalise l'erreur trop tard.",
+    "Mime la recherche d'un pixel mort sur un écran géant.",
+    "Fais semblant d'être dans un ascenseur dont les boutons sont des touches de clavier.",
+    "Imite le son et le geste d'une notification Discord 'Ping'.",
+    "Mime quelqu'un qui essaie de lire du code sur un écran vertical.",
+    "Fais semblant de jouer à un jeu de rythme (type Guitar Hero) avec un balai.",
+    "Imite un développeur qui voit son code marcher du premier coup (miracle !).",
+    "Mime le branchement d'un deuxième écran et la joie d'avoir plus d'espace.",
+    "Fais semblant de coder avec des gants de boxe.",
+    "Imite la réaction face à un spoiler de jeu vidéo majeur.",
+    "Mime un joueur qui essaie de viser avec un lag de souris énorme.",
+    "Fais semblant d'être un hologramme qui grésille.",
+    "Imite un sysadmin qui court partout parce que le serveur brûle.",
+    "Fais une pose finale de 'Maître de la Technologie' devant tes sujets.",
+];
+function newAction(){
+    const randomIndex = Math.floor(Math.random() * actions.length);
+    document.getElementById("challenge").innerText =
+        "🔥 ACTION : " + actions[randomIndex];
+}
+
+function newVerite(){
+    const randomIndex = Math.floor(Math.random() * verites.length);
+    document.getElementById("challenge").innerText =
+        "💬 VÉRITÉ : " + verites[randomIndex];
+}
+</script>
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>

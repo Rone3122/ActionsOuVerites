@@ -1,0 +1,257 @@
+/* Reset simple */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #2c2c54);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+/* Boutons */
+.btn-primary,
+.btn-secondary,
+button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s ease;
+    margin: 5px;
+    position: relative;
+}
+
+.btn-primary {
+    background-color: #ff4757;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #ff6b81;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: #1e1e2f;
+}
+
+.btn-secondary:hover {
+    background-color: #ddd;
+}
+
+button {
+    background-color: #3742fa;
+    color: white;
+}
+
+button:hover {
+    background-color: #5352ed;
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.hero h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+/* Categories */
+.categories {
+    text-align: center;
+    margin-top: 60px;
+    flex: 1;
+}
+
+.categories h2 {
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 12px;
+    width: 220px;
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.card h3 {
+    margin-bottom: 15px;
+}
+
+.card p {
+    margin-bottom: 20px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin-top: auto;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero {
+        margin-top: 60px;
+        padding: 0 20px;
+    }
+
+    .card-container {
+        gap: 20px;
+    }
+
+    .card {
+        width: 90%;
+        max-width: 300px;
+    }
+}
+.game-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.game-card {
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    height: 100%;
+}
+/* Ajustements spécifiques pour la page À propos */
+.about-intro {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    padding: 0 20px;
+    font-size: 18px;
+}
+
+.about-intro p {
+    margin-bottom: 20px;
+}
+
+.ambitions-list {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 15px;
+    border-left: 4px solid #ff4757; /* Rappel de ta couleur primaire */
+}
+
+.ambitions-list ul {
+    list-style: none;
+}
+
+.ambitions-list li {
+    margin-bottom: 15px;
+    padding-left: 25px;
+    position: relative;
+    font-size: 16px;
+}
+
+/* Petit indicateur stylisé devant chaque ambition */
+.ambitions-list li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: #3742fa; /* Ta couleur de bouton */
+    font-weight: bold;
+}
+/* Style du bouton flottant */
+.btn-floating {
+    position: fixed;
+    z-index: 1000;
+    padding: 15px 25px;
+    background-color: #ff4757; /* Couleur vive pour qu'on le voie */
+    color: white;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.3s ease, top 3s linear, left 5s linear;
+    white-space: nowrap;
+}
+
+.btn-floating:hover {
+    transform: scale(1.1);
+    background-color: #3742fa;
+}
+
+/* Optionnel : cacher sur petits écrans si ça gêne la lecture */
+@media (max-width: 600px) {
+    .btn-floating {
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ecoles & cours - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie Écoles & Cours 📚</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Clique pour commencer 🎲</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+const verites = [
+    // --- ÉCHECS ET NOTES ---
+    "Quelle est la pire note que tu aies jamais reçue et dans quelle matière ?",
+    "Raconte la fois où tu as rendu une feuille presque blanche après avoir passé une heure à fixer le plafond.",
+    "As-tu déjà triché à un examen et, si oui, quelle était ta technique secrète ?",
+    "Raconte la fois où tu as été interrogé par surprise alors que tu n'avais absolument pas ouvert ton livre.",
+    "As-tu déjà menti sur une note à tes parents pour éviter de te faire gronder ?",
+    "Quel est le plus gros 'trou de mémoire' que tu aies eu devant une copie d'examen ?",
+    "Quelle est la matière où tu faisais semblant de tout comprendre alors que c'était du chinois pour toi ?",
+    "Raconte la fois où tu as paniqué au tableau devant tout le monde parce que tu ne savais pas répondre.",
+    "As-tu déjà pleuré (ou failli pleurer) à cause d'un contrôle trop difficile ?",
+    "Quelle est la pire appréciation qu'un professeur ait écrite sur ton bulletin ?",
+
+    // --- COMPORTEMENT ET PUNITIONS ---
+    "As-tu déjà été exclu d'un cours ? Si oui, raconte ce que tu avais fait.",
+    "Raconte la fois où tu as eu un fou rire incontrôlable en plein silence pendant un contrôle.",
+    "Quelle est la pire excuse que tu aies inventée pour justifier un retard ou un oubli de devoir ?",
+    "As-tu déjà dormi en cours ? Quelqu'un s'en est-il rendu compte ?",
+    "Raconte la fois où tu as été puni pour quelque chose que tu n'avais pas fait (ou pas tout seul).",
+    "As-tu déjà envoyé un message ou utilisé ton téléphone en cachette et t'es-tu fait attraper ?",
+    "Quelle est la remarque la plus gênante ou la plus drôle qu'un prof t'ait faite devant toute la classe ?",
+    "Raconte la fois où tu as parlé trop fort en pensant que le prof n'entendait pas.",
+    "As-tu déjà fait semblant d'être malade pour rater une journée d'école ou un exposé ?",
+    "Quelle est la chose la plus absurde que tu aies faite pendant la récréation ?",
+
+    // --- ANECDOTES ET STRESS (21-100) ---
+    "Raconte ta présentation orale la plus catastrophique (stress, bafouillages, oublis).",
+    "As-tu déjà oublié ton sac, tes clés ou un manuel hyper important le jour J ?",
+    "Quelle était ta place préférée dans la classe : au premier rang ou tout au fond près du radiateur ?",
+    "Raconte la fois où tu as fait tomber quelque chose de très bruyant dans un silence total.",
+    "As-tu déjà eu le béguin pour un professeur ou un surveillant ?",
+    "Quelle est la matière que tu détestais le plus au point de vouloir faire disparaître les livres ?",
+    "Raconte une fois où tu as mal compris une consigne et fait un hors-sujet complet.",
+    "As-tu déjà oublié la date d'un contrôle important et t'en es rendu compte en arrivant en classe ?",
+    "Quelle est la question la plus difficile qu'un prof t'ait jamais posée en direct ?",
+    "Raconte la fois où tu as fait rire toute la classe au point que le prof a dû arrêter le cours.",
+    "As-tu déjà perdu une feuille de cours super importante juste avant un examen ?",
+    "Quelle est la chose la plus drôle qui soit arrivée pendant un cours ennuyeux ?",
+    "Raconte la fois où tu as confondu un prof avec un autre ou avec un parent d'élève.",
+    "As-tu déjà mangé en cachette pendant un cours ? Quoi donc ?",
+    "Quelle est la pire punition que tu aies jamais reçue (colle, lignes à copier, travail d'intérêt général) ?",
+    "Raconte la fois où tu as essayé de copier discrètement sur ton voisin et qu'il avait tout faux.",
+    "As-tu déjà eu honte de tes fournitures scolaires ou de ton sac à dos ?",
+    "Quelle était la matière où tu étais le 'chouchou' du prof sans vraiment le vouloir ?",
+    "Raconte la fois où tu as dû faire un exposé sur un sujet dont tu ne savais absolument rien.",
+    "As-tu déjà été surpris en train de rêvasser les yeux grands ouverts sur le prof ?",
+    "Quelle est la chose la plus bizarre qu'un camarade de classe t'ait dite ?",
+    "Raconte la fois où tu as répondu faux avec une assurance totale.",
+    "As-tu déjà oublié de faire un devoir et dû le bâcler en 5 minutes avant que le prof arrive ?",
+    "Quelle est la pire place de la classe où tu aies été assis (à côté de qui ou de quoi) ?",
+    "Raconte la fois où tu as eu un accident de stylo (encre partout) en plein cours.",
+    "As-tu déjà fait semblant de prendre des notes alors que tu dessinais sur ton cahier ?",
+    "Quelle était la rumeur la plus folle qui circulait dans ton établissement ?",
+    "Raconte la fois où tu as voulu disparaître sous terre après une erreur embarrassante.",
+    "As-tu déjà été convoqué dans le bureau du directeur / de la directrice ?",
+    "Quelle était la chose la plus drôle que tu écrivais sur les tables (quand c'était permis ou non) ?",
+    "Raconte la fois où tu as cru avoir réussi un examen pour finalement avoir une note catastrophique.",
+    "As-tu déjà aidé quelqu'un à tricher au risque de te faire prendre ?",
+    "Quelle était la matière la plus facile pour toi, celle où tu n'avais jamais besoin de réviser ?",
+    "Raconte la fois où tu as perdu ton carnet de correspondance ou ton agenda.",
+    "As-tu déjà été jaloux de la réussite insolente d'un autre élève ?",
+    "Quelle est la chose la plus absurde qu'un prof ait dite pour justifier son autorité ?",
+    "Raconte la fois où tu as essayé de corrompre un ami pour qu'il te donne ses réponses.",
+    "As-tu déjà eu une crise de panique juste avant de rendre une copie ?",
+    "Quelle est l'odeur qui te rappelle immédiatement la cantine de ton école ?",
+    "Raconte la fois où tu as dû faire équipe avec quelqu'un que tu ne pouvais pas supporter.",
+    "As-tu déjà accidentellement appelé un prof 'Maman' ou 'Papa' ?",
+    "Quelle était ta technique pour ne pas être interrogé quand tu baissais la tête ?",
+    "Raconte la fois où tu as oublié qu'il y avait école un jour spécifique.",
+    "As-tu déjà fait une erreur tellement bête que le prof a ri au lieu de te corriger ?",
+    "Quelle est la chose la plus courageuse que tu aies faite à l'école ?",
+    "Raconte la fois où tu as dû improviser une lecture à haute voix alors que tu n'écoutais pas.",
+    "As-tu déjà été surpris à chuchoter des bêtises sur un prof juste derrière lui ?",
+    "Quelle est la matière qui te donnait le plus de cauchemars la veille des cours ?",
+    "Raconte la fois où tu as confondu tes devoirs de maths avec ceux d'une autre matière.",
+    "As-tu déjà reçu une note inattendue qui a sauvé ta moyenne ?",
+    "Quelle est la règle scolaire la plus inutile que tu aies dû respecter ?",
+    "Raconte la fois où tu as fait tomber ta trousse et que tous tes stylos ont roulé partout.",
+    "As-tu déjà fait un exposé avec un ami et vous avez fini par vous disputer en plein milieu ?",
+    "Quelle était la chose la plus bizarre que tu gardais dans ton casier ou ton sac ?",
+    "Raconte la fois où tu as été le seul à ne pas comprendre une blague du prof.",
+    "As-tu déjà été déçu par un résultat alors que tu avais travaillé comme jamais ?",
+    "Quelle était ta stratégie pour finir tes devoirs le plus vite possible ?",
+    "Raconte la fois où tu as eu un fou rire parce que quelqu'un a fait un bruit bizarre en classe.",
+    "As-tu déjà utilisé ton téléphone pour chercher une réponse pendant un contrôle ?",
+    "Quelle est la chose la plus nostalgique que tu gardes de tes années d'école ?",
+    "Raconte la fois où tu as dû présenter un travail collectif alors que tu étais le seul à avoir bossé.",
+    "As-tu déjà eu peur de ne pas passer dans la classe supérieure ?",
+    "Quelle était la pire chose à manger à la cantine ?",
+    "Raconte la fois où tu as dessiné une caricature d'un prof sur ton cahier.",
+    "As-tu déjà été soulagé qu'un cours soit annulé à la dernière minute ?",
+    "Quelle était la question la plus embarrassante posée pendant un cours d'éducation sexuelle ou de SVT ?",
+    "Raconte la fois où tu as dû porter un vêtement ridicule à l'école (déguisement, erreur de mode).",
+    "As-tu déjà été fier d'avoir tenu tête à une injustice en classe ?",
+    "Quelle était la plus longue punition que tu aies jamais subie ?",
+    "Raconte la fois où tu as oublié ton mot de passe de session informatique à l'école.",
+    "As-tu déjà ressenti une connexion spéciale avec un sujet de cours précis ?",
+    "Quelle est la chose la plus drôle qu'un surveillant t'ait dite ?",
+    "Raconte la fois où tu as dû rester en retenue un mercredi après-midi.",
+    "As-tu déjà été surpris à manger un chewing-gum alors que c'était strictement interdit ?",
+    "Quelle était ta matière préférée pour 'sécher' (si tu l'as déjà fait) ?",
+    "Raconte la fois où tu as cru avoir perdu ton sac à dos alors qu'il était sur ton dos.",
+    "As-tu déjà été ému par le discours de fin d'année d'un professeur ?",
+    "Quelle était la pire chose à faire pendant les cours d'EPS (sport) ?",
+    "Raconte la fois où tu as essayé d'impressionner quelqu'un en répondant à une question difficile.",
+    "Quelle est la leçon de vie la plus importante que tu as apprise à l'école ?"
+];
+
+const actions = [
+    // --- MIMES CLASSIQUES ---
+    "Mime un élève qui s'endort doucement sur sa table, sursaute quand le prof crie, et fait semblant de noter.",
+    "Fais semblant de copier sur ton voisin en étirant ton cou de manière ridicule sans te faire voir.",
+    "Mime la panique totale quand on t'appelle au tableau pour résoudre une équation impossible.",
+    "Fais semblant d'écrire à la vitesse de la lumière parce que le prof va effacer le tableau.",
+    "Mime un élève qui lève la main très haut pour répondre, mais qui oublie tout dès que le prof lui donne la parole.",
+    "Fais semblant de chercher désespérément un stylo qui marche au fond d'une trousse imaginaire.",
+    "Mime quelqu'un qui essaie de chuchoter une réponse à son ami tout en fixant le prof avec un air innocent.",
+    "Fais semblant de tomber de ta chaise en arrière après avoir basculé trop loin.",
+    "Mime la détresse d'un élève qui réalise qu'il a oublié son sac à dos chez lui en arrivant devant l'école.",
+    "Fais semblant de manger un sandwich géant très discrètement derrière ton classeur imaginaire.",
+
+    // --- SCÉNARIOS ET DÉFIS (11-100) ---
+    "Mime un élève qui stresse juste avant un oral : tremblements, respiration forte et relecture de fiches.",
+    "Fais semblant de ramasser 50 stylos qui viennent de tomber bruyamment de ta trousse.",
+    "Mime un prof de sport très colérique qui siffle et hurle parce que personne ne court assez vite.",
+    "Fais semblant d'essayer de lire l'heure sur l'horloge de la classe alors que tu n'as pas tes lunettes.",
+    "Mime quelqu'un qui essaie de ne pas rire alors que son voisin lui raconte une blague interdite.",
+    "Fais semblant de répondre au hasard à une question complexe avec un air de génie incompris.",
+    "Mime un élève qui rêve les yeux ouverts de vacances aux Bahamas pendant un cours d'histoire.",
+    "Fais semblant d'avoir une crampe à la main à force de copier des lignes de punition.",
+    "Mime la réaction de quelqu'un qui reçoit sa copie et voit un énorme '0/20' écrit en rouge.",
+    "Fais semblant de ranger ton casier mais tout tombe à chaque fois que tu fermes la porte.",
+    "Mime un prof de musique qui essaie de faire chanter une classe qui n'a aucun rythme.",
+    "Fais semblant de tailler un crayon avec un taille-crayon qui ne marche pas.",
+    "Mime la marche lente et dramatique vers le bureau du directeur.",
+    "Fais semblant d'essayer d'ouvrir un compas récalcitrant qui finit par te piquer.",
+    "Mime un élève qui fait une tête de 'premier de la classe' très fier de sa note.",
+    "Fais semblant de lire un texte très sérieux mais tu découvres une faute d'orthographe ridicule.",
+    "Mime quelqu'un qui essaie de se cacher derrière le dos de son voisin pour ne pas être interrogé.",
+    "Fais semblant de vérifier tes poches parce que tu penses avoir perdu ton téléphone en plein cours.",
+    "Mime la joie immense de la sonnerie de fin de journée.",
+    "Fais semblant de présenter un exposé en utilisant un balai (ou objet proche) comme pointeur laser.",
+    "Mime un élève qui s'étire tellement fort qu'il finit par bailler bruyamment.",
+    "Fais semblant de coller une feuille avec un bâton de colle qui est complètement sec.",
+    "Mime la réaction d'un élève qui voit son 'crush' entrer dans la salle de classe.",
+    "Fais semblant de fouiller dans ton sac pour trouver un élastique ou un trombone imaginaire.",
+    "Mime un prof de SVT qui explique la reproduction des grenouilles avec beaucoup de gestes.",
+    "Fais semblant de découper une forme très complexe avec des ciseaux pour gaucher alors que tu es droitier.",
+    "Mime quelqu'un qui essaie de faire passer un petit mot papier à travers toute la classe.",
+    "Fais semblant de souffler sur ta copie parce que tu as renversé de l'encre dessus.",
+    "Mime un élève qui essaie de comprendre un exercice de maths et qui finit par se taper la tête contre la table.",
+    "Fais semblant de porter un sac à dos qui pèse au moins 40 kilos.",
+    "Mime la tête d'un surveillant qui te regarde bizarrement dans le couloir.",
+    "Fais semblant de faire un speedrun pour finir un contrôle en moins de 30 secondes.",
+    "Mime quelqu'un qui écoute de la musique avec des écouteurs invisibles et qui bouge la tête discrètement.",
+    "Fais semblant d'éternuer 5 fois de suite pendant que le prof parle.",
+    "Mime la frustration d'une gomme qui laisse des traces noires au lieu d'effacer.",
+    "Fais semblant de dessiner ton prof en version super-héros dans les airs.",
+    "Mime un élève qui arrive 20 minutes en retard et essaie d'entrer sans faire de bruit.",
+    "Fais semblant de te battre contre une mouche qui tourne autour de ta tête en plein silence.",
+    "Mime quelqu'un qui essaie de lire les réponses sur la feuille de son voisin sans bouger les yeux.",
+    "Fais semblant de faire une grimace horrible dès que le prof tourne le dos.",
+    "Mime la sensation d'être assis sur une chaise d'école qui grince à chaque mouvement.",
+    "Fais semblant de chercher ton prénom sur une liste de résultats d'examen avec beaucoup d'angoisse.",
+    "Mime un prof de langues qui insiste sur une prononciation très difficile.",
+    "Fais semblant de fermer une fermeture éclair de sac à dos qui est coincée.",
+    "Mime un élève qui fait semblant de comprendre une explication en hochant la tête très vite.",
+    "Fais semblant de découvrir que tu as écrit sur la table au lieu de ta feuille.",
+    "Mime la réaction de quelqu'un qui se rend compte qu'il a oublié son goûter.",
+    "Fais semblant d'être un robot-élève qui répond aux questions de manière mécanique.",
+    "Mime quelqu'un qui essaie de ne pas s'endormir en se pinçant le bras.",
+    "Fais semblant d'être un prof qui distribue des copies avec un air très déçu.",
+    "Mime un élève qui joue avec sa règle comme si c'était un avion ou une épée.",
+    "Fais semblant d'écrire un mot d'amour anonyme avec une écriture toute petite.",
+    "Mime la panique quand tu réalises que tu as écrit au stylo bille sur ton écran d'ordinateur ou tablette.",
+    "Fais semblant de faire des bulles avec un chewing-gum invisible.",
+    "Mime un élève qui essaie d'attraper le regard du prof pour pouvoir aller aux toilettes.",
+    "Fais semblant de lire un manuel scolaire à l'envers sans t'en rendre compte au début.",
+    "Mime la fierté de sortir de l'école le vendredi soir.",
+    "Fais semblant de faire une expérience de chimie qui finit par t'exploser au visage (virtuellement).",
+    "Mime un élève qui essaie de se rappeler une date historique en comptant sur ses doigts.",
+    "Fais semblant d'être un dictionnaire humain qui définit des mots compliqués.",
+    "Mime quelqu'un qui essaie de nettoyer une tache de correcteur blanc sur son pantalon.",
+    "Fais semblant de boire à une fontaine d'eau qui a beaucoup trop de pression.",
+    "Mime la réaction de quelqu'un qui voit son bulletin pour la première fois.",
+    "Fais semblant de chercher un trèfle à quatre feuilles dans la cour de récréation.",
+    "Mime un prof de dessin qui trouve ton gribouillage 'absolument révolutionnaire'.",
+    "Fais semblant de marcher sur la pointe des pieds dans la bibliothèque.",
+    "Mime un élève qui fait du air-piano sur son bureau pendant le cours de musique.",
+    "Fais semblant d'être un GPS qui guide un élève perdu dans les couloirs.",
+    "Mime la frustration d'un crayon dont la mine casse dès que tu touches la feuille.",
+    "Fais semblant de réciter un poème avec beaucoup trop d'émotion dramatique.",
+    "Mime quelqu'un qui essaie de faire tenir son stylo en équilibre sur son nez.",
+    "Fais semblant de décoller un vieux chewing-gum sous ta table avec dégoût.",
+    "Mime la réaction d'un élève qui gagne une élection de délégué.",
+    "Fais semblant de lancer un avion en papier et de suivre sa trajectoire des yeux.",
+    "Mime un élève qui essaie de traduire une phrase latine ou grecque sans aide.",
+    "Fais semblant d'être un prof qui fait l'appel et qui n'arrive pas à prononcer un nom.",
+    "Mime quelqu'un qui essaie de ranger son classeur trop plein.",
+    "Fais semblant de courir pour ne pas rater le bus après les cours.",
+    "Mime la tête d'un élève qui vient de comprendre enfin un truc super dur.",
+    "Fais une pose de 'Diplômé de l'année' avec un chapeau imaginaire que tu lances en l'air."
+];
+function newAction(){
+    const randomIndex = Math.floor(Math.random() * actions.length);
+    document.getElementById("challenge").innerText =
+        "🔥 ACTION : " + actions[randomIndex];
+}
+
+function newVerite(){
+    const randomIndex = Math.floor(Math.random() * verites.length);
+    document.getElementById("challenge").innerText =
+        "💬 VÉRITÉ : " + verites[randomIndex];
+}
+</script>
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>

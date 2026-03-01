@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Art & Musique - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie Art & Musique 🎨</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Des défis de musique et d'art 🎵</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+const verites = [
+    // --- ÉCHECS ET MOMENTS GÊNANTS ---
+    "Raconte la fois où tu as essayé de jouer d'un instrument et que le son était si horrible que tout le monde a rigolé.",
+    "As-tu déjà chanté ou joué totalement faux alors que tu pensais que personne ne t'écoutait ?",
+    "Quelle est la pire critique (ou la plus injuste) que tu aies reçue sur un dessin ou une création ?",
+    "Raconte la fois où tu as passé des heures sur une œuvre pour finalement tout gâcher avec un dernier coup de pinceau.",
+    "Quel est le moment le plus gênant que tu aies vécu lors d'un concert, d'une audition ou d'un cours d'art ?",
+    "As-tu déjà fait semblant de connaître un artiste super célèbre alors que tu n'en avais jamais entendu parler ?",
+    "Quelle est la pire note ou le pire accord que tu aies jamais produit en public ?",
+    "Raconte la fois où tu as voulu impressionner quelqu'un avec tes talents artistiques et que ça a foiré lamentablement.",
+    "As-tu déjà ressenti une honte profonde en revoyant tes créations d'il y a quelques années ?",
+    "Quelle est la pire improvisation musicale (ou solo) que tu aies jamais entendue ou faite ?",
+
+    // --- COPIES ET INSPIRATIONS ---
+    "As-tu déjà copié le style d'un ami parce que tu étais jaloux de son talent ?",
+    "As-tu déjà prétendu qu'une œuvre était le fruit de ton imagination alors que tu avais tout décalqué ?",
+    "Raconte la fois où tu as 'volé' l'idée d'un autre pour un projet scolaire ou artistique.",
+    "As-tu déjà imité un chanteur connu devant ton miroir en pensant que tu faisais mieux que lui ?",
+    "Quel est l'artiste que tout le monde adore mais que tu trouves personnellement sans aucun talent ?",
+    "As-tu déjà utilisé un générateur d'IA ou un filtre pour faire croire que tu avais dessiné quelque chose ?",
+    "Quelle est la musique la plus honteuse que tu écoutes en secret quand tu es seul ?",
+    "As-tu déjà menti sur tes goûts musicaux pour avoir l'air plus 'cool' ou 'artistique' ?",
+    "Raconte la fois où tu as tenté de recréer une œuvre célèbre (type Joconde) et que le résultat était terrifiant.",
+    "As-tu déjà eu un blocage créatif si long que tu as fini par rendre un travail bâclé au dernier moment ?",
+
+    // --- ANECDOTES CRÉATIVES (31-100) ---
+    "Quelle est la chose la plus absurde que tu aies utilisée comme instrument de musique (ustensile, jouet...) ?",
+    "Raconte la fois où tu as dessiné quelque chose qui te semblait génial, mais que personne n'a réussi à identifier.",
+    "As-tu déjà pleuré en public à cause d'une musique ou d'une œuvre d'art particulièrement émouvante ?",
+    "Quelle est la création dont tu es le plus fier, mais que tu n'as jamais osé montrer à personne ?",
+    "Raconte une nuit blanche où tu as créé sans t'arrêter parce que tu avais une 'illumination'.",
+    "As-tu déjà dessiné ou peint quelque chose sur ton propre corps par ennui ?",
+    "Quelle est la chose la plus drôle qu'un spectateur t'ait dite pendant que tu jouais ou créais ?",
+    "Raconte la fois où tu as improvisé un morceau totalement inventé pour cacher que tu avais oublié ta partition.",
+    "As-tu déjà été surpris par ton propre talent sur un coup de chance total ?",
+    "Quelle est la pire erreur technique que tu aies faite (renverser de l'eau, casser une corde) sur une œuvre ?",
+    "Raconte la fois où tu as chanté sous la douche avec tellement de passion que tes voisins t'ont entendu.",
+    "As-tu déjà été jaloux du matériel d'un autre artiste (peinture coûteuse, guitare de luxe) ?",
+    "Quelle est la chose la plus étrange que tu aies jamais dessinée dans les marges de tes cahiers ?",
+    "Raconte une fois où tu as tout recommencé depuis zéro parce qu'une seule petite ligne te dérangeait.",
+    "As-tu déjà fait un duo avec quelqu'un alors que vous étiez totalement désaccordés ?",
+    "Quelle est la chanson que tu adores mais que tu n'oserais jamais chanter au karaoké ?",
+    "Raconte la fois où tu as utilisé un objet improbable (café, maquillage) pour finir une peinture.",
+    "As-tu déjà été frustré au point de vouloir casser ton instrument ou déchirer ta toile ?",
+    "Quelle est la remarque la plus absurde qu'un prof d'art t'ait faite ?",
+    "Raconte la fois où tu as joué un morceau à l'envers ou dans le mauvais sens sans t'en rendre compte.",
+    "As-tu déjà dessiné un portrait de quelqu'un que tu n'aimais pas pour te défouler ?",
+    "Quelle est la musique qui te donne envie de danser immédiatement, même dans un endroit inapproprié ?",
+    "Raconte la fois où tu as eu une connexion intense avec un tableau dans un musée.",
+    "As-tu déjà fait semblant de comprendre l'art abstrait pour ne pas passer pour un ignorant ?",
+    "Quelle est la chose la plus ridicule que tu aies vue dans une galerie d'art moderne ?",
+    "Raconte la fois où tu as chanté ou joué devant ton animal de compagnie pour voir sa réaction.",
+    "As-tu déjà regretté d'avoir partagé une création sur les réseaux sociaux ?",
+    "Quelle est la couleur que tu détestes utiliser dans tes créations et pourquoi ?",
+    "Raconte la fois où tu as ri nerveusement pendant une performance sérieuse.",
+    "As-tu déjà menti à un ami en lui disant que son œuvre était géniale alors qu'elle était médiocre ?",
+    "Quelle est la chose la plus créative que tu aies faite pour réparer un objet cassé ?",
+    "Raconte la fois où tu as été tellement concentré que tu as oublié de manger ou de boire.",
+    "As-tu déjà été trop perfectionniste au point de ne jamais finir ton projet ?",
+    "Quelle est la pire chanson de Noël ou d'anniversaire que tu aies jamais interprétée ?",
+    "Raconte la fois où tu as tenté un style totalement opposé au tien (ex: passer du classique au metal).",
+    "As-tu déjà été fier d'un projet que tout le monde a ignoré ?",
+    "Quelle est la chose la plus surprenante que tu aies apprise sur toi-même grâce à l'art ?",
+    "Raconte la fois où tu as confondu deux instruments ou deux courants artistiques en public.",
+    "As-tu déjà été ému aux larmes par ton propre travail (même si c'est un peu narcissique) ?",
+    "Quelle est la situation la plus absurde qui t'ait donné une idée de génie ?",
+    "Raconte la fois où tu as dû jouer ou dessiner sous une pression énorme.",
+    "As-tu déjà eu peur de la critique d'un ami au point de lui cacher ton projet ?",
+    "Quelle est la chose la plus drôle que tu aies peinte par pur accident ?",
+    "Raconte la fois où tu as été obligé de faire une performance artistique devant ta famille.",
+    "As-tu déjà utilisé la musique pour faire passer un message à quelqu'un sans lui parler directement ?",
+    "Quelle est la pire note de musique que tu entendes régulièrement et qui t'agace ?",
+    "Raconte la fois où tu as été surpris par la réaction ultra positive d'un inconnu.",
+    "As-tu déjà créé quelque chose alors que tu étais d'une humeur exécrable ?",
+    "Quelle est la chose la plus ridicule que tu aies portée pour 'rentrer dans le personnage' d'un artiste ?",
+    "Raconte la fois où tu as voulu refaire un morceau mille fois sans jamais être satisfait.",
+    "As-tu déjà été inspiré par un bruit banal (un moteur, une goutte d'eau) ?",
+    "Quelle est la chose la plus gênante qui t'ait fait rire pendant un cours de solfège ou de dessin ?",
+    "Raconte la fois où tu as utilisé un outil de cuisine pour peindre ou sculpter.",
+    "As-tu déjà eu l'impression que ton instrument de musique avait sa propre personnalité (un peu capricieuse) ?",
+    "Quelle est la chose la plus étrange que tu aies chantée sous l'effet de la fatigue ?",
+    "Raconte la fois où tu as été jaloux d'un enfant qui dessinait mieux que toi.",
+    "As-tu déjà fait semblant de savoir lire une partition compliquée ?",
+    "Quelle est la chose la plus créative que tu ferais si tu avais un budget illimité ?",
+    "Raconte la fois où tu as dû improviser un duo avec un total inconnu.",
+    "As-tu déjà ressenti de la frustration face à un matériel de mauvaise qualité ?",
+    "Quelle est la musique qui représente le mieux ta vie en ce moment ?",
+    "Raconte la fois où tu as cru avoir inventé une mélodie alors que c'était une pub connue.",
+    "As-tu déjà dessiné quelqu'un dans le bus ou le train en cachette ?",
+    "Quelle est la chose la plus difficile à maîtriser dans ton art préféré ?",
+    "Raconte la fois où tu as raté une entrée en musique et que tu as dû rattraper le rythme.",
+    "As-tu déjà été fier d'une œuvre totalement improvisée en moins de 5 minutes ?",
+    "Quelle est la pire réaction que tu aies reçue après avoir partagé une chanson ou un dessin ?",
+    "Raconte la fois où tu as imité un style musical pour te moquer de quelqu'un.",
+    "As-tu déjà eu l'impression d'être un génie pendant 10 secondes avant de réaliser que ton idée était nulle ?",
+    "Quelle est la chose la plus bizarre que tu aies dessinée pour évacuer le stress ?",
+    "Raconte la fois où tu as été surpris par la profondeur d'une œuvre que tu trouvais simple au début.",
+    "As-tu déjà regretté d'avoir abandonné un instrument ou une pratique artistique ?",
+    "Quelle est la chose la plus drôle que tu aies apprise en faisant de la musique ?",
+    "Raconte la fois où tu as chanté avec une voix de dessin animé pour amuser la galerie.",
+    "As-tu déjà menti sur le temps que tu as passé sur une œuvre ?",
+    "Quelle est la chose la plus inattendue que tu aies découverte dans un atelier d'art ?",
+    "Raconte la fois où tu as ri d'une fausse note tellement elle était parfaite dans son échec.",
+    "As-tu déjà été trop perfectionniste au point de gâcher la spontanéité d'un morceau ?",
+    "Quelle est la chose la plus ridicule que tu aies dite pour justifier une erreur artistique ?",
+    "Raconte ton moment de gloire artistique le plus absurde."
+];
+
+const actions = [
+    // --- MIMES ET PERFORMANCES ---
+    "Mime un guitariste de rock qui fait un solo épique, finit par casser une corde et continue quand même avec passion.",
+    "Fais semblant d'être un chanteur d'opéra dramatique qui s'étouffe avec un confetti en pleine note aiguë.",
+    "Imite un DJ qui mixe devant une foule immense, mais qui perd soudainement son casque.",
+    "Fais semblant de peindre une fresque géante au plafond en utilisant uniquement tes pieds (en mime).",
+    "Mime quelqu'un qui accorde un violon invisible, mais chaque fois qu'il tourne la clé, le son devient plus bizarre.",
+    "Fais semblant de diriger un orchestre de chats qui n'en font qu'à leur tête.",
+    "Imite un batteur de jazz très sérieux qui perd ses baguettes en plein milieu d'un solo.",
+    "Fais semblant de peindre un portrait de la personne à ta droite en insistant sur ses défauts les plus drôles.",
+    "Mime un pianiste classique qui se bat contre une mouche qui n'arrête pas de se poser sur son nez.",
+    "Fais semblant de créer un rythme de percussion complexe en utilisant uniquement ton corps (sans faire de bruit).",
+
+    // --- DÉFIS ARTISTIQUES (11-100) ---
+    "Chante une chanson connue en remplaçant toutes les paroles par des noms de légumes.",
+    "Mime un artiste contemporain qui explique une œuvre composée uniquement d'un verre d'eau vide.",
+    "Fais semblant de sculpter une statue géante dans un bloc de glace qui fond trop vite.",
+    "Imite un rappeur qui essaie de faire des rimes avec des mots imposés par les autres joueurs.",
+    "Fais semblant de jouer de la flûte de pan avec des stylos imaginaires.",
+    "Mime un photographe de mode qui donne des ordres absurdes à un mannequin invisible.",
+    "Fais semblant de dessiner une œuvre abstraite avec tes coudes dans les airs.",
+    "Imite un chanteur de country qui a perdu son chapeau et son accent.",
+    "Mime quelqu'un qui essaie de jouer du triangle dans un orchestre mais qui rate toujours le bon moment.",
+    "Fais semblant de peindre avec un pinceau invisible attaché au bout de ton nez.",
+    "Imite la réaction d'un artiste qui découvre que sa peinture a été accrochée à l'envers dans un musée.",
+    "Fais semblant de jouer de la harpe géante avec des gestes gracieux mais exagérés.",
+    "Mime un beatboxer qui n'a plus de souffle après 3 secondes.",
+    "Fais semblant de dessiner un portrait avec une main invisible pendant que l'autre main essaie de l'arrêter.",
+    "Imite un chef de chœur qui s'énerve contre ses chanteurs imaginaires.",
+    "Fais semblant de jouer du saxophone de manière très sexy, puis termine en éternuant dans l'instrument.",
+    "Mime un graffeur qui essaie de peindre un mur très haut sans se faire repérer.",
+    "Fais semblant de chanter un duo romantique avec toi-même en changeant de voix.",
+    "Imite un pianiste de bar qui s'endort sur son piano tout en continuant de jouer une note.",
+    "Fais semblant de mélanger des couleurs sur une palette invisible et de détester le résultat.",
+    "Mime un danseur classique qui essaie de faire des pointes sur un sol glissant.",
+    "Fais semblant de jouer de la batterie de cuisine avec des ustensiles imaginaires.",
+    "Imite un chanteur de metal qui essaie de chanter une berceuse pour bébé.",
+    "Mime quelqu'un qui essaie de recréer le bruit d'un orage uniquement avec des bruits de bouche.",
+    "Fais semblant de peindre une toile invisible en étant suspendu par les pieds.",
+    "Imite un violoncelliste qui a un vêtement coincé dans son instrument.",
+    "Fais semblant de dessiner un portrait 'minute' d'un joueur en fermant les yeux.",
+    "Mime un DJ qui se rend compte qu'il a lancé la mauvaise musique (ex: une chanson de bébé).",
+    "Fais semblant d'être une statue de musée qui prend vie quand les visiteurs tournent le dos.",
+    "Imite un chanteur qui oublie ses paroles et les remplace par des bruits d'animaux.",
+    "Mime quelqu'un qui essaie de jouer de l'orgue géant avec les mains et les pieds.",
+    "Fais semblant de peindre une œuvre avec des sprays invisibles.",
+    "Imite un compositeur qui vient d'avoir une idée de génie en pleine nuit.",
+    "Mime un soliste de trompette qui devient tout rouge à force de souffler.",
+    "Fais semblant de sculpter un ballon de baudruche imaginaire.",
+    "Imite un rocker qui fait un 'stage dive' (saut dans la foule) mais personne ne le rattrape.",
+    "Mime quelqu'un qui essaie de dessiner pendant un tremblement de terre.",
+    "Fais semblant de chanter sous la pluie battante sans micro.",
+    "Imite un artiste de rue qui fait des portraits très moches pour de l'argent.",
+    "Mime un joueur de triangle qui se prend pour la star du groupe.",
+    "Fais semblant de peindre avec tes cheveux (en mime).",
+    "Imite un chanteur de pop qui abuse des effets d'autotune avec sa voix naturelle.",
+    "Mime un violoniste qui joue sur une corde sensible au point de pleurer.",
+    "Fais semblant de dessiner sur une vitre embuée.",
+    "Imite un percussionniste qui tape sur tout ce qu'il trouve dans la pièce.",
+    "Mime la naissance d'une idée artistique (gestes amples, explosion mentale).",
+    "Fais semblant de jouer de la contrebasse en montant sur une chaise.",
+    "Imite un chanteur qui essaie d'atteindre une note beaucoup trop haute pour lui.",
+    "Mime un peintre qui se bat contre une toile qui refuse de tenir sur le chevalet.",
+    "Fais semblant de diriger une chorale d'enfants turbulents.",
+    "Imite un guitariste de flamenco qui tape du pied très vite.",
+    "Mime quelqu'un qui essaie de jouer de la flûte avec un bâton de colle.",
+    "Fais semblant de peindre une fresque en étant très en colère contre les couleurs.",
+    "Imite un pianiste qui joue un morceau ultra rapide au ralenti.",
+    "Mime un photographe animalier qui attend le moment parfait pour prendre une photo.",
+    "Fais semblant de chanter une ballade triste à un objet de la pièce.",
+    "Imite un danseur de breakdance qui reste coincé dans une figure.",
+    "Mime un artiste qui signe son œuvre avec une fierté démesurée.",
+    "Fais semblant de jouer d'un instrument futuriste avec des lasers invisibles.",
+    "Imite un chanteur de jazz qui fait du 'scat' (improvisation vocale bizarre).",
+    "Mime un peintre qui essaie de rattraper une tache sur sa toile.",
+    "Fais semblant de jouer du tambourin de manière hystérique.",
+    "Imite un chef d'orchestre qui a perdu sa baguette et utilise une fourchette.",
+    "Mime quelqu'un qui écoute un opéra et qui est transporté dans un autre monde.",
+    "Fais semblant de dessiner avec de la peinture invisible sur ton voisin.",
+    "Imite un rocker qui essaie de rester digne avec une guitare acoustique miniature.",
+    "Mime un sculpteur sur bois qui se prend une écharde imaginaire.",
+    "Fais semblant de chanter comme si tu avais de l'hélium dans les poumons.",
+    "Imite un pianiste qui joue avec des gants de boxe.",
+    "Mime un artiste qui présente son œuvre en étant totalement incompris.",
+    "Fais semblant de jouer de la cornemuse avec passion.",
+    "Imite un danseur qui essaie d'interpréter le bruit d'une machine à laver.",
+    "Mime un dessinateur qui efface tellement fort qu'il déchire sa feuille invisible.",
+    "Fais semblant de chanter un refrain de publicité très énervant.",
+    "Imite un musicien qui essaie de jouer alors qu'il a un fou rire.",
+    "Mime un peintre qui utilise son corps entier comme pinceau.",
+    "Fais semblant de jouer de la batterie sur des nuages.",
+    "Imite un chanteur de comédie musicale qui en fait beaucoup trop.",
+    "Mime la frustration d'un artiste qui n'a plus de peinture rouge.",
+    "Fais une pose finale d'artiste maudit devant sa plus grande œuvre.",
+];
+
+function newAction(){
+    const randomIndex = Math.floor(Math.random() * actions.length);
+    document.getElementById("challenge").innerText =
+        "🔥 ACTION : " + actions[randomIndex];
+}
+
+function newVerite(){
+    const randomIndex = Math.floor(Math.random() * verites.length);
+    document.getElementById("challenge").innerText =
+        "💬 VÉRITÉ : " + verites[randomIndex];
+}
+</script>
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Choisis ta catégorie</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo Action ou Vérité" class="logo">
+        <h1>Action ou Vérité</h1>
+    </div>
+    <nav>
+        <a href="index.html" class="btn-primary">Accueil</a>
+    </nav>
+</header>
+
+<button id="floating-btn" class="btn-floating">🎲 Choisir pour moi</button>
+
+<section class="categories">
+    <h2>Choisis une catégorie</h2>
+
+    <div class="card-container">
+        <div class="card fun">
+            <h3>Fun 😄</h3>
+            <p>Des défis drôles et imprévisibles.</p>
+            <button onclick="window.location.href='fun.html'">Choisir</button>
+        </div>
+
+        <div class="card soft">
+            <h3>Soft 🙂</h3>
+            <p>Des questions et actions légères.</p>
+            <button onclick="window.location.href='soft.html'">Choisir</button>
+        </div>
+
+        <div class="card hot">
+            <h3>Tranquile 🔥</h3>
+            <p>Pour un max de fun, à tous moments...</p>
+            <button onclick="window.location.href='hot.html'">Choisir</button>
+        </div>
+
+        <div class="card sport">
+            <h3>Sport 💪</h3>
+            <p>Des défis physiques à relever.</p>
+            <button onclick="window.location.href='sport.html'">Choisir</button>
+        </div>
+
+        <div class="card halloween">
+            <h3>Halloween 🎃</h3>
+            <p>Des défis effrayants et amusants.</p>
+            <button onclick="window.location.href='halloween.html'">Choisir</button>
+        </div>
+
+        <div class="card anniversaire">
+            <h3>Anniversaire 🎂</h3>
+            <p>Des défis festifs pour célébrer.</p>
+            <button onclick="window.location.href='anniversaire.html'">Choisir</button>
+        </div>
+
+        <div class="card noel">
+            <h3>Noël 🎄</h3>
+            <p>Des défis pour une ambiance de fête.</p>
+            <button onclick="window.location.href='noel.html'">Choisir</button>
+        </div>    
+
+        <div class="card travel">
+            <h3>Travel ✈️</h3>
+            <p>Des défis pour les aventuriers.</p>
+            <button onclick="window.location.href='travel.html'">Choisir</button>
+        </div>
+
+        <div class="card art">
+            <h3>Art & Musique 🎨</h3>
+            <p>Des défis créatifs et mélodieux.</p>
+            <button onclick="window.location.href='art.html'">Choisir</button>
+        </div>
+
+        <div class="card geek">
+            <h3>Geek 🖥️</h3>
+            <p>Des défis pour les passionnés de technologie.</p>
+            <button onclick="window.location.href='geek.html'">Choisir</button>
+        </div>
+
+        <div class="card random">
+            <h3>Aléatoire 🎲</h3>
+            <p>Des défis aléatoires et imprévus.</p>
+            <button onclick="window.location.href='random.html'">Choisir</button>
+        </div>
+
+        <div class="card school">
+            <h3>École & Cours 📚</h3>
+            <p>Des défis liés à l'école et aux cours.</p>
+            <button onclick="window.location.href='school.html'">Choisir</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const floatBtn = document.getElementById('floating-btn');
+        const categories = [
+            'fun.html', 'soft.html', 'hot.html', 'sport.html', 
+            'halloween.html', 'anniversaire.html', 'noel.html', 
+            'travel.html', 'art.html', 'geek.html', 'random.html', 'school.html'
+        ];
+
+        // Positionnement initial forcé en haut à gauche
+        floatBtn.style.left = "0px";
+        floatBtn.style.top = "80px";
+
+        // Fonction pour déplacer le bouton
+        function moveButton() {
+            const maxX = window.innerWidth - floatBtn.offsetWidth - 20;
+            const maxY = window.innerHeight - floatBtn.offsetHeight - 20;
+
+            const randomX = Math.max(0, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(0, Math.floor(Math.random() * maxY));
+
+            floatBtn.style.left = `${randomX}px`;
+            floatBtn.style.top = `${randomY}px`;
+        }
+
+        // On attend un petit délai avant le premier mouvement pour qu'on le voit bien partir du haut à gauche
+        setTimeout(() => {
+            moveButton();
+            setInterval(moveButton, 4000); // Déplace le bouton toutes les 4 secondes
+        }, 1000); 
+
+        // Action au clic
+        floatBtn.addEventListener('click', () => {
+            const randomPage = categories[Math.floor(Math.random() * categories.length)];
+            floatBtn.innerHTML = "C'est parti !";
+            setTimeout(() => {
+                window.location.href = randomPage;
+            }, 400);
+        });
+    });
+</script>
+
+</body>
+</html>

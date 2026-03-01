@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Noel - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie Noël 🎄</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Clique sur le bouton 🎲</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+const actions = [
+    // --- PHYSIQUES & MIMES ---
+    "Imite le Père Noël qui essaie de passer dans une cheminée trop étroite.",
+    "Fais semblant d’emballer un cadeau avec un papier invisible et du ruban adhésif imaginaire.",
+    "Mime quelqu’un qui décore un sapin géant mais qui perd l'équilibre sur une échelle.",
+    "Imite un renne qui essaie de marcher sur de la glace qui glisse.",
+    "Fais semblant de manger une soupe brûlante avec les mains liées dans le dos (imaginaire).",
+    "Mime l'ouverture d'un cadeau et ta réaction quand tu découvres que c'est un pull moche.",
+    "Fais le tour de la pièce en marchant comme un pingouin avec un coussin entre les genoux.",
+    "Imite un lutin pressé qui doit fabriquer 10 jouets en 30 secondes.",
+    "Fais semblant de conduire le traîneau du Père Noël pendant une tempête de neige.",
+    "Mime quelqu'un qui essaie de démêler une guirlande électrique emmêlée depuis un an.",
+    "Fais une danse de la victoire après avoir trouvé la dernière boîte de chocolats.",
+    "Imite une statue de glace qui fond lentement près de la cheminée.",
+    "Fais semblant d'être un bonhomme de neige qui découvre le soleil pour la première fois.",
+    "Mime un chat qui essaie de grimper dans le sapin de Noël.",
+    "Fais comme si tu étais un jouet mécanique qui tombe en panne de piles.",
+
+    // --- DÉFIS VOCAUX & CHANT ---
+    "Chante 'Petit Papa Noël' avec une voix de robot.",
+    "Récite l'alphabet à l'envers comme si tu étais un elfe grincheux.",
+    "Fais un discours de remerciement pour un Oscar... mais pour avoir réussi à finir la dinde.",
+    "Raconte une blague de Noël en gardant une cuillère dans la bouche.",
+    "Chante un chant de Noël célèbre mais remplace tous les mots par 'Meuh'.",
+    "Imite le rire du Père Noël (Ho Ho Ho) de 5 façons différentes (triste, timide, rockstar...).",
+    "Parle avec un accent imaginaire du Pôle Nord jusqu'à ton prochain tour.",
+    "Fais le bruit d'un vent d'hiver qui siffle dans les arbres.",
+    "Invente une chanson de 30 secondes sur la personne à ta gauche.",
+    "Récite un poème de Noël en faisant des pompes (ou des squats).",
+
+    // --- INTERACTION & JEU DE RÔLE ---
+    "Prosterne-toi devant le sapin et demande-lui sa bénédiction.",
+    "Fais le portrait d'un autre joueur en mode 'Portrait de Noël' en moins de 2 minutes.",
+    "Essaie de faire rire la personne en face de toi sans la toucher.",
+    "Demande à un objet de la pièce ce qu'il veut pour Noël et fais sa réponse.",
+    "Organise un défilé de mode 'Haute Couture d'Hiver' avec ce que tu portes.",
+    "Fais une déclaration d'amour à une bûche de Noël (ou un objet de table).",
+    "Tiens-toi en équilibre sur une jambe comme un flamant rose des neiges pendant 1 minute.",
+    "Fais semblant d'être un présentateur météo annonçant une tempête de cadeaux.",
+    "Échange tes chaussures avec la personne à ta droite jusqu'à la fin de la partie.",
+    "Fais une grimace de 'Grinch' et garde-la pendant qu'on te prend en photo.",
+
+    // --- ET 65 AUTRES ACTIONS VARIÉES ---
+    "Mime un combat de boules de neige au ralenti.",
+    "Fais semblant de chercher tes clés dans une hotte de 50kg.",
+    "Imite quelqu'un qui a mangé trop de bûche et qui ne peut plus bouger.",
+    "Mime un enfant qui essaie de rester réveillé pour voir le Père Noël.",
+    "Fais une démonstration de Air-Guitare sur une musique de Noël.",
+    "Fais semblant d'être un sapin qui se fait décorer (bras en l'air).",
+    "Mime la préparation d'un chocolat chaud avec énormément de guimauves.",
+    "Fais semblant de glisser sur une peau de banane sur la banquise.",
+    "Dessine un renne avec ton nez dans l'air, les autres doivent deviner.",
+    "Fais une révérence royale à chaque fois que quelqu'un dit le mot 'Noël'.",
+    "Siffle 'Vive le Vent' sans t'arrêter pendant 20 secondes.",
+    "Fais semblant de te battre contre un papier cadeau qui refuse de se laisser couper.",
+    "Agis comme si tu étais un présentateur de télé-achat pour vendre une vieille chaussette.",
+    "Donne 3 qualités de Noël à chaque joueur autour de la table.",
+    "Mime quelqu'un qui essaie de lire une étiquette de cadeau sans ses lunettes.",
+    "Imite un ours polaire qui fait sa sieste.",
+    "Fais semblant de faire du patin à glace dans le salon.",
+    "Raconte une histoire de Noël qui finit par 'et c'est comme ça qu'on a sauvé le dindon'.",
+    "Imite le bruit d'une cheminée qui crépite.",
+    "Fais une danse de ballet sur une chanson de Noël moderne.",
+    "Fais semblant d'être un miroir : imite les gestes du joueur en face de toi.",
+    "Touche ton nez avec ta langue (ou essaie de le faire) pendant 10 secondes.",
+    "Fais semblant de découvrir de la neige pour la toute première fois de ta vie.",
+    "Récite les noms des 9 rennes du Père Noël sans hésiter.",
+    "Mime quelqu'un qui essaie d'attraper des flocons avec sa langue.",
+    "Fais une pub pour un parfum appelé 'Eau de Sapin'.",
+    "Imite une alarme de sécurité qui se déclenche quand le Père Noël arrive.",
+    "Fais semblant d'écrire une lettre de 3 mètres de long au Père Noël.",
+    "Cache-toi derrière un meuble et crie 'Joyeux Noël' quand quelqu'un passe.",
+    "Mime un lutin qui essaie d'utiliser un ordinateur pour la première fois.",
+    "Fais comme si tu étais une étoile au sommet du sapin qui a le vertige.",
+    "Fais semblant de sculpter une statue de glace avec une tronçonneuse imaginaire.",
+    "Imite le cri d'un dindon qui essaie de s'échapper avant le repas.",
+    "Mime quelqu'un qui tente de mettre un pull de Noël deux tailles trop petit.",
+    "Tiens une pose de yoga 'Arbre' et imagine que tu es un sapin dans le vent.",
+    "Fais semblant d'être un photographe de mode pour les rennes du Père Noël.",
+    "Mime l'ouverture d'une bouteille de champagne qui explose partout.",
+    "Fais comme si tu marchais dans 1 mètre de neige poudreuse.",
+    "Récite une poésie sur les chaussettes sales de Noël.",
+    "Imite un enfant qui a reçu exactement ce qu'il ne voulait pas.",
+    "Fais semblant de décorer un gâteau avec une précision de chirurgien.",
+    "Mime quelqu'un qui a les mains collées à un poteau glacé.",
+    "Fais une danse de robot sur 'Jingle Bell Rock'.",
+    "Agis comme si tu étais un détective cherchant qui a volé le nez du bonhomme de neige.",
+    "Imite un présentateur de journal télévisé annonçant que le Père Noël a pris sa retraite.",
+    "Fais semblant de trier des milliers de lettres par ordre alphabétique.",
+    "Mime une bataille de polochons contre un adversaire invisible.",
+    "Imite un chat qui regarde les lumières du sapin avec fascination.",
+    "Fais semblant de gonfler 100 ballons de baudruche pour une fête.",
+    "Mime quelqu'un qui essaie de ne pas s'endormir pendant la messe ou un long repas.",
+    "Fais une démonstration de karaté contre un sapin imaginaire.",
+    "Imite le bruit d'un traîneau qui atterrit sur un toit en tuiles.",
+    "Fais semblant de manger un citron comme si c'était un chocolat délicieux.",
+    "Mime un elfe qui a trop bu de jus de pomme chaud.",
+    "Fais semblant de pêcher un cadeau dans un lac gelé.",
+    "Imite une otarie qui applaudit pour avoir un poisson de Noël.",
+    "Mime quelqu'un qui essaie de mettre des guirlandes sur un chat.",
+    "Fais semblant de faire du ski de fond dans le couloir.",
+    "Imite le Grinch qui essaie de sourire pour la première fois.",
+    "Fais une danse disco mais uniquement avec tes mains et tes sourcils.",
+    "Mime un explorateur qui découvre le village du Père Noël.",
+    "Fais comme si tu étais un jouet qui prend vie quand personne ne regarde.",
+    "Imite un présentateur de cuisine qui explique comment rater une dinde.",
+    "Mime quelqu'un qui essaie de marcher avec des chaussures de ski trop grandes.",
+    "Fais semblant d'être une boule de Noël qui craint de tomber.",
+    "Mime quelqu'un qui essaie de cacher un cadeau géant derrière son dos.",
+    "Fais comme si tu étais une télécommande qui change de chaîne de Noël sans arrêt.",
+    "Imite un vent glacial qui s'engouffre sous une porte.",
+    "Mime quelqu'un qui tente d'allumer un feu de cheminée sans allumettes.",
+    "Fais la plus belle statue de la liberté version 'Hiver' possible."
+];
+
+const verites = [
+    // --- SECRETS DE CADEAUX ---
+    "As-tu déjà revendu un cadeau de Noël sur internet ?",
+    "Quel est le cadeau le plus moche que tu aies jamais reçu ?",
+    "As-tu déjà fait semblant d'aimer un cadeau alors que tu le détestais ?",
+    "As-tu déjà fouillé dans les placards pour trouver tes cadeaux avant l'heure ?",
+    "Quel cadeau as-tu offert par pure obligation cette année (ou l'an dernier) ?",
+    "As-tu déjà recyclé un cadeau (offrir à quelqu'un ce qu'on t'avait offert) ?",
+    "Quel est le prix maximum que tu aies jamais mis dans un seul cadeau ?",
+    "As-tu déjà menti sur le prix d'un cadeau pour paraître plus généreux ?",
+    "Quel cadeau aurais-tu aimé recevoir mais que tu n'as jamais eu ?",
+    "As-tu déjà oublié d'acheter un cadeau pour quelqu'un d'important ?",
+    "Quel est le cadeau le plus inutile que tu aies encore chez toi ?",
+    "As-tu déjà rendu un cadeau au magasin pour récupérer l'argent ?",
+    "Quel est le pire cadeau 'fait main' que tu aies reçu ou offert ?",
+    "As-tu déjà ouvert un cadeau 'par erreur' avant le jour J ?",
+    "Quelle est la personne la plus radine que tu connaisses à Noël ?",
+
+    // --- GAFFES & REPAS ---
+    "Quelle est la pire chose que tu aies dite pendant un repas de famille ?",
+    "As-tu déjà été malade à cause d'un excès de nourriture à Noël ?",
+    "Quelle est la tradition de Noël que tu trouves la plus ridicule ?",
+    "As-tu déjà cassé quelque chose de précieux chez quelqu'un pendant les fêtes ?",
+    "Quelle est la personne que tu redoutes le plus de voir à Noël ?",
+    "As-tu déjà fait semblant d'être occupé pour ne pas aider à faire la vaisselle ?",
+    "Quel est le plat de Noël que tu ne peux absolument pas supporter ?",
+    "As-tu déjà menti pour ne pas aller à une fête de Noël ?",
+    "Quelle est la plus grosse dispute de famille dont tu te souviens à Noël ?",
+    "As-tu déjà mangé les chocolats du calendrier de l'avent d'un autre ?",
+    "Quelle est la chose la plus embarrassante que tu aies faite en étant fatigué à Noël ?",
+    "As-tu déjà critiqué la cuisine de ton hôte en secret ?",
+    "Quel est ton pire souvenir de bûche de Noël ?",
+    "As-tu déjà piqué dans le plat avant que tout le monde ne soit à table ?",
+    "Quel est l'invité le plus ennuyeux que tu aies eu à table ?",
+
+    // --- ENFANCE & CROYANCES ---
+    "Jusqu'à quel âge as-tu cru au Père Noël ?",
+    "Comment as-tu découvert que le Père Noël n'existait pas ?",
+    "Quelle est la plus grosse bêtise que tu aies faite en attendant Noël ?",
+    "As-tu déjà pleuré à cause d'un cadeau ?",
+    "Quelle est la chanson de Noël qui te donne envie de t'enfuir ?",
+    "Quel film de Noël détestes-tu par-dessus tout ?",
+    "As-tu déjà eu peur du Père Noël quand tu étais petit ?",
+    "Quelle est la chose la plus absurde que tu aies écrite dans une lettre au Père Noël ?",
+    "As-tu déjà fait semblant de dormir pour essayer de surprendre le Père Noël ?",
+    "Quel est ton plus beau souvenir de Noël (pour de vrai) ?",
+
+    // --- ET 60 AUTRES VÉRITÉS ---
+    "Quelle est la personne dans cette pièce qui cuisine le mieux ?",
+    "Si tu devais passer Noël sur une île déserte avec un seul joueur ici, qui serait-ce ?",
+    "Quelle est ta pire manie pendant la période des fêtes ?",
+    "As-tu déjà passé Noël en pyjama toute la journée ?",
+    "Quel est le pull de Noël le plus ridicule que tu possèdes ?",
+    "Si tu étais un lutin, quel serait ton nom de scène ?",
+    "Quelle est la chose la plus folle que tu aies faite sous l'effet de l'excitation de Noël ?",
+    "As-tu déjà volé une décoration de Noël quelque part ?",
+    "Quel est le secret que tu caches à ta famille depuis longtemps ?",
+    "Quelle est la chanson de Noël que tu chantes en cachette sous la douche ?",
+    "As-tu déjà fait un baiser sous le gui avec quelqu'un que tu n'aimais pas ?",
+    "Quelle est la chose la plus gênante que tu aies postée sur les réseaux à Noël ?",
+    "Si tu pouvais supprimer une fête dans l'année, serait-ce Noël ?",
+    "Quel est le pire déguisement que tu aies porté pour une fête ?",
+    "As-tu déjà triché à un jeu de société pendant Noël ?",
+    "Quelle est ta dépense la plus honteuse faite en décembre ?",
+    "Si tu devais changer de famille juste pour le repas de Noël, où irais-tu ?",
+    "Quelle est la remarque la plus énervante qu'on te fait chaque année à table ?",
+    "As-tu déjà oublié le prénom d'un cousin ou d'une cousine éloignée à table ?",
+    "Quel est le cadeau que tu as offert et dont tu as eu un peu honte ?",
+    "Quelle est la chose la plus bizarre que tu aies trouvée dans ta chaussette de Noël ?",
+    "As-tu déjà eu le béguin pour un personnage de film de Noël ?",
+    "Si tu étais le Père Noël, qui mettrais-tu sur la liste des enfants pas sages ici ?",
+    "As-tu déjà mangé de la nourriture tombée par terre pendant le réveillon ?",
+    "Quelle est la chose la plus courageuse que tu aies faite cette année ?",
+    "As-tu déjà fait semblant de comprendre une blague que tu n'avais pas saisie ?",
+    "Quel est le plus grand mensonge que tu aies raconté pour avoir un cadeau ?",
+    "As-tu déjà détesté la décoration de sapin de quelqu'un d'autre ?",
+    "Quel est le moment où tu t'es senti le plus seul pendant les fêtes ?",
+    "Si tu pouvais transformer un joueur en renne, qui serait-ce ?",
+    "As-tu déjà souhaité un Joyeux Noël à la mauvaise personne ?",
+    "Quelle est l'odeur qui représente le mieux Noël pour toi ?",
+    "As-tu déjà essayé de dresser ton animal de compagnie pour Noël ?",
+    "Quel est ton talent caché le plus inutile ?",
+    "Si tu pouvais demander une seule chose impossible au Père Noël, ce serait quoi ?",
+    "As-tu déjà eu une amitié gâchée à cause d'une histoire de cadeau ?",
+    "Quelle est la chose la plus chère que tu aies cassée par accident ?",
+    "As-tu déjà passé un Noël loin de tout le monde par choix ?",
+    "Quelle est la vidéo la plus ridicule de toi qui existe (thème Noël) ?",
+    "Si tu devais vivre dans un film de Noël, lequel choisirais-tu ?",
+    "As-tu déjà essayé de cuisiner un plat de Noël et ça a été un désastre ?",
+    "Quel est le mot que tu dis le plus souvent pendant les fêtes ?",
+    "As-tu déjà eu un fou rire à un moment totalement inapproprié ?",
+    "Quelle est la règle la plus stricte chez toi pour Noël ?",
+    "As-tu déjà piqué un bonbon dans le stock de quelqu'un d'autre ?",
+    "Quel est le membre de ta famille qui te fait le plus rire ?",
+    "As-tu déjà fait un Secret Santa où tu n'as rien acheté du tout ?",
+    "Quelle est la chose la plus étrange que tu ferais si tu étais invisible à Noël ?",
+    "As-tu déjà été jaloux des cadeaux de tes frères et sœurs ?",
+    "Quel est le rêve le plus bizarre que tu aies fait sur Noël ?",
+    "Si tu devais renommer Noël, comment l'appellerais-tu ?",
+    "As-tu déjà eu honte de tes parents devant tes amis à Noël ?",
+    "Quelle est la tâche ménagère de Noël que tu détestes le plus ?",
+    "As-tu déjà essayé de deviner le contenu d'un paquet en le secouant trop fort ?",
+    "Quel est l'endroit le plus bizarre où tu as passé un réveillon ?",
+    "As-tu déjà écrit une lettre de réclamation pour un cadeau ?",
+    "Quelle est ta plus grande peur concernant la nouvelle année ?",
+    "Si tu pouvais être un elfe pendant une journée, que ferais-je ?",
+    "As-tu déjà passé Noël à pleurer devant un film triste ?",
+    "Quelle est la vérité que tu n'as jamais osé dire à la personne à ta droite ?"
+];
+function newAction(){
+    const randomIndex = Math.floor(Math.random() * actions.length);
+    document.getElementById("challenge").innerText =
+        "🔥 ACTION : " + actions[randomIndex];
+}
+
+function newVerite(){
+    const randomIndex = Math.floor(Math.random() * verites.length);
+    document.getElementById("challenge").innerText =
+        "💬 VÉRITÉ : " + verites[randomIndex];
+}
+</script>
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>

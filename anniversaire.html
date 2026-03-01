@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Anniversaire - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie Anniversaire 🎂</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Clique sur le bouton 🎲</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+    const verites = [
+    // --- CADEAUX ET GÂTEAUX ---
+    "Raconte la fois où ton gâteau d’anniversaire était un désastre total visuellement.",
+    "Quel est le pire cadeau que tu aies reçu et que tu as dû garder par politesse ?",
+    "As-tu déjà revendu ou offert à quelqu'un d'autre un cadeau qu'on t'avait donné ?",
+    "As-tu déjà fait semblant d’adorer un cadeau alors que tu le trouvais horrible ?",
+    "Quel est le cadeau le plus cher qu'on t'ait offert et que tu n'as jamais utilisé ?",
+    "As-tu déjà cherché tes cadeaux en cachette avant le jour J ?",
+    "Quel est le cadeau que tu as reçu et qui t'a fait dire : 'Cette personne ne me connaît pas du tout' ?",
+    "As-tu déjà été déçu par un cadeau au point de pleurer ou de bouder ?",
+    "Quelle est la chose la plus inutile que tu aies jamais reçue pour ton anniversaire ?",
+    "As-tu déjà rendu un cadeau au magasin pour récupérer l'argent sans le dire à celui qui l'a offert ?",
+
+    // --- FÊTES ET INVITES ---
+    "As-tu déjà été déçu par le nombre de personnes présentes à ta propre fête ?",
+    "Quelle est la chose la plus embarrassante qui te soit arrivée devant tous tes invités ?",
+    "As-tu déjà regretté d'avoir invité une personne précise à ton anniversaire ?",
+    "Raconte la fois où tu as oublié l’anniversaire d'une personne très importante.",
+    "Quelle est la surprise la plus ratée (tout le monde l'a su avant, ou malaise total) que tu aies vécue ?",
+    "As-tu déjà fait semblant d'être surpris alors que tu savais qu'une fête se préparait ?",
+    "Raconte la fois où tu as été malade le jour même de ton anniversaire.",
+    "Quel est l'anniversaire d'une autre personne dont tu as été secrètement jaloux ?",
+    "As-tu déjà menti sur ton âge pour obtenir une réduction ou entrer quelque part ?",
+    "Quelle est la chose la plus stressante que tu aies dû organiser pour un anniversaire ?",
+
+    // --- ANECDOTES ET SOUVENIRS (31-100) ---
+    "Raconte la fois où tu as cassé quelque chose de valeur pendant une fête.",
+    "Quelle est la chose la plus inattendue qu'un invité ait faite chez toi ?",
+    "As-tu déjà oublié le prénom d'un invité qui était venu spécialement pour toi ?",
+    "Quelle est la remarque la plus gênante qu'un membre de ta famille ait faite pendant le repas ?",
+    "Raconte la fois où tu as ri à un moment où tu étais censé être ému par un discours.",
+    "As-tu déjà perdu un objet précieux (bijou, argent) pendant une soirée d'anniversaire ?",
+    "Quelle est la décoration d'anniversaire la plus ridicule que tu aies jamais portée ?",
+    "As-tu déjà mangé une part de gâteau en cachette avant que les bougies ne soient soufflées ?",
+    "Quel est ton souvenir le plus solitaire d'un jour d'anniversaire ?",
+    "As-tu déjà annulé ta propre fête à la dernière minute ? Pourquoi ?",
+    "Quelle est la chose la plus étrange que tu aies trouvée dans tes cadeaux ?",
+    "Raconte la fois où tu as crié de joie pour un cadeau alors que tu ne savais pas ce que c'était.",
+    "As-tu déjà regretté le thème que tu avais choisi pour ta fête ?",
+    "Quelle est la chose la plus ridicule que tu aies faite pour attirer l'attention pendant ta fête ?",
+    "As-tu déjà menti pour éviter d'aller à l'anniversaire de quelqu'un d'autre ?",
+    "Raconte la fois où tu as été surpris par une personne que tu ne voulais absolument pas voir.",
+    "Quelle est la chanson d'anniversaire la plus gênante qu'on t'ait chantée ?",
+    "As-tu déjà mangé tout seul le reste de ton gâteau d'anniversaire par déprime ?",
+    "Quelle est la plus grosse bêtise que tu aies faite lors de l'anniversaire d'un ami ?",
+    "As-tu déjà oublié d'écrire une carte de remerciement ?",
+    "Quelle est la situation la plus drôle arrivée à cause d'un ballon qui éclate ?",
+    "As-tu déjà eu une réaction bizarre en ouvrant un cadeau devant tout le monde ?",
+    "Raconte la fois où tu as perdu patience pendant l'organisation d'une surprise.",
+    "Quelle est la chose la plus inattendue que tu aies apprise sur un ami pendant une fête ?",
+    "As-tu déjà été gêné par le prix trop bas (ou trop haut) d'un cadeau ?",
+    "Quelle est la fois où tu as été le plus surpris par la générosité de quelqu'un ?",
+    "As-tu déjà regretté d'avoir bu trop de soda ou mangé trop de bonbons ?",
+    "Quelle est la chose la plus étrange qu'un voisin t'ait dite pendant une fête bruyante ?",
+    "Raconte la fois où tu as été surpris par tes parents avec un cadeau que tu détestais.",
+    "As-tu déjà menti sur la date de ton anniversaire pour avoir un dessert gratuit au resto ?",
+    "Quelle est la chose la plus ridicule que tu aies écrite sur une carte d'anniversaire ?",
+    "Raconte la fois où tu as ri nerveusement parce que personne ne chantait juste.",
+    "As-tu déjà cassé un gâteau en le transportant ?",
+    "Quelle est la chose la plus stressante : souffler les bougies ou ouvrir les cadeaux en public ?",
+    "Raconte la fois où tu as oublié d'inviter ton/ta meilleur(e) ami(e).",
+    "As-tu déjà regretté d'avoir fait une fête chez toi à cause du ménage après ?",
+    "Quelle est la chose la plus difficile à admettre sur ton âge actuel ?",
+    "Raconte la fois où tu as été maladroit en débouchant une bouteille ou en servant le jus.",
+    "As-tu déjà menti sur le fait d'avoir passé une super journée ?",
+    "Quelle est la chose la plus ridicule que tu aies faite pour souffler toutes les bougies d'un coup ?",
+    "Raconte la fois où tu as été gêné par un cadeau trop personnel.",
+    "As-tu déjà perdu la carte avec l'argent qu'il y avait dedans ?",
+    "Quelle est la chose la plus surprenante que tu aies reçue d'un inconnu ?",
+    "Raconte la fois où tu as crié parce que le ballon a éclaté près de ton oreille.",
+    "As-tu déjà regretté d'avoir choisi un gâteau trop original ?",
+    "Quelle est la chose la plus drôle arrivée avec un animal de compagnie pendant la fête ?",
+    "Raconte la fois où tu as été surpris par une fête alors que tu étais en pyjama ou mal habillé.",
+    "As-tu déjà menti sur qui avait préparé le gâteau ?",
+    "Quelle est la chose la plus étrange que tu ferais si tu avais budget illimité pour ta fête ?",
+    "Raconte la fois où tu as eu peur de vieillir.",
+    "As-tu déjà été embarrassé par une animation de clown ou de magicien ratée ?",
+    "Quelle est la chose la plus inattendue qu'un ami ait ramenée à ta fête ?",
+    "Raconte la fois où tu as ri de ton propre cadeau.",
+    "As-tu déjà ignoré un conseil pour l'organisation et tout a raté ?",
+    "Quelle est la chose la plus ridicule que tu aies faite pour avoir la plus grosse part ?",
+    "Raconte la fois où tu as trébuché en apportant le gâteau.",
+    "As-tu déjà été surpris par un message d'anniversaire d'un ex ?",
+    "Quelle est la chose la plus étrange que tu aies vue dans une pinata ?",
+    "Raconte la fois où tu as regretté d'avoir fait un discours.",
+    "As-tu déjà menti sur le prix d'un cadeau que tu as offert ?",
+    "Quelle est la chose la plus drôle qui soit arrivée dans un photobooth ?",
+    "Raconte la fois où tu as été gêné par la musique choisie par tes parents.",
+    "As-tu déjà cassé une chaise ou un meuble pendant une fête ?",
+    "Quelle est la chose la plus inattendue dite par un enfant pendant l'anniversaire ?",
+    "Raconte la fois où tu as crié parce qu'on t'a fait une farce.",
+    "As-tu déjà été surpris par un cadeau qui était en fait une blague ?",
+    "Quelle est la chose la plus étrange que tu aies bue pendant une fête ?",
+    "Raconte la fois où tu as ri d'un invité qui s'était trompé de maison.",
+    "As-tu déjà regretté d'avoir fait une fête thématique (déguisée) ?",
+    "Quelle est la chose la plus ridicule que tu aies faite pour ne pas vieillir ?"
+];
+
+const actions = [
+    // --- MIME ET INTERACTION ---
+    "Fais semblant de souffler 50 bougies d'un seul coup avec une inspiration énorme.",
+    "Mime l'ouverture d'un cadeau immense qui contient en fait quelque chose de minuscule.",
+    "Chante 'Joyeux anniversaire' avec une voix d'opéra dramatique en fixant quelqu'un.",
+    "Fais semblant de couper un gâteau de 5 étages et de servir chaque joueur avec élégance.",
+    "Imite une personne qui danse de manière gênante à une fête de famille.",
+    "Prends une pose de 'star d'anniversaire' et tiens-la pendant 30 secondes pour une photo imaginaire.",
+    "Mime quelqu'un qui essaie de manger une part de gâteau sans les mains.",
+    "Fais semblant d'offrir un cadeau invisible et décris-le avec passion.",
+    "Imite le rire de quelqu'un qui a reçu une blague nulle dans une papillote.",
+    "Fais une danse de la victoire parce que c'est enfin 'ton' jour.",
+
+    // --- DÉFIS FESTIFS (11-100) ---
+    "Mime l'ouverture d'un paquet emballé avec beaucoup trop de ruban adhésif.",
+    "Fais semblant de courir pour rattraper un ballon qui s'envole vers le ciel.",
+    "Imite une personne qui applaudit beaucoup trop fort après une chanson.",
+    "Fais une pose de mannequin avec un chapeau d'anniversaire imaginaire.",
+    "Mime quelqu'un qui chante 'Joyeux anniversaire' mais qui oublie le prénom au milieu.",
+    "Fais semblant de danser avec un invité invisible.",
+    "Imite quelqu'un qui mange un citron en pensant que c'est un bonbon.",
+    "Fais une pose de statue 'Gâteau d'anniversaire' pendant 20 secondes.",
+    "Mime quelqu'un qui essaie d'ouvrir une bouteille de champomy ou de soda qui explose.",
+    "Fais semblant de courir autour de la table en criant 'C'est la fête !'.",
+    "Imite le cri d'un enfant qui vient de voir un clown arriver.",
+    "Fais une danse de robot sur une musique de fête imaginaire.",
+    "Mime quelqu'un qui essaie de lire une carte d'anniversaire avec une écriture illisible.",
+    "Fais semblant de manger une part de gâteau glacé beaucoup trop froide.",
+    "Imite quelqu'un qui essaie de gonfler un ballon mais qui n'y arrive pas.",
+    "Fais une pose de bodybuilder pour montrer tes 'muscles de gâteau'.",
+    "Mime l'ouverture d'un cadeau qui est en fait une boîte vide (déception mime).",
+    "Fais semblant de courir après des confettis qui tombent.",
+    "Imite une personne qui pleure de joie après avoir reçu un poney (imaginaire).",
+    "Fais une danse de célébration avec tes bras uniquement.",
+    "Mime quelqu'un qui essaie de souffler une bougie magique qui se rallume tout le temps.",
+    "Fais semblant de manger une cerise sur le gâteau avec beaucoup de manières.",
+    "Imite un invité qui a trop mangé et qui s'endort sur sa chaise.",
+    "Fais une pose de DJ qui anime une fête d'anniversaire de folie.",
+    "Mime quelqu'un qui ouvre un cadeau et qui ne sait pas ce que c'est.",
+    "Fais semblant de courir pour arriver le premier au buffet.",
+    "Imite le bruit d'une trompette de fête (langue de belle-mère).",
+    "Fais une danse de la joie en restant assis sur ta chaise.",
+    "Mime quelqu'un qui essaie de faire tenir une nappe qui s'envole.",
+    "Fais semblant de manger une barbe à papa géante.",
+    "Imite un invité timide qui ne veut pas chanter.",
+    "Fais une pose de super-héros d'anniversaire.",
+    "Mime l'ouverture d'une boîte de chocolats dont tu n'aimes pas les parfums.",
+    "Fais semblant de courir dans une pinata invisible.",
+    "Imite une personne qui fait un discours beaucoup trop long.",
+    "Fais une danse de canard comme dans les mariages/anniversaires.",
+    "Mime quelqu'un qui se prend des confettis dans la bouche.",
+    "Fais semblant de manger une part de pizza de fête géante.",
+    "Imite un magicien d'anniversaire qui rate son tour.",
+    "Fais une pose de 'Roi/Reine de la fête'.",
+    "Mime quelqu'un qui essaie de cacher une part de gâteau dans sa poche.",
+    "Fais semblant de courir pour éviter d'être pris dans une photo de groupe.",
+    "Imite le cri d'une personne surprise par une fête.",
+    "Fais une danse disco d'anniversaire.",
+    "Mime quelqu'un qui essaie de compter ses bougies mais qui se trompe.",
+    "Fais semblant de manger une glace qui fond trop vite.",
+    "Imite un photographe d'anniversaire très autoritaire.",
+    "Fais une pose de star de cinéma sur tapis rouge.",
+    "Mime l'ouverture d'une enveloppe avec beaucoup d'argent dedans.",
+    "Fais semblant de courir pour attraper le dernier bonbon.",
+    "Imite une personne qui essaie de faire un nœud à un ballon.",
+    "Fais une danse de célébration en tournant sur toi-même.",
+    "Mime quelqu'un qui essaie de ne pas rire pendant un moment sérieux.",
+    "Fais semblant de manger un bonbon très acide.",
+    "Imite un enfant qui veut ouvrir tous les cadeaux des autres.",
+    "Fais une pose de champion de bowling d'anniversaire.",
+    "Mime l'ouverture d'une boîte à chaussures.",
+    "Fais semblant de courir pour aller ouvrir la porte.",
+    "Imite quelqu'un qui chante 'Happy Birthday' dans une autre langue.",
+    "Fais une danse avec tes doigts sur la table.",
+    "Mime quelqu'un qui essaie de mettre un chapeau pointu trop petit.",
+    "Fais semblant de manger une part de gâteau invisible.",
+    "Imite un invité qui raconte une blague que personne ne comprend.",
+    "Fais une pose de boxeur d'anniversaire.",
+    "Mime l'ouverture d'un cadeau qui fait du bruit quand on le secoue.",
+    "Fais semblant de courir vers une surprise.",
+    "Imite une personne qui applaudit de manière très snob.",
+    "Fais une danse du ventre festive.",
+    "Mime quelqu'un qui essaie de porter trop de cadeaux en même temps.",
+    "Fais semblant de manger un pop-corn géant.",
+    "Imite un arbitre de jeux d'anniversaire.",
+    "Fais une pose de yoga d'anniversaire.",
+    "Mime l'ouverture d'un bocal rempli de billes.",
+    "Fais semblant de courir au ralenti vers le gâteau.",
+    "Imite une personne qui crie 'Surprise !' de 3 façons différentes.",
+    "Fais une danse de célébration avec ton voisin de gauche (sans contact).",
+    "Mime quelqu'un qui essaie de deviner ce qu'il y a dans son paquet.",
+    "Fais semblant de manger un fruit sur un buffet.",
+    "Imite un coach de fête très motivé.",
+    "Fais une pose finale de feu d'artifice avec tes bras.",
+];
+function newAction(){
+    const randomIndex = Math.floor(Math.random() * actions.length);
+    document.getElementById("challenge").innerText =
+        "🔥 ACTION : " + actions[randomIndex];
+}
+
+function newVerite(){
+    const randomIndex = Math.floor(Math.random() * verites.length);
+    document.getElementById("challenge").innerText =
+        "💬 VÉRITÉ : " + verites[randomIndex];
+}
+</script>
+
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>

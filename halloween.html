@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Halloween - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie Halloween 🎃</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Clique sur le bouton 🎲</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+    const verites = [
+    // --- COSTUMES ET APPARENCE ---
+    "Raconte la fois où un costume était tellement inconfortable que tu as regretté ta soirée dès la première heure.",
+    "As-tu déjà prétendu adorer le costume ridicule d'un ami juste pour ne pas le vexer ?",
+    "Quel est le costume que tu pensais génial, mais que personne n'a réussi à identifier ?",
+    "As-tu déjà été secrètement jaloux du costume d'un autre invité qui était bien meilleur que le tien ?",
+    "Raconte la fois où tu as trébuché ou fait une chute mémorable à cause de ton propre déguisement.",
+    "As-tu déjà regretté d'avoir choisi un maquillage trop complexe qui a fini par couler partout ?",
+    "Quel est le moment exact où tu as eu tellement chaud ou froid que tu as voulu arracher ton costume ?",
+    "As-tu déjà eu honte de ton costume en croisant des gens qui ne fêtaient pas Halloween ?",
+    "Quelle est la chose la plus ridicule que tu aies acceptée de porter pour un déguisement de groupe ?",
+    "As-tu déjà passé une soirée entière sans pouvoir t'asseoir ou manger à cause de ton déguisement ?",
+
+    // --- FRISSONS ET PEURS ---
+    "Quel est le moment où tu as eu réellement peur (pas pour rire) pendant une soirée d'Halloween ?",
+    "As-tu déjà fait semblant de ne pas avoir peur devant un film ou une maison hantée pour paraître courageux ?",
+    "Raconte la fois où tu as été surpris par quelqu'un déguisé alors que tu ne t'y attendais absolument pas.",
+    "Quelle est la décoration d'Halloween la plus effrayante ou dérangeante que tu aies jamais vue ?",
+    "Raconte la fois où tu as poussé un cri de terreur pour un simple bruit qui s'est révélé être inoffensif.",
+    "Quel est le moment où tu as été tellement effrayé que tu as refusé de terminer un parcours ou une activité ?",
+    "As-tu déjà été surpris et effrayé par ton propre reflet dans un miroir à cause de ton maquillage ?",
+    "Raconte une fois où tu as ri nerveusement pour masquer une peur panique.",
+    "As-tu déjà menti sur le fait d'avoir peur des fantômes, des araignées ou des clowns ?",
+    "Quel est le film d'horreur que tu n'as jamais réussi à regarder jusqu'au bout ?",
+
+    // --- BONBONS ET CHASSE AUX SUCRERIES ---
+    "Quelle est la chose la plus bizarre ou décevante (un légume, une brosse à dents...) que tu aies reçue comme bonbon ?",
+    "Raconte la fois où tu as mangé tellement de sucreries que tu t’es senti physiquement mal.",
+    "As-tu déjà menti sur ton âge ou changé de costume pour faire un deuxième tour et avoir plus de bonbons ?",
+    "Quelle est la pire maison (accueil froid, pas de bonbons, décor raté) où tu sois allé ?",
+    "As-tu déjà volé un bonbon dans le sac d'un ami ou d'un frère/sœur sans qu'il s'en aperçoive ?",
+    "Quelle est la chose la plus embarrassante qui te soit arrivée pendant que tu frappais aux portes ?",
+    "As-tu déjà trié tes bonbons pour ne garder que les meilleurs et donner les restes à quelqu'un d'autre ?",
+    "Quel est le bonbon d'Halloween que tout le monde adore mais que tu trouves personnellement infect ?",
+    "As-tu déjà mangé des bonbons d'Halloween périmés depuis des mois juste par gourmandise ?",
+    "Quel est ton record personnel de bonbons mangés en une seule soirée ?",
+
+    // --- ANECDOTES ET SITUATIONS (31-100) ---
+    "Raconte la fois où ton costume s’est cassé ou déchiré au pire moment de la fête.",
+    "As-tu déjà ri pendant un moment censé être solennel ou effrayant lors d'une cérémonie ?",
+    "Quelle est la blague de mauvais goût que tu as faite à Halloween et que tu as regrettée ensuite ?",
+    "Quelle est la chose la plus stressante pour toi dans l'organisation d'une soirée d'Halloween ?",
+    "As-tu déjà oublié un accessoire crucial de ton costume et dû improviser avec les moyens du bord ?",
+    "As-tu déjà utilisé Halloween comme excuse pour ne pas aller à un rendez-vous ennuyeux ?",
+    "Quelle est la chose la plus étrange que tu aies vue au coin d'une rue un soir de 31 octobre ?",
+    "As-tu déjà cassé une décoration chez quelqu'un d'autre et fait semblant que c'était un 'esprit' ?",
+    "Quelle est la règle d'Halloween (ne pas manger avant de rentrer, rester groupés) que tu as toujours ignorée ?",
+    "As-tu déjà regretté d'avoir participé à une activité d'horreur trop intense pour toi ?",
+    "Raconte la fois où tu as perdu ton groupe d'amis parce que tout le monde portait le même masque.",
+    "Quel est le défi d'Halloween que tu as refusé de relever par pure superstition ?",
+    "As-tu déjà fait semblant de croire à une histoire de fantôme juste pour ne pas casser l'ambiance ?",
+    "Quelle est la situation la plus gênante vécue à cause d'un masque qui t'empêchait de parler ou de voir ?",
+    "As-tu déjà été jaloux d'une décoration de maison dans ton quartier ?",
+    "Raconte la fois où tu as perdu patience en essayant de sculpter une citrouille.",
+    "Quelle est la chose la plus inattendue que tu aies trouvée dans ton sac après une soirée ?",
+    "As-tu déjà ignoré quelqu’un que tu connaissais parce que tu ne l'avais pas reconnu sous son masque ?",
+    "Quelle est ta plus grande frustration lors de la préparation d'un maquillage de zombie ?",
+    "Raconte la fois où tu as crié alors que c'était simplement un chat ou un chien qui passait.",
+    "As-tu déjà menti sur l'origine 'faite maison' de ton costume alors que tu l'avais acheté ?",
+    "Quelle est la chose la plus ridicule que tu aies faite pour essayer de faire peur à quelqu'un ?",
+    "Raconte un moment où tu as été gêné par le costume trop provocant ou déplacé de quelqu'un.",
+    "As-tu déjà perdu un objet de valeur (clés, téléphone) au milieu d'un tas de feuilles ou d'une fête ?",
+    "Quelle est la chose la plus surprenante que tu aies apprise sur une légende urbaine de ta ville ?",
+    "As-tu déjà regretté d'avoir invité une personne spécifique à ta soirée d'Halloween ?",
+    "Quelle est la chose la plus drôle qui soit arrivée pendant une séance de spiritisme improvisée ?",
+    "As-tu déjà menti pour éviter de porter un costume de couple avec quelqu'un ?",
+    "Quelle est la chose la plus étrange que tu aies mangée lors d'un buffet d'Halloween ?",
+    "Raconte la fois où tu as été surpris par une décoration automatique (qui bouge ou crie).",
+    "As-tu déjà été embarrassé par tes parents qui se sont trop 'investis' dans Halloween ?",
+    "Quelle est la chose la plus inattendue que tu aies vue dans un miroir ce soir-là ?",
+    "Raconte la fois où tu as ri si fort que tu as fait peur aux autres joueurs.",
+    "As-tu déjà ignoré un conseil de sécurité pour aller dans un endroit interdit ou sombre ?",
+    "Quelle est la chose la plus ridicule que tu aies criée en étant poursuivi ?",
+    "Raconte la fois où tu as trébuché sur une citrouille ou une tombe en plastique.",
+    "As-tu déjà été surpris par le réalisme d'un faux sang qui était en fait une vraie blessure ?",
+    "Quelle est la chose la plus étrange que tu aies ressentie dans une cave ou un grenier ?",
+    "Raconte la fois où tu as regretté d'avoir regardé un film d'horreur juste avant de dormir.",
+    "As-tu déjà menti sur le fait d'avoir vu quelque chose de paranormal ?",
+    "Quelle est la chose la plus drôle qui soit arrivée avec un animal de compagnie déguisé ?",
+    "Raconte la fois où tu as été gêné par ton propre cri après coup.",
+    "As-tu déjà cassé un bocal de bonbons par maladresse ?",
+    "Quelle est la chose la plus inattendue que tu aies criée pendant un 'Action ou Vérité' ?",
+    "Raconte la fois où tu as ri d'une personne qui avait vraiment peur.",
+    "As-tu déjà regretté d'avoir mangé un bonbon dont l'emballage était déjà ouvert ?",
+    "Quelle est la chose la plus ridicule que tu aies portée parce que ton costume initial était gâché ?",
+    "Raconte la fois où tu as été gêné par un maquillage qui ne partait pas le lendemain matin.",
+    "As-tu déjà menti pour ne pas avoir à entrer dans une maison qui te faisait peur ?",
+    "Quelle est la chose la plus drôle que tu aies vue sur une photo de soirée d'Halloween ?",
+    "Raconte la fois où tu as été surpris par un enfant beaucoup plus courageux que toi.",
+    "As-tu déjà perdu un pari lié à un défi d'Halloween ?",
+    "Quelle est la chose la plus étrange que tu aies entendue derrière une porte close ?",
+    "Raconte la fois où tu as ri nerveusement devant un policier ou un vigile alors que tu étais déguisé.",
+    "As-tu déjà regretté d'avoir raconté une histoire effrayante qui a mal tourné ?",
+    "Quelle est la chose la plus inattendue que tu aies vue dans le ciel un soir d'Halloween ?",
+    "Raconte la fois où tu as été gêné par une personne qui refusait d'enlever son masque.",
+    "As-tu déjà menti sur ta connaissance d'une légende locale ?",
+    "Quelle est la chose la plus drôle que tu aies faite avec une fausse toile d'araignée ?",
+    "Raconte la fois où tu as été surpris par le silence total d'une rue.",
+    "As-tu déjà perdu le sens de l'orientation à cause de l'obscurité ?",
+    "Quelle est la chose la plus étrange que tu aies découverte dans ton propre jardin ?",
+    "Raconte la fois où tu as ri d'une décoration qui était censée être sérieuse.",
+    "As-tu déjà regretté d'avoir utilisé du maquillage de mauvaise qualité ?",
+    "Quelle est la chose la plus inattendue que tu aies dite pour te justifier d'être là ?",
+    "Raconte la fois où tu as été gêné par un costume trop chaud en intérieur.",
+    "As-tu déjà menti sur ta peur des films d'épouvante pour impressionner quelqu'un ?",
+    "Quelle est la chose la plus drôle qui soit arrivée avec un accessoire de costume ?",
+    "Raconte la fois où tu as été surpris par un bruit venant de ton propre costume.",
+    "Quelle est la chose la plus étrange que tu ferais si tu étais un fantôme pendant une journée ?"
+];
+
+const actions = [
+    // --- IMITATIONS ET MONSTRES ---
+    "Imite un zombie qui essaie de participer à un marathon (vitesse lente mais détermination).",
+    "Fais semblant d'être un fantôme coincé dans un mur et appelle à l'aide de manière vaporeuse.",
+    "Fais une marche de monstre (type Frankenstein) autour de la pièce pendant 30 secondes.",
+    "Imite une sorcière qui prépare une potion en nommant 5 ingrédients dégoûtants présents dans la pièce.",
+    "Mime un vampire dramatique qui vient de découvrir qu'il a oublié ses dents ce soir.",
+    "Fais ton plus beau rire maléfique, celui qui ferait trembler un village entier.",
+    "Imite une momie qui essaie de refaire ses bandages qui se défont tout seuls.",
+    "Mime un loup-garou qui essaie de retenir son hurlement dans un lieu public silencieux.",
+    "Imite un squelette qui essaie de danser le hip-hop sans perdre ses os.",
+    "Fais semblant d'être un épouvantail qui tente de faire peur à un oiseau très têtu.",
+
+    // --- RÉACTIONS ET PEUR ---
+    "Mime quelqu'un qui se fait surprendre dans le noir par un clown invisible.",
+    "Fais semblant de fuir quelque chose d'invisible en courant sur place avec une tête terrifiée.",
+    "Imite quelqu’un qui ouvre une porte grinçante très lentement dans un vieux manoir.",
+    "Mime une personne qui tremble de peur après avoir entendu un craquement au grenier.",
+    "Fais semblant de tomber dans un piège à trappe et disparais sous la table (si possible).",
+    "Imite quelqu'un qui marche sur la pointe des pieds dans un cimetière brumeux.",
+    "Fais un cri dramatique de film d'horreur (sans hurler trop fort pour les voisins !).",
+    "Mime quelqu'un qui découvre qu'une araignée géante est posée sur son épaule.",
+    "Fais semblant de te transformer en une créature de ton choix avec des bruitages.",
+    "Imite un personnage de film qui essaie de démarrer une voiture qui tombe toujours en panne.",
+
+    // --- DÉFIS LOUFOQUES (21-100) ---
+    "Fais une danse effrayante sur une musique imaginaire pendant 30 secondes.",
+    "Imite quelqu’un qui essaie de manger des spaghettis avec des mains de monstre.",
+    "Fais semblant de flotter comme un esprit et traverse la pièce sans faire de bruit.",
+    "Mime une séance de maquillage de zombie qui tourne mal.",
+    "Fais une pose terrifiante et ne bouge plus pendant que tout le monde compte jusqu'à 20.",
+    "Imite une sorcière qui essaie d'apprendre à son balai volant comment décoller.",
+    "Fais semblant de lancer un sort à la personne à ta droite pour la transformer en crapaud.",
+    "Mime un fantôme qui essaie de traverser un mur mais qui se cogne à chaque fois.",
+    "Fais une marche de créature des marais en sortant de l'eau.",
+    "Imite un savant fou qui vient de créer sa créature la plus ridicule.",
+    "Mime quelqu'un qui se cache dans un placard en retenant sa respiration.",
+    "Fais semblant de boire une potion qui te donne une voix de dessin animé.",
+    "Imite un chat noir qui a vu un fantôme et qui a le poil hérissé.",
+    "Fais une danse de squelette en faisant claquer tes dents.",
+    "Mime un vampire qui essaie de bronzer à la plage (et qui le regrette).",
+    "Fais semblant d'être poursuivi par une citrouille géante et roulante.",
+    "Imite une sorcière qui a perdu son chat noir et qui appelle dans la nuit.",
+    "Mime quelqu'un qui essaie de lire un livre de sorts mais qui ne comprend rien.",
+    "Fais une pose de monstre classique pour une photo imaginaire.",
+    "Imite un esprit qui essaie de communiquer en frappant sur les meubles.",
+    "Mime quelqu'un qui découvre une trappe secrète sous son tapis.",
+    "Fais semblant d'être une poupée hantée qui bouge quand on ne la regarde pas.",
+    "Imite un zombie qui essaie d'être poli lors d'un dîner mondain.",
+    "Mime quelqu'un qui marche dans des toiles d'araignées invisibles.",
+    "Fais un cri de banshee très court et très aigu.",
+    "Imite une sorcière qui a un rhume et qui éternue des étincelles.",
+    "Mime un loup-garou qui essaie de se raser avant la pleine lune.",
+    "Fais semblant de te cacher derrière un rideau imaginaire.",
+    "Imite un fantôme qui essaie d'être effrayant mais qui est trop mignon.",
+    "Mime quelqu'un qui voit un clown dans le reflet de son écran.",
+    "Fais une marche lente et inquiétante vers la personne en face de toi.",
+    "Imite une gargouille qui reprend vie après 100 ans de pierre.",
+    "Mime un vampire qui a peur du ketchup car il pense que c'est du sang de mauvaise qualité.",
+    "Fais semblant de sculpter une citrouille avec tes pieds (en mime).",
+    "Imite un monstre qui a peur du noir et qui cherche sa veilleuse.",
+    "Mime quelqu'un qui essaie de sortir d'un labyrinthe de maïs la nuit.",
+    "Fais une pose dramatique de victime de film d'horreur des années 50.",
+    "Imite un zombie qui essaie de faire ses lacets.",
+    "Mime un fantôme qui essaie d'écrire un message sur une vitre embuée.",
+    "Fais semblant de lancer une potion sur tout le groupe pour les faire danser.",
+    "Imite un squelette qui essaie de jouer du piano.",
+    "Mime quelqu'un qui entend des voix venant d'une radio éteinte.",
+    "Fais une marche de créature extraterrestre qui découvre la Terre.",
+    "Imite une sorcière qui se bat contre son propre chapeau pointu à cause du vent.",
+    "Mime un vampire qui essaie de manger de l'ail par défi.",
+    "Fais semblant d'être un arbre hanté dont les branches bougent toutes seules.",
+    "Imite un monstre qui essaie de se faufiler discrètement sous un lit.",
+    "Mime la réaction d'une personne qui voit un fantôme passer derrière un ami.",
+    "Fais une série de 5 rires de méchants de styles différents.",
+    "Imite un zombie qui essaie de chanter une berceuse.",
+    "Mime quelqu'un qui découvre un portrait dont les yeux bougent.",
+    "Fais semblant de te transformer en chauve-souris et essaie de t'envoler.",
+    "Imite un squelette qui a le hoquet et qui perd un os à chaque fois.",
+    "Mime un fantôme qui essaie de faire peur à un chien qui n'arrête pas de remuer la queue.",
+    "Fais une pose de méchant qui vient de révéler son plan diabolique.",
+    "Imite une sorcière qui essaie de commander une pizza avec une boule de cristal.",
+    "Mime quelqu'un qui marche sur un sol couvert d'insectes invisibles.",
+    "Fais semblant de sortir d'un cercueil très étroit.",
+    "Imite un monstre qui essaie de se brosser les dents (il en a beaucoup).",
+    "Mime la réaction d'une personne qui voit sa propre ombre bouger différemment.",
+    "Fais une danse macabre pendant 15 secondes sans aucune expression.",
+    "Imite un vampire qui a oublié de mettre de la crème solaire.",
+    "Mime quelqu'un qui essaie de capturer un esprit dans un bocal.",
+    "Fais semblant d'être une citrouille qui prend vie et qui est très fâchée.",
+    "Imite un zombie qui essaie de faire de la gym.",
+    "Mime la peur de quelqu'un qui voit une porte se fermer seule.",
+    "Fais une voix de revenant pour dire le nom de chaque joueur.",
+    "Imite un loup-garou qui essaie d'attraper sa queue.",
+    "Mime quelqu'un qui trouve un objet maudit dans un vide-grenier.",
+    "Fais une pose finale de champion de l'horreur pour clore ton tour.",
+];
+function newAction(){
+    const randomIndex = Math.floor(Math.random() * actions.length);
+    document.getElementById("challenge").innerText =
+        "🔥 ACTION : " + actions[randomIndex];
+}
+
+function newVerite(){
+    const randomIndex = Math.floor(Math.random() * verites.length);
+    document.getElementById("challenge").innerText =
+        "💬 VÉRITÉ : " + verites[randomIndex];
+}
+</script>
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>

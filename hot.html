@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tranquile - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie tranquile🔥</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Oses-tu cliquer ? 🔥</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+const verites = [
+    // --- EXPÉRIENCES ET ATTIRANCE ---
+    "Raconte la première fois où tu as ressenti une vraie attirance physique pour quelqu’un.",
+    "Quel est le moment le plus intense que tu aies vécu avec un(e) ex ?",
+    "As-tu déjà embrassé quelqu’un que tu ne devais absolument pas embrasser ?",
+    "Quelle est la chose la plus audacieuse que tu aies faite par pur désir ?",
+    "Raconte un souvenir avec quelqu’un que tu n’as jamais réussi à oublier.",
+    "As-tu déjà été attiré(e) par quelqu’un ici présent sans jamais le dire ?",
+    "Quel est le compliment le plus troublant ou déstabilisant que tu aies reçu ?",
+    "As-tu déjà eu un crush pour quelqu’un de totalement inattendu ou aux antipodes de ton style ?",
+    "Quelle est la situation la plus gênante que tu aies vécue juste après un rendez-vous ?",
+    "Raconte une fois où tu as hésité de longues minutes avant de faire le premier pas.",
+    "Quel est le baiser que tu as le plus regretté dans ta vie ?",
+    "Quelle est la phrase de séduction la plus efficace qu’on t’ait jamais dite ?",
+    "As-tu déjà flirté avec quelqu’un par pur jeu, sans vouloir aller plus loin ?",
+    "Quel est le regard d'une personne qui t’a le plus déstabilisé(e) ?",
+    "As-tu déjà fantasmé sur quelqu’un que tu côtoyais tous les jours (ami, collègue) ?",
+    "Quelle est la chose la plus romantique, digne d'un film, qu’on ait faite pour toi ?",
+    "Raconte une fois où tu as été extrêmement nerveux(se) juste avant un moment intime.",
+    "As-tu déjà envoyé un message suggestif que tu as regretté la seconde d'après ?",
+    "Quel est le souvenir le plus embarrassant que tu gardes d'une relation passée ?",
+    "As-tu déjà été surpris(e) par la soudaineté de tes propres sentiments pour quelqu'un ?",
+
+    // --- PERSONNALITÉ ET GOÛTS ---
+    "Quelle est, selon toi, la chose physiquement la plus attirante chez une personne ?",
+    "As-tu déjà caché une relation ou un flirt à ton entourage proche ? Pourquoi ?",
+    "Quel est le moment précis où tu t’es senti(e) le plus troublé(e) par quelqu'un ici ?",
+    "Crois-tu au coup de foudre ou penses-tu que l'attirance se construit avec le temps ?",
+    "Quelle est la chose la plus intime que tu aies confiée à quelqu'un que tu connaissais à peine ?",
+    "As-tu déjà été jaloux(se) sans aucune raison valable, juste par peur de perdre l'autre ?",
+    "Quel est le petit geste anodin (replacer une mèche, un rire) qui te fait craquer ?",
+    "As-tu déjà été attiré(e) uniquement par la voix de quelqu’un (au téléphone ou autre) ?",
+    "Quelle est la chose la plus audacieuse que tu aies osé dire pour séduire ?",
+    "As-tu déjà fait semblant d’être totalement indifférent(e) alors que tu bouillonnais intérieurement ?",
+
+    // --- SITUATIONS ET MOMENTS (31-100) ---
+    "Quel est le rendez-vous le plus gênant (malaise total) que tu aies vécu ?",
+    "As-tu déjà pensé à un(e) ex juste après avoir rencontré quelqu'un de nouveau ?",
+    "Quelle est la caractéristique la plus inattendue qui t’ait déjà séduit(e) ?",
+    "As-tu déjà été troublé(e) par une proximité physique accidentelle (bras qui se frôlent) ?",
+    "Quel est le moment de connexion le plus intense que tu aies partagé sans parler ?",
+    "As-tu déjà ressenti une forte attirance pour quelqu’un de beaucoup plus âgé(e) ?",
+    "Quelle est la chose la plus ridicule ou gênante que tu aies dite en essayant de flirter ?",
+    "As-tu déjà regretté amèrement de ne pas avoir agi alors que l'occasion se présentait ?",
+    "Quel est le souvenir le plus marquant d’un baiser échangé dans un lieu insolite ?",
+    "As-tu déjà eu peur de la profondeur de tes propres sentiments pour quelqu'un ?",
+    "Quelle est la manœuvre de séduction la plus complexe que tu aies mise en place ?",
+    "As-tu déjà été attiré(e) par quelqu’un que tu considérais comme 'interdit' ?",
+    "Quel est le compliment qui t’a fait rougir instantanément devant tout le monde ?",
+    "As-tu déjà été surpris(e) par une confession intime de la part d'un(e) inconnu(e) ?",
+    "Quelle est la qualité émotionnelle la plus intime que tu recherches chez un partenaire ?",
+    "As-tu déjà été incapable de soutenir le regard de quelqu'un tant il était intense ?",
+    "Quel est le moment de solitude le plus fort vécu après un départ au petit matin ?",
+    "As-tu déjà regretté de ne pas avoir avoué tes sentiments avant qu'il ne soit trop tard ?",
+    "Quelle est l'approche la plus audacieuse que tu aies tentée sur les réseaux sociaux ?",
+    "As-tu déjà hésité au point de rater le moment idéal pour embrasser quelqu’un ?",
+    "Quelle est la confession la plus intime qu’on t’ait faite sous le sceau du secret ?",
+    "As-tu déjà été attiré(e) par un(e) ami(e) d'enfance de manière soudaine ?",
+    "Quel est le moment le plus stressant que tu aies vécu avant un rapprochement physique ?",
+    "As-tu déjà été hypnotisé(e) par le sourire de quelqu'un au point d'oublier ce que tu disais ?",
+    "Quelle est la folie la plus romantique que tu aies faite pour marquer l'esprit de quelqu'un ?",
+    "As-tu déjà eu envie de faire le premier pas en public sans jamais oser franchir le pas ?",
+    "Quel est ton souvenir le plus vif d'un simple échange de regards dans la foule ?",
+    "As-tu déjà regretté une confession intime faite sur un coup de tête ou sous l'émotion ?",
+    "Quelle est l'émotion la plus inattendue que tu aies ressentie lors d'une première rencontre ?",
+    "As-tu déjà été attiré(e) par quelqu’un que tu savais être hors de portée ?",
+    "Quel est le moment le plus troublant que tu aies vécu dans un silence complet ?",
+    "As-tu déjà imaginé ce que cela ferait d'embrasser une personne dans cette pièce ce soir ?",
+    "Quelle est la réaction la plus gênante que tu aies eue après un flirt réussi ?",
+    "As-tu déjà été déstabilisé(e) par le parfum ou l'odeur naturelle de quelqu'un ?",
+    "Quel est le moment le plus intime que tu aies partagé avec quelqu'un sans aucun contact ?",
+    "As-tu déjà été surpris(e) par une attirance pour quelqu'un que tu n'aimais pas au début ?",
+    "Quelle est la chose la plus audacieuse que tu aies imaginée sans jamais oser la proposer ?",
+    "As-tu déjà regretté de ne rien avoir dit alors que tu savais que l'autre attendait ?",
+    "Quel est le souvenir sensoriel le plus marquant d'une rencontre passée ?",
+    "As-tu déjà ressenti une décharge électrique en frôlant quelqu'un ?",
+    "Quelle est la parole la plus romantique qu'on t'ait murmurée à l'oreille ?",
+    "As-tu déjà été attiré(e) par un(e) inconnu(e) croisé(e) dans les transports ?",
+    "Quel est le moment de gêne le plus mémorable lors d'une tentative de séduction ?",
+    "As-tu déjà hésité des heures avant de répondre à un message qui te plaisait trop ?",
+    "Quelle est la forme d'intimité la plus forte que tu aies ressentie avec un partenaire ?",
+    "As-tu déjà été troublé(e) par la simple sensation d'une main posée sur ton épaule ?",
+    "Quel est le moment de tension le plus intense que tu aies vécu dans un lieu public ?",
+    "As-tu déjà regretté un regard trop insistant qui a créé un malaise ?",
+    "Quelle est la chose la plus audacieuse que tu aies faite pour attirer l'attention ?",
+    "As-tu déjà été surpris(e) par la sincérité d'un compliment venant d'un rival ?",
+    "Quel est le souvenir le plus intime que tu gardes d'une nuit de discussion ?",
+    "As-tu déjà été attiré(e) par quelqu'un malgré des avertissements de tes proches ?",
+    "Quelle est la chose la plus troublante que tu aies découverte sur tes propres désirs ?",
+    "As-tu déjà regretté d'avoir interrompu un baiser trop tôt ?",
+    "Quel est le moment de gêne que tu aimerais effacer de ta mémoire amoureuse ?",
+    "As-tu déjà été surpris(e) par ton propre courage face à quelqu'un d'impressionnant ?",
+    "Quelle est la chose la plus intime que tu sois prêt(e) à partager avec le groupe ici ?",
+    "As-tu déjà hésité entre deux personnes en même temps ? Comment as-tu choisi ?",
+    "Quel est le souvenir le plus troublant d'une rencontre qui n'a jamais eu de suite ?",
+    "As-tu déjà ressenti une connexion immédiate avec quelqu'un juste par sa posture ?",
+    "Quelle est la vérité sur tes attentes amoureuses que tu n'avoues jamais ?",
+    "As-tu déjà été attiré(e) par quelqu'un dont tu ne comprenais pas la langue ?",
+    "Quel est le moment où tu t'es senti(e) le plus vulnérable face à un crush ?",
+    "As-tu déjà fait semblant de ne pas être impressionné(e) par quelqu'un d'incroyable ?",
+    "Quelle est la chose la plus audacieuse que tu attendes de la part d'un partenaire ?",
+    "As-tu déjà eu l'impression que tes yeux parlaient plus que tes mots ?",
+    "Quel est le plus grand risque que tu aies pris pour rejoindre quelqu'un ?",
+    "As-tu déjà été troublé(e) par la ressemblance de quelqu'un avec un ancien amour ?",
+    "Quelle est la chose la plus douce qu'on t'ait dite dans un moment de doute ?",
+    "Si tu devais avouer une seule attirance inavouée ici, quelle serait-elle ?"
+];
+
+const actions = [
+    // --- REGARDS ET EXPRESSIONS ---
+    "Regarde la personne de ton choix dans les yeux pendant 20 secondes sans rire ni détourner le regard.",
+    "Fais un clin d’œil lent et appuyé à quelqu’un, comme si vous aviez un secret ensemble.",
+    "Fais un regard intense à quelqu'un, puis détourne les yeux en souriant timidement.",
+    "Regarde quelqu'un ici comme si tu allais lui avouer le secret le plus important de ta vie.",
+    "Imite quelqu’un qui attend un baiser avec impatience mais qui essaie de rester digne.",
+    "Fais une pose de mannequin de magazine de mode en essayant d'être le plus séduisant possible.",
+    "Fais semblant de rougir intensément après avoir reçu un compliment imaginaire.",
+    "Regarde quelqu'un avec admiration, comme si c'était ta célébrité préférée.",
+    "Fais un sourire mystérieux à chaque personne autour de la table, l'une après l'autre.",
+    "Imite l'expression de quelqu'un qui vient de se faire surprendre en train de fixer son crush.",
+
+    // --- VOIX ET DESCRIPTION ---
+    "Décris ton rendez-vous (date) idéal d’une voix douce et posée, presque en murmurant.",
+    "Chuchote un compliment sincère (mais sans contact) à la personne à ta gauche.",
+    "Lis une phrase romantique d'un livre ou d'un film avec une intensité dramatique.",
+    "Décris ce qui, selon toi, rend une personne instantanément craquante.",
+    "Fais une voix séduisante pendant les 30 prochaines secondes pour dire des choses banales.",
+    "Décris une ambiance romantique parfaite (musique, lieu, lumière) avec beaucoup de détails.",
+    "Raconte un souvenir romantique marquant en fermant les yeux pour plus d'émotion.",
+    "Imite une déclaration d'amour maladroite mais très touchante.",
+    "Décris un regard qui t’a déjà déstabilisé(e) dans ta vie passée.",
+    "Fais semblant de murmurer un secret à l'oreille de quelqu'un (sans le toucher).",
+
+    // --- JEU DE RÔLE ET MIMES (21-100) ---
+    "Imite une démarche assurée et séduisante d'un bout à l'autre de la pièce.",
+    "Fais semblant de recevoir un message qui te fait plaisir et qui te fait sourire bêtement.",
+    "Mime quelqu'un qui hésite à franchir le pas pour embrasser quelqu'un.",
+    "Fais une pose de photo de couple iconique avec la personne en face de toi (à distance).",
+    "Imite quelqu’un qui tente de flirter de manière très subtile mais totalement ratée.",
+    "Fais semblant de préparer une surprise romantique avec des gestes précis.",
+    "Imite quelqu’un de très nerveux(se) juste avant un premier rendez-vous.",
+    "Mime une invitation à sortir au restaurant sans utiliser un seul mot.",
+    "Fais semblant d’écrire un message très audacieux sur ton téléphone, puis hésite avant d'effacer.",
+    "Imite quelqu’un qui attend une réponse à une question cruciale avec anxiété.",
+    "Décris ton type de personne idéal en utilisant uniquement des adjectifs sensoriels.",
+    "Fais une démonstration de ta 'meilleure technique' pour attirer l'attention de quelqu'un.",
+    "Mime une scène de retrouvailles passionnées à l'aéroport (seul).",
+    "Imite quelqu'un qui essaie de rester classe alors qu'il est totalement troublé.",
+    "Fais semblant de raconter un secret brûlant à la personne de ton choix.",
+    "Mime un premier rendez-vous où l'on se rend compte que l'autre est parfait.",
+    "Fais une pose confiante et soutiens le regard du groupe pendant 10 secondes.",
+    "Imite quelqu'un qui avoue ses sentiments pour la toute première fois.",
+    "Décris une confession amoureuse imaginaire que tu aimerais entendre.",
+    "Fais une voix suave pour commander un cocktail imaginaire au bar.",
+    "Mime l'émotion de quelqu'un qui reçoit un bouquet de fleurs inattendu.",
+    "Imite la réaction de quelqu'un qui croise son crush par pur hasard dans la rue.",
+    "Fais semblant de réajuster la cravate ou le collier d'une personne imaginaire avec soin.",
+    "Mime une danse lente et romantique avec un partenaire invisible.",
+    "Imite un poète qui déclame des vers sur la beauté d'une personne présente.",
+    "Fais semblant de chercher tes mots parce que tu es 'intimidé' par le groupe.",
+    "Décris une rencontre idéale dans un lieu insolite (un train, sous la pluie).",
+    "Mime quelqu'un qui essaie de lire l'heure sur sa montre pour cacher sa gêne.",
+    "Fais une série de 3 clins d'œil différents (discret, dragueur, complice).",
+    "Imite la démarche d'une personne qui sait qu'on la regarde et qui en joue.",
+    "Fais semblant de rougir après que quelqu'un t'ait simplement regardé(e).",
+    "Mime quelqu'un qui se recoiffe nerveusement avant d'entrer dans un café.",
+    "Fais une pose de statue grecque représentant l'attirance ou le désir.",
+    "Décris une soirée parfaite à deux sans jamais utiliser le mot 'amour'.",
+    "Imite un serveur de restaurant romantique qui essaie de ne pas briser l'ambiance.",
+    "Mime l'attente d'un appel téléphonique qui tarde à arriver.",
+    "Fais semblant de découvrir un cadeau magnifique caché sous ton assiette.",
+    "Imite une personne qui bafouille en essayant de complimenter quelqu'un.",
+    "Mime la sensation d'avoir des papillons dans le ventre.",
+    "Fais une voix très douce pour raconter une anecdote d'enfance.",
+    "Imite quelqu'un qui vérifie son haleine discrètement avant de s'approcher.",
+    "Mime une scène de film muet où deux regards se croisent et se comprennent.",
+    "Fais semblant de prendre une photo mentale d'un moment précieux.",
+    "Imite un photographe de mode qui dirige un modèle (le joueur en face).",
+    "Mime quelqu'un qui écrit une lettre d'amour passionnée à la main.",
+    "Fais semblant de déballer un secret très lourd avec beaucoup de précautions.",
+    "Imite la réaction de quelqu'un qui entend 'je t'aime' pour la première fois.",
+    "Mime une personne qui tente de rester sérieuse alors qu'elle meurt d'envie de sourire.",
+    "Fais une pose de héros romantique qui sauve la situation.",
+    "Décris une scène de film où l'on ne voit que les mains qui se rapprochent.",
+    "Imite le soulagement de quelqu'un après un premier baiser réussi.",
+    "Mime quelqu'un qui essaie de deviner le parfum de la personne à côté.",
+    "Fais semblant d'être un détective qui cherche des indices de flirt dans la pièce.",
+    "Imite un présentateur de radio de nuit qui donne des conseils sentimentaux.",
+    "Mime la déception (comique) de quelqu'un qui n'a pas reçu de message.",
+    "Fais une pose de mystère, chapeau imaginaire baissé, regard intense.",
+    "Imite quelqu'un qui tente de faire un clin d'œil mais qui rate (les deux yeux ferment).",
+    "Mime la surprise de découvrir que son crush est aussi intéressé.",
+    "Fais une voix d'acteur de doublage pour une scène de séduction.",
+    "Mime quelqu'un qui essaie de marcher sur un fil (métaphore de la séduction).",
+    "Fais semblant d'être hypnotisé par un objet quelconque dans la pièce.",
+    "Imite quelqu'un qui envoie un baiser volant avec une précision chirurgicale.",
+    "Mime la préparation minutieuse d'une table pour un dîner aux chandelles.",
+    "Fais une pose de triomphe après avoir réussi à faire rire ton voisin.",
+    "Imite quelqu'un qui essaie de deviner ce que l'autre pense juste en le regardant.",
+    "Mime une personne qui attend sous la pluie avec un parapluie pour quelqu'un.",
+    "Fais une voix calme pour expliquer pourquoi le silence est important en amour.",
+    "Imite la réaction de quelqu'un qui reçoit un compliment sur ses yeux.",
+    "Mime quelqu'un qui ferme les yeux pour savourer un moment de calme.",
+    "Fais une pose finale qui résume ton état d'esprit romantique actuel."
+];
+function newAction(){
+    const randomIndex = Math.floor(Math.random() * actions.length);
+    document.getElementById("challenge").innerText =
+        "🔥 ACTION : " + actions[randomIndex];
+}
+
+function newVerite(){
+    const randomIndex = Math.floor(Math.random() * verites.length);
+    document.getElementById("challenge").innerText =
+        "💬 VÉRITÉ : " + verites[randomIndex];
+}
+</script>
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>

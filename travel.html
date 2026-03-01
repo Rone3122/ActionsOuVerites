@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus & Voyage - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie Bus & Voyage 🚌</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Occupez-vous pendant le trajet 🗺️</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+const verites = [
+    // --- ERREURS ET CONFUSIONS ---
+    "Raconte la fois où tu t’es retrouvé dans le mauvais bus et que tu as eu trop honte pour descendre immédiatement.",
+    "As-tu déjà réalisé trop tard que tu voyageais dans la direction opposée à ta destination ?",
+    "Quelle est la situation la plus embarrassante que tu aies vécue avec un chauffeur ou un contrôleur ?",
+    "As-tu déjà dormi si profondément que tu t'es réveillé au terminus, seul dans le bus ?",
+    "Raconte la fois où tu as demandé ton chemin et que la personne t'a donné une direction totalement absurde.",
+    "Quelle est la chose la plus étrange ou inquiétante que tu aies vue sur le siège d'à côté ?",
+    "As-tu déjà oublié un objet de valeur (sac, téléphone) sur ton siège en sortant précipitamment ?",
+    "Quelle est la pire odeur que tu aies dû supporter pendant un trajet de plus d'une heure ?",
+    "Raconte un moment de panique totale où tu t’es perdu dans une gare ou un aéroport immense.",
+    "As-tu déjà attendu un bus pendant des heures avant de réaliser que c'était un jour férié ou que la ligne était fermée ?",
+
+    // --- INTERACTIONS ET INCIDENTS ---
+    "As-tu déjà essayé de tenir une conversation avec un étranger sans comprendre un traître mot de sa langue ?",
+    "Quelle est la chose la plus ridicule qu'un passager ait dite à voix haute au téléphone ?",
+    "Raconte la fois où tu as confondu un inconnu avec ton guide ou un ami dans la foule d'un terminal.",
+    "As-tu déjà pris le bagage de quelqu’un d’autre sur le tapis roulant en pensant que c’était le tien ?",
+    "Quelle est la situation la plus inconfortable vécue assis à côté d'une personne qui prenait trop de place ?",
+    "Raconte la fois où tu as failli tomber sur un passager à cause d'un freinage brusque.",
+    "As-tu déjà fait semblant de valider ton ticket alors que tu savais qu'il n'était plus valide ?",
+    "Quelle est la pire réaction d’un conducteur à une question simple que tu lui as posée ?",
+    "As-tu déjà été coincé dans un bus bondé au point de ne plus pouvoir atteindre la porte de sortie ?",
+    "Raconte une fois où tu as dû improviser un plan B improbable après avoir raté ton dernier transport.",
+
+    // --- ANECDOTES ET VOYAGES (31-100) ---
+    "As-tu déjà confondu l’entrée et la sortie d'un bus sous les yeux de tout le monde ?",
+    "Quelle est la chose la plus drôle qu’un enfant ait crié pendant un trajet silencieux ?",
+    "Raconte la fois où tu as essayé de lire un plan de métro et que tu as fini dans une banlieue inconnue.",
+    "As-tu déjà fait semblant de comprendre une annonce micro totalement inaudible pour ne pas avoir l'air bête ?",
+    "Quelle est la situation la plus absurde vécue lors d’un voyage scolaire ou en groupe ?",
+    "As-tu déjà couru après un bus pour qu'il s'arrête, pour réaliser une fois monté que ce n'était pas le bon ?",
+    "Quelle est la chose la plus étrange vue dans un bus nocturne après minuit ?",
+    "Raconte la fois où tu as été surpris par un contrôle de billet alors que tu cherchais désespérément ton pass.",
+    "As-tu déjà été assis sur une place réservée (handicapés, seniors) sans t'en rendre compte avant qu'on te le dise ?",
+    "Quelle est la pire chose que tu aies mangée dans un transport pour apaiser une faim de loup ?",
+    "Raconte la fois où tu as paniqué en pensant avoir perdu ton passeport ou ta carte d'identité.",
+    "As-tu déjà raté ton arrêt parce que tu étais trop absorbé par ton téléphone ou ta musique ?",
+    "Quelle est la chose la plus ridicule que tu aies faite pour ne pas payer un supplément bagage ?",
+    "Raconte la fois où tu t’es retrouvé dans un wagon ou un bus totalement vide et que ça t'a fait peur.",
+    "As-tu déjà pris un taxi en pensant qu'il était libre alors qu'il était déjà réservé ?",
+    "Quelle est la situation la plus gênante vécue dans une file d'attente d'embarquement ?",
+    "Raconte la fois où tu as demandé ton chemin à trois personnes et qu'elles t'ont toutes indiqué une direction différente.",
+    "As-tu déjà été surpris par un arrêt de bus qui a été déplacé sans prévenir ?",
+    "Quelle est la chose la plus drôle qu'un chauffeur ait dite au micro pour détendre l'atmosphère ?",
+    "Raconte la fois où tu as confondu deux gares portant presque le même nom.",
+    "As-tu déjà eu une peur bleue en voyant le chauffeur prendre une route qui ne semblait pas être la bonne ?",
+    "Quelle est la situation la plus absurde vécue seul(e) à l'autre bout du monde ?",
+    "Raconte la fois où tu as suivi un groupe de touristes en pensant qu'ils allaient au même endroit que toi.",
+    "As-tu déjà été assis à côté de quelqu'un qui s'est endormi sur ton épaule pendant tout le trajet ?",
+    "Quelle est la pire réflexion qu'un passager t'ait faite sur ton comportement ?",
+    "Raconte la fois où tu as dû courir avec des valises trop lourdes pour ne pas rater une correspondance.",
+    "As-tu déjà paniqué en pensant que la porte du train n'allait pas s'ouvrir à ton arrêt ?",
+    "Quelle est la chose la plus étrange que tu aies trouvée oubliée sur un siège ?",
+    "Raconte la fois où tu as dû marcher des kilomètres car tu avais raté le dernier bus de nuit.",
+    "As-tu déjà confondu le numéro de la ligne avec l'heure d'arrivée ?",
+    "Quelle est la situation la plus embarrassante vécue dans les toilettes d'un train ou d'un avion ?",
+    "Raconte la fois où tu as essayé de monter dans un bus déjà complet par la force.",
+    "As-tu déjà été redirigé vers le mauvais quai par un employé qui s'était trompé ?",
+    "Quelle est la chose la plus ridicule que tu aies vue dans une salle d'attente ?",
+    "Raconte la fois où tu as ri nerveusement parce que tu étais complètement perdu dans une ville étrangère.",
+    "As-tu déjà cassé une poignée ou un bouton dans un transport ?",
+    "Quelle est la chose la plus inattendue que tu aies vue par la fenêtre pendant un trajet ?",
+    "Raconte la fois où tu as crié parce que tu as cru voir ton arrêt défiler trop vite.",
+    "As-tu déjà regretté d'avoir pris le bus plutôt que de marcher ?",
+    "Quelle est la chose la plus drôle arrivée pendant un trajet de nuit ?",
+    "Raconte la fois où tu as été surpris par le prix exorbitant d'un ticket que tu n'avais pas prévu.",
+    "As-tu déjà menti à un contrôleur pour expliquer pourquoi tu n'avais pas ton billet ?",
+    "Quelle est la chose la plus étrange vue dans une gare routière à 4h du matin ?",
+    "Raconte la fois où tu as eu peur de rater ton vol à cause d'un embouteillage.",
+    "As-tu déjà été embarrassé par le bruit de tes propres écouteurs que tout le monde entendait ?",
+    "Quelle est la chose la plus inattendue que tu aies ressentie lors d'un départ pour un long voyage ?",
+    "Raconte la fois où tu as ri d'un passager qui faisait quelque chose de très bizarre.",
+    "As-tu déjà ignoré un panneau d'interdiction dans une gare par inattention ?",
+    "Quelle est la chose la plus ridicule que tu aies faite pour ne pas perdre ta place assise ?",
+    "Raconte la fois où tu as trébuché en descendant les marches d'un bus à impériale.",
+    "As-tu déjà été surpris par une annonce de retard de plus de 3 heures ?",
+    "Quelle est la chose la plus étrange que tu aies entendue dans une conversation de voisins de siège ?",
+    "Raconte la fois où tu as regretté d'avoir posé une question au chauffeur.",
+    "As-tu déjà menti sur ta destination pour ne pas entamer une discussion avec un voisin bavard ?",
+    "Quelle est la chose la plus drôle vue sur un écran d'affichage en panne ?",
+    "Raconte la fois où tu as été gêné par ton propre reflet dans la vitre pendant que tu te recoiffais.",
+    "As-tu déjà perdu ton groupe lors d'un changement rapide de correspondance ?",
+    "Quelle est la chose la plus inattendue trouvée dans ta valise après un retour ?",
+    "Raconte la fois où tu as crié parce que tu as cru perdre ton ticket alors qu'il était dans ta main.",
+    "As-tu déjà été surpris par la gentillesse d'un inconnu pendant une galère de voyage ?",
+    "Quelle est la chose la plus étrange que tu aies bue dans un distributeur de gare ?",
+    "Raconte la fois où tu as ri d'un ami qui s'était trompé de train.",
+    "As-tu déjà regretté d'avoir pris trop de bagages pour un court trajet ?",
+    "Quelle est la chose la plus absurde que tu aies faite pour demander ton chemin sans parler la langue ?",
+    "Raconte la fois où tu as paniqué en voyant que la batterie de ton téléphone (avec ton billet) tombait à 1%.",
+    "As-tu déjà confondu une personne en uniforme avec un agent de la gare ?",
+    "Quelle est la situation la plus drôle vécue lors d'un passage à la sécurité ?",
+    "Raconte la fois où tu as été gêné par l'odeur de ton propre repas dans un bus silencieux.",
+    "As-tu déjà menti sur le fait de connaître le chemin pour rassurer tes amis ?",
+    "Quelle est la chose la plus ridicule vue sur le t-shirt d'un voyageur ?",
+    "Raconte la fois où tu as été surpris par une grève de dernière minute.",
+    "As-tu déjà perdu ton sang-froid face à une machine à billets automatique en panne ?",
+    "Quelle est la chose la plus étrange que tu ferais si tu avais tout un train pour toi tout seul ?",
+    "Raconte la fois où tu as ri d'une annonce vocale qui a fait un bug sonore.",
+    "As-tu déjà regretté d'avoir fait confiance à une application de cartographie ?",
+    "Quelle est la chose la plus inattendue dite par un contrôleur zélé ?",
+    "Raconte la fois où tu as été gêné par un bruit suspect provenant de ta valise.",
+    "As-tu déjà menti pour occuper une place côté fenêtre ?",
+    "Quelle est la chose la plus drôle qui te soit arrivée lors d'une escale ?",
+    "Raconte la fois où tu as été surpris par la beauté d'un paysage depuis ton siège de bus."
+];
+
+const actions = [
+    // --- MIMES DE GALÈRES ---
+    "Mime quelqu'un qui réalise avec horreur qu'il est dans le mauvais bus et essaie de sortir alors que les portes se ferment.",
+    "Fais semblant de dormir, de ronfler légèrement, puis de te réveiller en sursaut en criant 'C'est mon arrêt !'.",
+    "Mime un voyageur qui essaie désespérément de valider un ticket froissé qui ne passe pas.",
+    "Fais semblant de demander ton chemin à un passant imaginaire en utilisant uniquement des gestes et une mine déconcertée.",
+    "Imite une personne qui essaie de lire un plan de métro géant et qui finit par le retourner dans tous les sens.",
+    "Mime le trajet dans un bus bondé : joue les bousculades, les gens qui t'écrasent les pieds et la barre de maintien grasse.",
+    "Fais semblant de chercher ton siège dans un train sombre en vérifiant ton billet toutes les deux secondes.",
+    "Imite quelqu’un qui court au ralenti derrière un bus qui vient de démarrer en lui faisant de grands signes.",
+    "Mime un passager qui sent une odeur atroce venant du voisin et qui essaie de rester poli tout en suffoquant.",
+    "Fais semblant de téléphoner pour demander ton chemin en parlant une langue totalement inventée.",
+
+    // --- SITUATIONS DE VOYAGE (11-100) ---
+    "Mime quelqu'un qui trébuche sur la marche haute du bus en montant et essaie de faire comme si de rien n'était.",
+    "Fais semblant de te rendre compte que tu as oublié ton sac sur le quai alors que le train part.",
+    "Imite un voyageur qui entend une annonce micro incompréhensible et qui regarde tout le monde avec inquiétude.",
+    "Mime quelqu'un qui essaie de descendre au mauvais arrêt, se rend compte de son erreur et remonte vite.",
+    "Fais semblant de déplier une carte immense qui refuse de se replier correctement.",
+    "Mime un touriste perdu qui essaie de déchiffrer des panneaux écrits dans un alphabet inconnu.",
+    "Fais semblant de courir dans un terminal d'aéroport avec une valise qui a une roue cassée.",
+    "Mime quelqu'un qui panique en voyant qu'il est seul dans un bus nocturne très sombre.",
+    "Fais semblant de t’asseoir sur le mauvais siège et de devoir t’excuser platement auprès du propriétaire.",
+    "Mime un voyageur qui essaie de rester debout dans un bus qui prend des virages serrés.",
+    "Fais semblant de chercher ton ticket dans toutes tes poches alors que le contrôleur arrive.",
+    "Imite quelqu’un qui essaie d'ouvrir une fenêtre de bus bloquée avec un effort surhumain.",
+    "Mime un passager qui essaie de ne pas s'endormir sur l'épaule de son voisin inconnu.",
+    "Fais semblant de rater ton arrêt parce que tu fixais quelqu'un de mignon.",
+    "Mime quelqu'un qui essaie de porter trois valises énormes en même temps.",
+    "Fais semblant de chercher désespérément une prise électrique dans une gare.",
+    "Imite un touriste qui prend 50 photos de la même borne d'arrêt de bus.",
+    "Mime la réaction de quelqu'un qui voit son train affiché 'Supprimé' sur l'écran.",
+    "Fais semblant de demander un billet de bus en mimant l'objet car tu as oublié le mot.",
+    "Mime quelqu'un qui court et qui glisse sur une plaque d'égout mouillée devant la gare.",
+    "Fais semblant de vérifier ton téléphone toutes les secondes pour voir le GPS avancer.",
+    "Mime un passager qui se faufile entre les gens dans l'allée centrale d'un avion.",
+    "Fais semblant de parler à un voisin de siège qui ne répond que par des hochements de tête bizarres.",
+    "Mime la panique de voir ton bus arriver sur le quai d'en face alors que tu es du mauvais côté.",
+    "Fais semblant de chercher ton sac à dos dans le filet au-dessus de ta tête sans rien voir.",
+    "Mime quelqu'un qui confond la ligne 4 et la ligne 14 et s'en rend compte au dernier moment.",
+    "Fais semblant de regarder par la fenêtre et d'être hypnotisé par le paysage.",
+    "Mime l'hésitation entre monter dans un bus bondé ou attendre le suivant sous la pluie.",
+    "Fais semblant d'appeler ta mère pour lui dire que tu es (encore) perdu.",
+    "Mime une course effrénée dans les escaliers mécaniques à l'envers.",
+    "Fais semblant de suivre une carte GPS qui te fait tourner en rond dans la pièce.",
+    "Mime le soulagement de trouver enfin une place assise libre.",
+    "Fais semblant de chercher un guide touristique et de suivre la mauvaise personne.",
+    "Mime quelqu'un qui fait semblant de savoir exactement où il va alors qu'il est perdu.",
+    "Fais semblant de tomber brutalement au moment où le bus s'arrête.",
+    "Mime la fouille de ton bagage à la sécurité de l'aéroport (enlève tes chaussures, ta ceinture...).",
+    "Fais semblant de courir après ton chapeau qui s'est envolé sur le quai.",
+    "Mime un passager qui demande des directions à un automate de gare qui ne marche pas.",
+    "Fais semblant de chercher un siège libre mais de voir que tout est réservé.",
+    "Mime la confusion totale devant un panneau d'affichage qui change toutes les secondes.",
+    "Fais semblant de comprendre un plan ultra compliqué en hochant la tête d'un air expert.",
+    "Mime la gêne de s'asseoir à côté de quelqu'un qui sent très fort la nourriture.",
+    "Fais semblant de lire les horaires sur un poteau d'arrêt mais d'être trop petit pour voir.",
+    "Mime le moment où tu réalises que tu n'as plus de batterie pour montrer ton e-billet.",
+    "Fais semblant de marcher avec une valise qui pèse 30 kilos.",
+    "Mime la panique de voir un arrêt totalement inconnu par la vitre.",
+    "Fais semblant de demander une information et de recevoir une réponse en criant.",
+    "Mime quelqu'un qui regarde son billet et ne trouve pas le numéro du wagon.",
+    "Fais semblant de courir après le bus et de t'arrêter, essoufflé, quand il s'en va.",
+    "Mime un voyageur qui essaie de se repérer grâce aux étoiles (car plus de GPS).",
+    "Fais semblant de te pencher dangereusement pour voir si le bus arrive au loin.",
+    "Mime la chute sur ton propre sac devant une foule de voyageurs.",
+    "Fais semblant de suivre une carte routière en la tenant à l'envers.",
+    "Mime quelqu'un qui se trompe de bus mais qui fait semblant d'être arrivé à destination.",
+    "Fais semblant de chercher ton arrêt en tournant sur toi-même comme une boussole cassée.",
+    "Mime le changement de bus à la dernière seconde avec une agilité de ninja.",
+    "Fais semblant d'appeler un taxi qui refuse de s'arrêter.",
+    "Mime la perte de ton ticket de sortie au moment de passer le portillon.",
+    "Fais semblant de chercher une station de métro dans un quartier désert.",
+    "Mime quelqu'un qui sprinte dans l'allée du bus pour attraper la dernière place libre.",
+    "Fais semblant d'ouvrir ton sac et de découvrir qu'un flacon a fui partout.",
+    "Mime la réception d'une réponse totalement absurde à une question sérieuse.",
+    "Fais semblant de marcher dans la gare avec un air de détective perdu.",
+    "Mime la course ratée après le dernier bus de nuit qui s'éloigne.",
+    "Fais semblant de lire un panneau de direction et de partir exactement à l'opposé.",
+    "Mime la montée dans le mauvais wagon de train (première classe au lieu de seconde).",
+    "Fais semblant de courir avec une valise et de perdre une roue en chemin.",
+    "Mime l'observation des autres passagers pour essayer de deviner leurs vies.",
+    "Fais semblant de demander ton chemin à un mime (ironie !).",
+    "Mime la lecture d'un plan de bus sous une pluie battante imaginaire.",
+    "Fais semblant de changer de place toutes les 2 minutes pour trouver la 'meilleure'.",
+    "Mime la recherche désespérée d'une sortie 'Sortie 4' qui n'existe pas.",
+    "Fais semblant d'attendre un bus et de t'apercevoir qu'il est passé il y a 5 secondes.",
+    "Mime le déchiffrage d'un billet de train écrit tout petit.",
+    "Fais semblant de suivre un groupe scolaire en pensant que c'est le bon quai.",
+    "Mime la panique d'avoir raté ta correspondance à cause d'un retard de 2 minutes.",
+    "Fais semblant de chercher ton chemin dans un terminal saturé de monde.",
+    "Mime l'étirement du cou pour voir le nom de l'arrêt sur le panneau extérieur.",
+    "Fais semblant d'appeler quelqu'un et de perdre le signal au moment important.",
+    "Mime la course dans le bus pour ne pas rater ton arrêt au dernier moment.",
+    "Fais semblant de plier un plan de ville récalcitrant.",
+    "Mime la demande d'aide à un passant qui parle beaucoup trop vite.",
+    "Fais semblant de courir dans la gare et de t'arrêter net devant le mauvais bus.",
+    "Mime la recherche d'une place assise quand le bus est en plein virage.",
+    "Fais semblant de regarder une carte et de te rendre compte que tu es dans la mauvaise ville.",
+    "Mime la panique de changer de ligne 3 fois en 5 minutes.",
+    "Fais semblant de demander un renseignement et de partir avec un air encore plus confus.",
+    "Mime l'attente d'un bus fantôme qui ne vient jamais.",
+    "Fais semblant de marcher dans le terminal en regardant le plafond, perdu.",
+    "Mime la perte de ton billet juste avant le contrôle final.",
+    "Fais semblant de courir et de trébucher sur ta propre valise à roulettes.",
+    "Mime l'observation du plan du quartier à la sortie du métro pour t'orienter.",
+    "Fais une pose finale de voyageur épuisé qui arrive enfin à bon port.",
+];
+function newAction(){
+    const randomIndex = Math.floor(Math.random() * actions.length);
+    document.getElementById("challenge").innerText =
+        "🔥 ACTION : " + actions[randomIndex];
+}
+
+function newVerite(){
+    const randomIndex = Math.floor(Math.random() * verites.length);
+    document.getElementById("challenge").innerText =
+        "💬 VÉRITÉ : " + verites[randomIndex];
+}
+</script>
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>

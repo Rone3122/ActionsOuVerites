@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sport - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie Sport 💪</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Prêt à bouger ? 💪</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+    const verites = [
+    // --- TRICHE & PETITS SECRETS ---
+    "Quelle est la fois où tu as triché pendant un jeu ou un match sans que personne ne le remarque ?",
+    "As-tu déjà menti sur le nombre de répétitions que tu avais réellement faites pendant un exercice ?",
+    "As-tu déjà simulé une blessure ou une crampe juste pour arrêter un effort trop intense ?",
+    "As-tu déjà accusé quelqu’un d’avoir triché alors que c’était toi qui ne respectais pas les règles ?",
+    "As-tu déjà perdu volontairement un match pour pouvoir rentrer plus tôt ou faire autre chose ?",
+    "Quelle est la pire excuse que tu aies inventée pour éviter un cours de sport ou un entraînement ?",
+    "As-tu déjà fait semblant de ne pas entendre l’arbitre ou les consignes pour gagner un avantage ?",
+    "As-tu déjà fait semblant d’être essoufflé pour qu'on te laisse tranquille pendant une pause ?",
+    "Quelle est la fois où tu as triché sur ton âge ou ton poids pour participer à une compétition ?",
+    "As-tu déjà ignoré une consigne de sécurité juste parce que tu pensais savoir mieux que les autres ?",
+
+    // --- ÉCHECS & MOMENTS GÊNANTS ---
+    "Raconte le moment le plus embarrassant que tu aies vécu dans un vestiaire de sport.",
+    "Quelle est la pire chute que tu aies faite devant un public ou un groupe d'amis ?",
+    "Raconte une situation où tu as raté un geste technique tellement facile que tout le monde a ri.",
+    "Quel est le moment où tu t’es senti le plus ridicule en courant (course après un bus, marathon, etc.) ?",
+    "Quelle est la chose la plus ridicule que tu aies portée pour faire du sport ?",
+    "As-tu déjà crié de douleur ou de peur pour quelque chose qui n'était absolument pas grave ?",
+    "Quelle est la fois où tu as essayé d’impressionner quelqu’un avec tes muscles et que ça a foiré ?",
+    "Raconte la fois où tu as fini bon dernier d'une course, très loin derrière les autres.",
+    "Quel est le moment où tu as eu le plus honte de ton niveau physique face à des pros ?",
+    "As-tu déjà perdu ton calme et crié sur un coéquipier ou un arbitre pendant un match ?",
+
+    // --- PRÉFÉRENCES & GOÛTS ---
+    "Quel est le sport que tu prétends aimer en public mais que tu détestes secrètement pratiquer ?",
+    "Quel est le sport que tu refuses de faire uniquement parce que tu sais que tu es très mauvais dedans ?",
+    "Quel est le sport qui te fatigue physiquement rien qu’en regardant les autres le pratiquer ?",
+    "Si tu devais supprimer un sport olympique pour toujours, lequel choisirais-tu ?",
+    "Quelle est l'activité physique que tu trouves la plus surcotée au monde ?",
+    "Quel sportif célèbre trouves-tu insupportable malgré ses performances ?",
+    "Si tu gagnais une médaille d'or, quel serait le premier truc ridicule que tu ferais avec ?",
+    "Quelle est la tenue de sport que tu trouves la plus laide, même si elle est efficace ?",
+    "Quel est le sport où tu surestimes largement ton véritable niveau ?",
+    "Préfères-tu gagner en trichant ou perdre avec les honneurs ?",
+
+    // --- EXPÉRIENCES ET LIMITES (60-100) ---
+    "Quelle est la chose la plus difficile que tu aies jamais faite physiquement ?",
+    "As-tu déjà eu envie de pleurer à cause d'un effort trop intense ?",
+    "Quelle est la fois où tu as abandonné un défi alors que tu étais à deux doigts de finir ?",
+    "Quel est le moment où tu as regretté amèrement de t’être inscrit à une activité sportive ?",
+    "Quelle est la pire odeur que tu aies jamais sentie dans une salle de sport ?",
+    "As-tu déjà fait semblant de comprendre une stratégie tactique compliquée alors que tu étais perdu ?",
+    "Quelle est la chose la plus étrange que tu faires pour récupérer après un gros effort ?",
+    "As-tu déjà eu peur de te blesser gravement pendant un défi ?",
+    "Quel est le défi physique que tu as refusé de relever par pure peur de l'échec ?",
+    "As-tu déjà menti sur tes performances sportives pour séduire quelqu'un ?",
+    "Quel est le sport où tu te trouves le plus maladroit visuellement ?",
+    "Quelle est la fois où tu as eu une crampe au moment le plus inapproprié ?",
+    "As-tu déjà jugé quelqu’un sévèrement sur sa manière de courir ou de bouger ?",
+    "Quelle est ta plus grande frustration lors d'un sport d'équipe ?",
+    "As-tu déjà oublié une règle fondamentale en plein milieu d'une compétition ?",
+    "Quelle est la chose la plus fatigante que tu aies faite par pur plaisir ?",
+    "Quel est le moment où tu as réalisé que tu n'étais plus aussi en forme qu'avant ?",
+    "As-tu déjà accusé tes chaussures ou la météo pour expliquer une mauvaise performance ?",
+    "Quelle est la chose la plus ridicule que tu aies criée pour encourager quelqu'un ?",
+    "Quel est le sport que tu trouves le plus injuste au niveau des scores ?",
+    "As-tu déjà regretté d'avoir été trop compétitif avec un enfant ou un débutant ?",
+    "Quelle est la fois où tu as eu un fou rire incontrôlable pendant un moment sérieux en sport ?",
+    "As-tu déjà fait semblant d’aimer une activité physique juste pour faire plaisir à un ami ?",
+    "Quel est l'objet de sport le plus cher que tu as acheté et que tu n'utilises jamais ?",
+    "As-tu déjà eu envie de quitter le terrain en plein milieu d'un match par pur dégoût ?",
+    "Quelle est la chose la plus embarrassante que tu aies faite juste après un effort ?",
+    "As-tu déjà perdu un objet de valeur (montre, bijou) pendant que tu faisais du sport ?",
+    "Quelle est la fois où tu as été surpris par ta propre fatigue après seulement 2 minutes ?",
+    "As-tu déjà fait une danse de la victoire avant d'avoir réellement gagné ?",
+    "Quelle est la vérité sur ton sport que tu as le plus de mal à admettre ?",
+    "As-tu déjà dormi pendant un événement sportif important ?",
+    "Quelle est la pire blessure (même stupide) que tu te sois faite en faisant du sport ?",
+    "As-tu déjà eu le béguin pour ton prof de sport ou ton coach ?",
+    "Quel est le sport dont tu ne comprends toujours pas l'intérêt malgré les explications ?",
+    "As-tu déjà mangé quelque chose de très gras juste avant une épreuve physique ?",
+    "Quelle est la fois où tu as paniqué dans l'eau ou en hauteur pendant un sport ?",
+    "As-tu déjà critiqué la technique de quelqu'un alors que la tienne est pire ?",
+    "Quel est le moment où tu as eu le plus envie de disparaître sous terre après un raté ?",
+    "As-tu déjà fait semblant de faire tes étirements alors que tu attendais juste la fin ?",
+    "Quelle est la chose la plus bizarre que tu aies vue dans un stade ?",
+    "As-tu déjà été vexé par une défaite contre quelqu'un de beaucoup plus jeune que toi ?",
+    "Quel est le sport que tu trouves le plus relaxant alors qu'il est censé être intense ?",
+    "As-tu déjà cassé du matériel de sport par énervement ?",
+    "Quelle est la fois où tu as sous-estimé un adversaire pour ensuite te faire écraser ?",
+    "Quel est ton plus grand manque de motivation actuel en sport ?",
+    "As-tu déjà inventé une règle qui n'existait pas pour gagner ?",
+    "Quelle est la chose qui te déconcentre le plus quand tu es dans l'effort ?",
+    "As-tu déjà eu une tenue de sport qui a craqué au mauvais moment ?",
+    "Quelle est la fois où tu as eu l'impression d'être un super-héros pendant 10 secondes ?",
+    "Quel secret sportif n'as-tu jamais osé avouer à tes parents ou amis ?"
+];
+
+const actions = [
+    // --- PHYSIQUES & ENTRAÎNEMENT ---
+    "Fais 20 squats en expliquant ta stratégie pour gagner une compétition imaginaire.",
+    "Fais 10 pompes en racontant ta plus grande victoire (réelle ou inventée).",
+    "Fais 30 secondes de gainage (planche) en citant tous les sports que tu connais.",
+    "Fais 15 jumping jacks en chantant l'hymne national (ou une chanson de stade).",
+    "Tiens-toi en équilibre sur une jambe comme un skieur de slalom pendant 1 minute.",
+    "Fais 10 fentes avant en criant 'Allez !' à chaque répétition comme un coach survitaminé.",
+    "Cours sur place le plus vite possible pendant 20 secondes en levant les genoux.",
+    "Fais 5 burpees le plus proprement possible, puis fais une pose de bodybuilder.",
+    "Simule une montée d'escalier géante en levant les pieds très haut pendant 30 secondes.",
+    "Fais une série de 10 pompes sur les genoux en imitant le bruit d'un moteur de F1.",
+
+    // --- MIMES ET IMITATIONS ---
+    "Mime un nageur de papillon qui a oublié ses lunettes et qui cherche son chemin.",
+    "Imite un commentateur sportif qui s'emballe pour une course d'escargots imaginaire.",
+    "Mime une chute spectaculaire au ralenti, digne d'un film de cascadeurs.",
+    "Imite un joueur de tennis qui vient de rater une balle facile et qui s'énerve contre sa raquette.",
+    "Mime un gardien de but qui arrête un ballon avec le ventre, puis célèbre ça.",
+    "Imite un coach très calme qui essaie de ne pas exploser de colère devant son équipe nulle.",
+    "Mime un haltérophile qui essaie de soulever une plume de 500 kg.",
+    "Imite une danse de victoire de football complètement ridicule et trop longue.",
+    "Mime un boxeur qui se bat contre son propre reflet dans un miroir.",
+    "Imite un arbitre de basket qui siffle une faute inexistante avec beaucoup d'autorité.",
+
+    // --- DÉFIS RIDICULES & JEU DE RÔLE ---
+    "Fais une interview de toi-même après avoir gagné la 'Médaille d'Or de la Sieste'.",
+    "Fais semblant d'être un skieur qui descend une piste noire en restant dans ton canapé (ou sur une chaise).",
+    "Marche à cloche-pied dans toute la pièce en criant 'Je suis un kangourou olympique !'.",
+    "Fais une démonstration d'escrime avec une épée invisible contre un adversaire imaginaire.",
+    "Agis comme si tu étais un présentateur météo annonçant une tempête de ballons de foot.",
+    "Fais une séance de yoga mais remplace tous les noms de positions par des noms de fast-food.",
+    "Mime quelqu'un qui essaie de mettre des rollers pour la première fois sur de la glace.",
+    "Fais semblant de ramer dans un kayak sur un lac déchaîné pendant 30 secondes.",
+    "Réalise une célébration de but en glissant sur les genoux (attention au tapis !).",
+    "Fais une démonstration de karaté très sérieuse mais avec des bruits de canard.",
+
+    // --- ET 70 AUTRES ACTIONS VARIÉES ---
+    "Fais semblant de grimper à une corde invisible jusqu'au plafond.",
+    "Mime un surfeur qui essaie de garder l'équilibre sur une vague géante.",
+    "Imite un archer qui essaie de viser alors qu'il a une mouche sur le nez.",
+    "Fais une marche rapide de 20 mètres (ou deux tours de pièce) sans plier les genoux.",
+    "Mime un joueur de ping-pong qui joue à une vitesse supersonique.",
+    "Fais semblant de lancer un poids et suis sa trajectoire des yeux avec émotion.",
+    "Imite le saut en hauteur d'un athlète qui se rate complètement.",
+    "Fais 5 sauts de grenouille en criant le nom d'un pays à chaque fois.",
+    "Mime une séance de curling très intense en frottant le sol avec tes mains.",
+    "Fais semblant d'être un gymnaste qui attend sa note avec un stress immense.",
+    "Fais une série d'étirements en parlant comme un robot en manque d'huile.",
+    "Mime un sumotori qui se prépare pour un combat (rituel inclus).",
+    "Fais semblant de dribbler entre des obstacles invisibles dans la pièce.",
+    "Imite un cycliste en pleine montée de col de montagne qui n'en peut plus.",
+    "Mime un lanceur de disque qui tourne sur lui-même et finit par avoir le tournis.",
+    "Fais une danse de pom-pom girl (ou boy) pour encourager le joueur à ta droite.",
+    "Mime quelqu'un qui essaie de faire du hula-hoop avec un pneu de camion.",
+    "Fais semblant de faire de l'équitation sur une chaise.",
+    "Imite la marche d'un pingouin qui participe à un marathon.",
+    "Fais une pose de victoire 'éclair' comme Usain Bolt pendant 20 secondes.",
+    "Mime un joueur de rugby qui fait une passe désespérée en étant plaqué.",
+    "Fais semblant d'être un plongeur qui vérifie la température de l'eau avec son orteil.",
+    "Mime un basketteur qui rate 10 lancers francs d'affilée et qui désespère.",
+    "Fais une routine d'échauffement ridicule en utilisant uniquement tes doigts.",
+    "Mime un parachutiste qui a le vertige au moment de sauter.",
+    "Fais 10 secondes de sprint avec les bras mais sans bouger les jambes.",
+    "Imite un juge de patinage artistique très sévère qui donne un 0/10.",
+    "Fais semblant de boxer un sac de frappe qui finit par te rendre les coups.",
+    "Mime un golfeur qui cherche sa balle dans un buisson épineux.",
+    "Fais une révérence de champion devant chaque personne présente.",
+    "Fais semblant de porter une flamme olympique très lourde à travers la pièce.",
+    "Mime un marathonien qui franchit la ligne d'arrivée en rampant.",
+    "Imite le cri d'un supporter qui a perdu sa voix après un match.",
+    "Fais semblant d'ajuster des skis imaginaire avant de sauter d'un tremplin.",
+    "Mime un joueur de baseball qui attend la balle et qui se fait piquer par une guêpe.",
+    "Fais 5 pompes 'diamant' (mains serrées) en faisant une grimace de détermination.",
+    "Mime un danseur étoile qui tente de faire du catch.",
+    "Fais semblant d'être un coach qui donne des instructions tactiques avec des fruits.",
+    "Mime une partie de billard où tu rates toutes les boules.",
+    "Fais une séance d'abdominaux (5 répétitions) en criant 'Je suis invincible !'.",
+    "Imite un cavalier dont le cheval refuse d'avancer.",
+    "Mime un skateur qui tente un trick et finit par s'asseoir par terre.",
+    "Fais semblant de gonfler un ballon de foot à la bouche.",
+    "Mime une course de haies où tu tombes à chaque haie.",
+    "Fais une pose de yoga 'le guerrier' en fixant quelqu'un dans les yeux.",
+    "Imite un rugbyman qui essaie de faire de la danse classique.",
+    "Mime un pilote de rallye dans une voiture qui tremble énormément.",
+    "Fais semblant d'être une statue de sportif célèbre pendant 30 secondes.",
+    "Mime un jet de javelot mais garde le javelot dans la main par erreur.",
+    "Fais une marche athlétique très exagérée autour de la table.",
+    "Mime quelqu'un qui essaie de faire du saut à la perche avec un spaghetti.",
+    "Imite un supporter qui essaie de faire la 'Ola' tout seul.",
+    "Fais semblant de nettoyer ta médaille d'or imaginaire avec beaucoup de soin.",
+    "Mime un combat d'escrime mais avec des baguettes de pain (imaginaires).",
+    "Fais 30 secondes de boxe d'ombre contre un ennemi invisible.",
+    "Imite un athlète qui a oublié ses chaussures de sport juste avant le départ.",
+    "Mime un gardien de hockey qui repousse des palets dans tous les sens.",
+    "Fais semblant de faire de la plongée sous-marine dans ton verre (ne bois pas !).",
+    "Mime une montée en escalade très difficile sur un mur imaginaire.",
+    "Fais une célébration de victoire comme si tu venais de gagner un tournoi de billes.",
+    "Imite un sportif qui essaie de lire son discours de victoire mais qui pleure trop.",
+    "Mime un lancer de poids qui retombe sur ton propre pied.",
+    "Fais semblant de régler un vélo de course avec des outils minuscules.",
+    "Mime un basketteur qui fait un dunk et reste accroché au panier.",
+    "Fais une démonstration de 'Air-Badminton' très intense.",
+    "Imite un coach qui essaie d'expliquer une règle avec des gestes de la main uniquement.",
+    "Mime un coureur de 100m qui s'arrête net car il a oublié d'éteindre le four.",
+    "Fais une pose de fin de chorégraphie de gymnastique au sol.",
+    "Mime un arbitre de foot qui donne un carton rouge à un meuble de la pièce.",
+    "Fais ton plus beau sprint final (sur place) pendant les 10 dernières secondes."
+];
+function newAction(){
+    const randomIndex = Math.floor(Math.random() * actions.length);
+    document.getElementById("challenge").innerText =
+        "🔥 ACTION : " + actions[randomIndex];
+}
+
+function newVerite(){
+    const randomIndex = Math.floor(Math.random() * verites.length);
+    document.getElementById("challenge").innerText =
+        "💬 VÉRITÉ : " + verites[randomIndex];
+}
+</script>
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>

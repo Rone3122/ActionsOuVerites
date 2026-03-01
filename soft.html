@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Soft - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie Soft 🙂</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Clique pour commencer 🎲</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+const verites = [
+    // --- SECRETS ET CRUSH ---
+    "Avoue qui est ton plus gros crush actuel sans citer de nom (donne 3 indices).",
+    "Qui dans cette pièce te plaît le plus physiquement ?",
+    "Si tu devais sortir avec une personne ici présente, qui choisirais-tu ?",
+    "Quelle est la personne la plus attirante que tu aies croisée cette semaine ?",
+    "As-tu déjà eu un crush secret pour le petit-ami ou la petite-amie d'un(e) ami(e) ?",
+    "Quel est ton plus grand 'red flag' (signal d'alarme) chez quelqu'un ?",
+    "Quelle est la première chose que tu regardes chez quelqu'un qui te plaît ?",
+    "As-tu déjà menti sur tes sentiments pour ne pas blesser quelqu'un ?",
+    "Quel est ton plus gros 'turn off' (ce qui te dégoûte immédiatement) ?",
+    "As-tu déjà fait semblant d'avoir des points communs avec quelqu'un juste pour lui plaire ?",
+
+    // --- PASSE ET REGRETS ---
+    "Quel est ton plus grand regret concernant une ancienne relation ?",
+    "As-tu déjà ghosté quelqu'un sans donner d'explications ? Pourquoi ?",
+    "Quelle est ta plus grosse honte amoureuse (un moment de solitude totale) ?",
+    "As-tu déjà regretté amèrement un message envoyé tard le soir ?",
+    "As-tu déjà espionné le compte d'un(e) ex sur les réseaux sociaux pendant des heures ?",
+    "Quel est le pire rendez-vous (date) que tu aies jamais vécu ?",
+    "As-tu déjà menti sur ton âge ou ton passé pour paraître plus intéressant(e) ?",
+    "Quelle est la rupture qui t'a fait le plus de mal ?",
+    "As-tu déjà essayé de rendre quelqu'un jaloux volontairement ?",
+    "Quel est le plus long temps que tu as passé à stalker quelqu'un en ligne ?",
+
+    // --- AUDACE ET SOCIAL ---
+    "As-tu déjà fouillé dans le téléphone de quelqu'un d'autre par curiosité ?",
+    "Qui ici t'intimide le plus et pourquoi ?",
+    "As-tu déjà envoyé un message coquin à la mauvaise personne par erreur ?",
+    "Quel est ton crush de célébrité le plus bizarre (celui que tu n'avoues jamais) ?",
+    "As-tu déjà embrassé quelqu'un uniquement pour oublier une autre personne ?",
+    "Quelle est la chose la plus folle que tu aies faite par amour ou par attirance ?",
+    "As-tu déjà menti pour éviter un rendez-vous qui ne te tentait plus ?",
+    "Qui est la personne la moins attirante ici selon tes goûts personnels ?",
+    "As-tu déjà flirté avec quelqu'un juste pour obtenir une faveur ou un service ?",
+    "Quel est ton type de personne idéal en trois adjectifs précis ?",
+
+    // --- DÉTAILS ET ANECDOTES (31-100) ---
+    "As-tu déjà eu un crush pour un(e) professeur ou un(e) collègue ?",
+    "Quelle est la plus belle preuve d'amour qu'on t'ait jamais faite ?",
+    "As-tu déjà fait semblant d'être en couple pour qu'on te laisse tranquille ?",
+    "Quelle est la raison la plus stupide pour laquelle tu as rompu avec quelqu'un ?",
+    "As-tu déjà été attiré(e) par le/la meilleur(e) ami(e) de ton ex ?",
+    "Quel est ton fantasme le plus inavouable (restons correct) ?",
+    "As-tu déjà pleuré devant un film romantique en pensant à ta vie ?",
+    "Qui ici embrasse le mieux selon ton intuition (sans l'avoir fait) ?",
+    "As-tu déjà regretté d'avoir présenté quelqu'un à tes parents ?",
+    "Quelle est la phrase de drague la plus nulle que tu aies utilisée ou entendue ?",
+    "As-tu déjà été trahi(e) par quelqu'un en qui tu avais une confiance totale ?",
+    "Quel est le secret que tu n'as même pas dit à ton/ta meilleur(e) ami(e) ?",
+    "As-tu déjà fait une scène de jalousie sans aucune raison valable ?",
+    "Quelle est la personne ici avec qui tu as le moins d'atomes crochus ?",
+    "As-tu déjà menti sur ta situation amoureuse pour draguer ?",
+    "Quel est ton souvenir préféré d'un premier baiser ?",
+    "As-tu déjà eu un coup de foudre au premier regard ?",
+    "Quelle est la chose la plus embarrassante que tes parents sachent sur tes amours ?",
+    "As-tu déjà espionné les conversations de quelqu'un d'autre ?",
+    "Si tu pouvais effacer une rencontre de ta mémoire, laquelle serait-ce ?",
+    "As-tu déjà flirté avec deux personnes en même temps sans qu'elles le sachent ?",
+    "Quelle est la qualité qui te fait craquer à tous les coups ?",
+    "As-tu déjà douté de ton orientation sexuelle ?",
+    "Quelle est la personne ici qui te connaît le mieux au fond ?",
+    "As-tu déjà été la 'troisième roue' (le gêneur) pendant un date ?",
+    "Quel est le message le plus mignon que tu aies conservé dans ton téléphone ?",
+    "As-tu déjà embrassé quelqu'un que tu détestais ?",
+    "Quelle est la chose la plus romantique que tu sois capable de faire ?",
+    "As-tu déjà menti pour protéger le secret d'un(e) ami(e) ?",
+    "Quelle est ta vision d'un rendez-vous parfait ?",
+    "As-tu déjà eu honte de sortir avec quelqu'un ?",
+    "Quel est ton plus gros manque de confiance en toi en amour ?",
+    "As-tu déjà utilisé une application de rencontre juste par ennui ?",
+    "Qui ici a le plus de chances de se marier en premier ?",
+    "As-tu déjà été amoureux(se) de deux personnes à la fois ?",
+    "Quelle est la pire rumeur qui ait circulé sur toi ?",
+    "As-tu déjà fait semblant de dormir pour éviter une discussion sérieuse ?",
+    "Quelle est la chanson qui te fait immédiatement penser à ton crush ?",
+    "As-tu déjà pardonné une infidélité ?",
+    "Quelle est la chose la plus bizarre que tu trouves attirante ?",
+    "As-tu déjà été rejeté(e) de manière très violente ou publique ?",
+    "Qui ici te semble être la personne la plus mystérieuse ?",
+    "As-tu déjà regretté d'avoir rompu trop vite ?",
+    "Quelle est la plus grande différence d'âge que tu accepterais ?",
+    "As-tu déjà menti sur tes exploits passés pour impressionner ?",
+    "Qui ici a le plus beau sourire selon toi ?",
+    "As-tu déjà fait semblant de ne pas voir quelqu'un dans la rue ?",
+    "Quel est le surnom le plus ridicule qu'on t'ait donné ?",
+    "As-tu déjà eu un crush pour un personnage de dessin animé ?",
+    "Quelle est la chose la plus gentille que tu aies faite pour un inconnu ?",
+    "As-tu déjà été jaloux(se) d'un(e) ami(e) qui réussissait mieux que toi ?",
+    "Quel est l'endroit le plus insolite où tu as embrassé quelqu'un ?",
+    "As-tu déjà pleuré pour obtenir ce que tu voulais ?",
+    "Quelle est la personne ici qui serait ton témoin de mariage ?",
+    "As-tu déjà eu une relation purement platonique qui est devenue ambiguë ?",
+    "Quel est ton plus grand complexe en amour ?",
+    "As-tu déjà caché une relation à ton entourage ?",
+    "Quelle est la décision la plus difficile que tu aies prise cette année ?",
+    "Qui ici est le/la plus romantique d'après toi ?",
+    "As-tu déjà fait une promesse que tu savais ne pas pouvoir tenir ?",
+    "Quelle est la vérité que tu as le plus de mal à admettre à toi-même ?",
+    "As-tu déjà été attiré(e) par quelqu'un uniquement pour son intelligence ?",
+    "Quelle est la dernière personne à qui tu as dit 'je t'aime' ?",
+    "As-tu déjà regretté d'avoir partagé un secret trop lourd ?",
+    "Quelle est la chose que tu ne pardonnerais jamais, peu importe l'amour ?",
+    "Si tu pouvais passer 24h dans la peau de ton crush, que ferais-tu ?",
+    "As-tu déjà eu un coup de cœur pour quelqu'un juste en l'entendant parler ?",
+    "Quelle est la plus grande leçon que tes échecs amoureux t'ont apprise ?",
+    "As-tu déjà été la cause d'une rupture ?",
+    "Quelle est la question que tu espérais ne pas recevoir ce soir ?"
+];
+
+const actions = [
+    // --- GESTES ET CONTACT ---
+    "Tiens la main de la personne à ta gauche jusqu'à ton prochain tour.",
+    "Fais un câlin sincère de 10 secondes à la personne de ton choix.",
+    "Pose ta tête sur l'épaule de ton voisin de droite pendant 1 minute.",
+    "Fais un clin d'œil complice à chaque fois que quelqu'un rit pendant 5 minutes.",
+    "Chuchote un compliment très spécifique à l'oreille de la personne en face de toi.",
+    "Fais un regard intense et sérieux à quelqu'un sans cligner des yeux pendant 20 secondes.",
+    "Dessine un petit cœur sur la main de quelqu'un avec un stylo imaginaire.",
+    "Fais un 'check' complexe et inventé avec la personne que tu connais le moins ici.",
+    "Prends les mains de quelqu'un et dis-lui une qualité que tu admires chez lui.",
+    "Fais une révérence élégante devant la personne qui te semble la plus stylée ce soir.",
+
+    // --- JEU DE RÔLE ET MIME ---
+    "Imite une demande en mariage maladroite devant tout le monde.",
+    "Rejoue une scène de film romantique culte en utilisant un objet de la pièce.",
+    "Fais semblant d'être un serveur dans un restaurant de luxe et propose un menu romantique.",
+    "Imite quelqu'un qui essaie de draguer dans une boîte de nuit trop bruyante.",
+    "Fais une déclaration d'amour passionnée à un objet inanimé (une chaise, un verre).",
+    "Mime un premier rendez-vous où les deux personnes sont extrêmement timides.",
+    "Fais une sérénade imaginaire (air guitar et chant) à la personne de ton choix.",
+    "Imite un mannequin qui défile pour impressionner son crush.",
+    "Fais semblant de rougir et d'être intimidé(e) face à ton voisin de gauche.",
+    "Raconte une histoire romantique inventée qui commence par 'Il était une fois dans un ascenseur'.",
+
+    // --- DÉFIS SOCIAUX ET MESSAGES ---
+    "Envoie un message 'Tu me manques' à la 4ème personne de ton historique de chat (sans expliquer).",
+    "Montre à tout le monde la dernière photo de ta galerie (sans tricher).",
+    "Donne ton téléphone à ton voisin de droite pour qu'il envoie un emoji mystérieux à qui il veut.",
+    "Change ta photo de profil ou ta bio sur un réseau social pour quelque chose de drôle pendant 1h.",
+    "Appelle quelqu'un et chante-lui les 3 premières lignes d'une chanson d'amour avant de raccrocher.",
+    "Fais un compliment sur le physique de trois personnes différentes ici.",
+    "Décris ton rendez-vous idéal en utilisant uniquement des mimes.",
+    "Donne un surnom affectueux (et un peu ridicule) à chaque joueur pour le reste de la partie.",
+    "Fais une déclaration d'amitié poétique à ton/ta meilleur(e) ami(e) présent(e).",
+    "Récite un poème improvisé sur les yeux de la personne en face de toi.",
+
+    // --- AUTRES DÉFIS VARIÉS (31-100) ---
+    "Fais un sourire charmeur à l'appareil photo d'un ami pour une story.",
+    "Mime une rupture dramatique sous la pluie.",
+    "Touche le nez de la personne de ton choix avec le tien (esquimau).",
+    "Dis à chaque personne ici ce que tu as pensé d'elle la toute première fois que tu l'as vue.",
+    "Fais une danse lente (slow) tout(e) seul(e) avec un partenaire imaginaire pendant 30 secondes.",
+    "Échange un vêtement ou un accessoire avec la personne à ta droite.",
+    "Regarde quelqu'un et décris sa personnalité en n'utilisant que des noms de fleurs.",
+    "Fais semblant d'inviter quelqu'un à un bal de promo de manière très formelle.",
+    "Laisse quelqu'un te recoiffer comme il le souhaite.",
+    "Dis 'Je t'aime' avec 5 émotions différentes (colère, joie, peur, tristesse, robot).",
+    "Fais une pose de photo de couple 'cliché' avec ton voisin de gauche.",
+    "Écris un message romantique sur un bout de papier et cache-le dans la poche de quelqu'un.",
+    "Mime quelqu'un qui se prépare pour un date important devant son miroir.",
+    "Donne ton avis honnête sur le style vestimentaire de la personne à ta droite (sois gentil).",
+    "Fais un compliment sur la voix de quelqu'un.",
+    "Imite un poète maudit qui parle de ses peines de cœur.",
+    "Fais une promesse drôle à la personne de ton choix pour l'année prochaine.",
+    "Mime un baiser de cinéma exagéré avec tes propres mains.",
+    "Tiens-toi bien droit et fais le salut le plus galant possible.",
+    "Chuchote un secret inoffensif à trois personnes différentes.",
+    "Fais semblant d'être une statue grecque de l'amour pendant 30 secondes.",
+    "Décris le partenaire idéal de la personne à ta gauche.",
+    "Fais un high-five à tout le monde mais en mode 'très timide'.",
+    "Propose un toast à l'amour et à l'amitié avec ton verre.",
+    "Mime quelqu'un qui reçoit un cadeau magnifique de son crush.",
+    "Fais une bataille de pouces avec la personne de ton choix.",
+    "Chante le refrain d'une chanson qui te rend joyeux.",
+    "Fais une grimace mignonne pour que quelqu'un te prenne en photo.",
+    "Dis une phrase romantique dans une langue étrangère (ou invente-la).",
+    "Fais semblant de lire l'avenir dans la main de quelqu'un.",
+    "Mime un chat qui cherche des caresses.",
+    "Fais un compliment sur l'intelligence ou l'humour de quelqu'un.",
+    "Marche comme si tu étais sur un tapis rouge pour rejoindre ton crush.",
+    "Fais une imitation d'un baiser bruyant.",
+    "Demande pardon à quelqu'un pour une petite chose (même imaginaire).",
+    "Fais un clin d'œil à chaque fois que tu prends la parole jusqu'au prochain tour.",
+    "Mime quelqu'un qui essaie de rester discret en voyant son ex au loin.",
+    "Donne un conseil amoureux à la personne de ton choix.",
+    "Fais une pose de super-héros protecteur.",
+    "Dis à voix haute la qualité la plus rare que possède la personne à ta droite.",
+    "Mime l'émotion de quelqu'un qui gagne le gros lot mais qui doit rester calme.",
+    "Fais une dédicace spéciale à quelqu'un dans cette pièce.",
+    "Mime un cœur qui bat très vite.",
+    "Donne un compliment sur la coiffure de quelqu'un.",
+    "Fais semblant de demander l'heure pour engager la conversation avec ton voisin.",
+    "Mime quelqu'un qui écrit une lettre d'amour à la plume.",
+    "Fais un geste de 'chevalier' (un genou à terre) devant quelqu'un.",
+    "Décris un paysage romantique sans utiliser les mots 'mer', 'soleil' ou 'fleurs'.",
+    "Fais une grimace de jalousie comique.",
+    "Dis une phrase qui commence par 'Si j'étais un poème...'.",
+    "Mime un baiser de conte de fée qui réveille quelqu'un.",
+    "Fais un compliment sur les chaussures de quelqu'un.",
+    "Imite une personne qui bafouille car elle est trop intimidée.",
+    "Fais un geste de protection envers ton téléphone quand quelqu'un s'approche.",
+    "Mime quelqu'un qui envoie des bisous volants à une foule.",
+    "Fais un compliment sur la patience de quelqu'un.",
+    "Fais semblant de cacher un sourire derrière ta main.",
+    "Mime une personne qui attend un appel important qui ne vient pas.",
+    "Dis à quelqu'un ce qui le rend unique dans ce groupe.",
+    "Fais la pose finale la plus romantique possible pour clore ton tour."
+];
+function newAction(){
+    const randomIndex = Math.floor(Math.random() * actions.length);
+    document.getElementById("challenge").innerText =
+        "🔥 ACTION : " + actions[randomIndex];
+}
+
+function newVerite(){
+    const randomIndex = Math.floor(Math.random() * verites.length);
+    document.getElementById("challenge").innerText =
+        "💬 VÉRITÉ : " + verites[randomIndex];
+}
+</script>
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>

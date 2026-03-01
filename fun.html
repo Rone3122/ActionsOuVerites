@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Fun - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie Fun 😄</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Clique sur le bouton 🎲</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+    // Tes listes de données
+    const actions = [
+        "Fais un compliment ridicule à la personne à ta gauche.",
+        "Imite le cri d’un animal pendant 30 secondes.",
+        "Chante l’hymne national avec une voix dramatique.",
+        "Danse sans musique pendant une minute.",
+        "Raconte une blague nulle en faisant une grimace.",
+        "Fais le moonwalk dans la pièce.",
+        "Écris ton nom avec ton nez sur une feuille.",
+        "Fais semblant de dormir pendant 20 secondes.",
+        "Parle avec un accent bizarre jusqu’au prochain tour.",
+        "Imite ton personnage de dessin animé préféré.",
+        "Fais 10 squats en criant ton film préféré à chaque fois.",
+        "Fais un selfie ridicule et montre-le à tout le monde.",
+        "Mime une scène de film célèbre.",
+        "Raconte une histoire d’horreur en chuchotant.",
+        "Fais semblant de tomber et dramatise-le.",
+        "Chante une chanson connue mais change toutes les paroles.",
+        "Fais le robot pendant 30 secondes.",
+        "Imite une célébrité et fais deviner qui c’est.",
+        "Fais 20 jumping jacks en criant ton nom à chaque saut.",
+        "Parle avec la bouche pleine d’eau (et recrache après).",
+        "Dessine un portrait de quelqu’un avec les yeux fermés.",
+        "Fais un câlin collectif à tout le monde.",
+        "Fais semblant de marcher sur un fil imaginaire.",
+        "Mime une situation embarrassante.",
+        "Fais un bruit d’animal chaque fois que tu parles pendant 1 minute.",
+        "Fais une danse de la victoire ridicule.",
+        "Chante l’alphabet à l’envers.",
+        "Fais une pyramide humaine avec les mains sur les épaules.",
+        "Mime que tu conduis un véhicule invisible.",
+        "Parle comme un robot pour ton prochain tour.",
+        "Fais 5 pompes et crie ton film préféré à chaque fois.",
+        "Fais semblant d’être un serveur et prends une commande imaginaire.",
+        "Fais un tour sur toi-même 10 fois et essaie de marcher droit.",
+        "Fais une chanson improvisée sur la dernière personne qui a parlé.",
+        "Mime un sport que tu n’as jamais pratiqué.",
+        "Fais semblant de pêcher dans la pièce.",
+        "Fais un poème ridicule sur quelqu’un présent.",
+        "Chante une chanson triste avec une voix comique.",
+        "Fais 15 sauts sur place en criant un mot au hasard.",
+        "Imite quelqu’un dans la pièce jusqu’à ce qu’il devine.",
+        "Fais semblant de te transformer en super-héros.",
+        "Mime une scène d’un jeu vidéo populaire.",
+        "Fais une danse de la pluie même sans pluie.",
+        "Parle comme si tu avais un micro invisible.",
+        "Fais une déclaration d’amour absurde à un objet.",
+        "Mime un animal et fais deviner aux autres.",
+        "Fais 10 grimaces consécutives.",
+        "Raconte une blague avec des mots inventés.",
+        "Fais une courte chorégraphie avec tes mains.",
+        "Fais semblant de jongler avec des objets invisibles.",
+        "Fais un cri dramatique comme dans un film d’action.",
+        "Fais semblant de tomber amoureux de quelqu’un dans la pièce.",
+        "Chante en remplaçant chaque mot par “bla”.",
+        "Fais un selfie en faisant la pire tête possible.",
+        "Mime que tu es sur un trampoline.",
+        "Fais une danse de la victoire ridicule après chaque action.",
+        "Fais un bruit de moteur en courant autour de la pièce.",
+        "Parle comme un pirate pour ton prochain tour.",
+        "Mime que tu lis un livre invisible.",
+        "Fais semblant de te battre avec un enemy imaginaire.",
+        "Fais un compliment exagéré à chaque personne présente.",
+        "Fais une grimace et reste immobile pendant 10 secondes.",   
+        "Imite un instrument de musique avec ta voix.",
+        "Fais un discours comme si tu étais président.",
+        "Mime un personnage historique célèbre.",
+        "Fais un tour sur toi-même et saute en l’air.",
+        "Chante une chanson avec une voix robotique.",
+        "Mime que tu es un chef cuisinier et prépare un plat imaginaire.",
+        "Fais une danse ridicule sur une chanson inventée.",
+        "Fais semblant d’écrire une lettre dramatique.",
+        "Fais un bruit de fusée et cours autour de la pièce.",
+        "Fais une démonstration de sport ridicule.",
+        "Mime une scène de film d’horreur en exagérant.",
+        "Fais semblant de parler à ton animal imaginaire.",
+        "Fais une danse où tu ne peux bouger que les bras.",
+        "Fais 5 tours sur toi-même et crie ton nom.",
+        "Mime un super-vilain en train de conquérir le monde.",
+        "Fais semblant de marcher sur la lune.",
+        "Fais un discours comique sur une situation banale.",
+        "Mime que tu es invisible et fais peur aux autres.",
+        "Fais semblant de te battre avec ton ombre.",
+        "Fais 10 pas de danse aléatoires et ridicules.",
+        "Mime que tu es un roi ou une reine et salue la pièce.",
+        "Fais un cri de guerrier avant de t’asseoir.",
+        "Mime un animal en train de chanter.",
+        "Fais une danse où tu dois toucher le sol et le plafond en même temps.",
+        "Fais un bruit de sirène et cours autour de la pièce.",
+        "Fais semblant de prendre des photos avec un appareil invisible.",
+        "Mime que tu as une explosion derrière toi et réagis.",
+        "Fais semblant de tomber dans un trou invisible.",
+        "Fais une pose de yoga ridicule.",
+        "Fais semblant d’être sur un tapis roulant invisible.",
+        "Mime que tu lances un sort magique.",
+        "Fais semblant de jouer dans un film dramatique.",
+        "Fais une danse ridicule en sautant sur place.",
+        "Fais semblant de te transformer en animal.",
+        "Fais une déclaration d’amitié comique à quelqu’un.",
+        "Mime une situation embarrassante inventée.",
+        "Fais une danse où tu dois toucher tes pieds et ta tête en même temps.",
+        "Fais semblant de te battre avec un robot invisible."
+    ];
+
+    const verites = [
+        "As-tu déjà chanté sous la douche en public ?",
+        "Quel est le pire mensonge que tu aies dit à tes parents ?",
+        "As-tu déjà volé quelque chose, même petit ?",
+        "Quelle est ta plus grosse honte d’enfance ?",
+        "As-tu déjà fantasmé sur un personnage de dessin animé ?",
+        "Quelle est la chose la plus stupide que tu aies faite par amour ?",
+        "As-tu déjà pleuré devant un film pour enfants ?",
+        "Quelle est ta pire peur ridicule ?",
+        "As-tu déjà copié sur quelqu’un à l’école ?",
+        "Quel est le secret le plus embarrassant que tu caches ?",
+        "As-tu déjà parlé à ton animal comme à un humain ?",
+        "As-tu déjà envoyé un message à la mauvaise personne ?",
+        "Quelle est la chose la plus folle que tu aies faite en soirée ?",
+        "As-tu déjà été accro à une série ou un jeu vidéo honteux ?",
+        "As-tu déjà menti pour éviter un rendez-vous ?",
+        "Quelle est ta plus grande manie bizarre ?",
+        "As-tu déjà fait semblant d’aimer un cadeau que tu détestais ?",
+        "As-tu déjà eu un crush sur le/la meilleur(e) ami(e) de quelqu’un ?",       
+        "As-tu déjà ri dans un moment sérieux où il ne fallait pas ?",
+        "As-tu déjà mangé quelque chose de périmé juste pour tester ?",
+        "Quelle est la chose la plus étrange que tu collectionnes ?",
+        "As-tu déjà essayé de deviner les mots de quelqu’un en lisant sur ses lèvres ?",
+        "As-tu déjà fait semblant de ne pas voir quelqu’un ?",
+        "As-tu déjà googlé ton propre nom ?",
+        "As-tu déjà chanté ou dansé en public sans raison ?",
+        "Quelle est la pire excuse que tu aies donnée pour sécher ?",
+        "As-tu déjà eu peur de ton propre reflet ?",
+        "Quelle est la chose la plus embarrassante faite en classe ?",
+        "As-tu déjà fait semblant de savoir quelque chose ?",
+        "As-tu déjà pris un objet sans demander ?",
+        "As-tu déjà ri si fort que tu as pleuré ?",
+        "Quelle est la chose la plus immature que tu fasses encore ?",
+        "As-tu déjà parlé à un inconnu comme à un ami ?",
+        "As-tu déjà menti sur ton âge ?",
+        "As-tu déjà mangé un dessert avant le repas ?",
+        "As-tu déjà fait semblant de comprendre une blague ?",
+        "As-tu déjà pris un selfie dans un moment sérieux ?",
+        "As-tu déjà gardé un secret que tu voulais révéler ?",
+        "As-tu déjà eu peur d’un objet inanimé ?",
+        "Quelle est la chose la plus ridicule qui t’a énervé ?",
+        "As-tu déjà essayé de cacher une tâche ?",
+        "As-tu déjà rêvé que tu étais une célébrité ?",
+        "As-tu déjà fait semblant de dormir ?",
+        "As-tu déjà parlé à un animal en croyant qu'il répondait ?",
+        "Quelle est la pire habitude que tu refuses de changer ?",
+        "As-tu déjà chanté dans un karaoké ?",
+        "As-tu déjà menti pour éviter de rendre quelque chose ?",
+        "As-tu déjà pleuré pour un rien devant quelqu’un ?",
+        "Quelle est la chose la plus stupide faite par ennui ?",
+        "As-tu déjà oublié le nom de quelqu’un de proche ?",
+        "As-tu déjà donné un surnom ridicule ?",
+        "As-tu déjà eu un crush sur un personnage fictif ?",
+        "As-tu déjà inventé une histoire pour impressionner ?",
+        "As-tu déjà été pris en flagrant délit ?",
+        "As-tu déjà eu peur de te faire gronder pour rien ?",
+        "Quelle est la chose la plus étrange que tu fais seul ?",
+        "As-tu déjà fait un prank qui a mal tourné ?",
+        "As-tu déjà été jaloux d'un objet ?",
+        "As-tu déjà chanté sous la pluie ?",
+        "Quelle est la chose la plus bizarre mangée ?",     
+        "As-tu déjà oublié un anniversaire important ?",
+        "As-tu déjà imité la voix de quelqu’un ?",
+        "As-tu déjà eu peur d’une ombre ?",
+        "As-tu déjà ri à une blague non comprise ?",
+        "As-tu déjà fait semblant d’aimer quelque chose ?",
+        "As-tu déjà fait quelque chose de ridicule pour attirer l'attention ?",
+        "As-tu déjà confondu le prénom de quelqu’un ?",
+        "As-tu déjà chanté en voiture vitres baissées ?",
+        "As-tu déjà été accro à un filtre ?",
+        "As-tu déjà inventé une excuse ridicule ?",
+        "As-tu déjà été surpris par ton propre reflet ?",
+        "Quelle est la chose la plus embarrassante dite par erreur ?", 
+        "As-tu déjà fait semblant d’être malade ?",
+        "As-tu déjà perdu un objet important sans le dire ?",
+        "As-tu déjà dansé tout seul dans ta chambre ?",
+        "As-tu déjà mangé sans savoir ce que c’était ?",
+        "As-tu déjà fait semblant d’aimer un film ?",
+        "As-tu déjà ri dans un moment inapproprié ?",
+        "As-tu déjà essayé de parler une langue inconnue ?",
+        "Quelle est la chose la plus ridicule faite en vacances ?",         
+        "As-tu déjà eu peur de ton téléphone ?",
+        "As-tu déjà chanté dans un ascenseur ?",
+        "As-tu déjà raconté un secret interdit ?",
+        "As-tu déjà eu un crush sur un prof ?",
+        "As-tu déjà pris une photo embarrassante de toi ?",
+        "As-tu déjà ri si fort que tu as fait tomber un objet ?",
+        "As-tu déjà mangé un truc que tu détestais par politesse ?",
+        "Quelle est la chose la plus étrange faite en public ?",
+        "As-tu déjà été surpris en train de te parler seul ?"
+    ];
+
+    // Les fonctions définies globalement pour être accessibles par onclick
+    function newAction(){
+        const randomIndex = Math.floor(Math.random() * actions.length);
+        document.getElementById("challenge").innerText = "🔥 ACTION : " + actions[randomIndex];
+    }
+
+    function newVerite(){
+        const randomIndex = Math.floor(Math.random() * verites.length);
+        document.getElementById("challenge").innerText = "💬 VÉRITÉ : " + verites[randomIndex];
+    }
+</script>
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>

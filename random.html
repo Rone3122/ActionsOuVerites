@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Aléatoire - Action ou Vérité</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="../static/logo.png" alt="Logo" class="logo">
+        <h1>Catégorie Aléatoire 🎲</h1>
+    </div>
+    <nav>
+        <a href="content.html" class="btn-primary">Retour</a>
+    </nav>
+</header>
+
+<section class="game-section">
+    <div class="card game-card">
+        <h2 id="challenge">Clique pour commencer 🎲</h2>
+        <button onclick="newAction()">Action 🔥</button>
+        <button onclick="newVerite()">Vérité 💬</button>
+    </div>
+</section>
+
+<script>
+const verites = [
+    // --- SÉLECTION FUN & SOFT ---
+    "Quelle est l'habitude la plus bizarre que tu as quand tu es seul chez toi ?",
+    "Si tu pouvais échanger ta vie avec un personnage de fiction pour une journée, qui serait-ce ?",
+    "Quel est l'objet le plus inutile mais sentimental que tu gardes précieusement ?",
+    "Raconte ton plus grand 'moment de solitude' en public.",
+    "Si tu gagnais à la loterie demain, quelle est la première chose ridicule que tu achèterais ?",
+    "Quel est le rêve le plus étrange dont tu te souviennes encore ?",
+    "As-tu déjà fait semblant de rire à une blague que tu n'avais pas comprise ?",
+    "Quelle est ta plus grande peur totalement irrationnelle (ex: les boutons, les clowns) ?",
+    "Si tu devais manger un seul plat pour le reste de ta vie, ce serait quoi ?",
+    "Quel est le mensonge le plus absurde que tu as raconté pour te sortir d'une situation ?",
+
+    // --- SÉLECTION VOYAGE & BUS ---
+    "Raconte la fois où tu t’es retrouvé dans le mauvais bus et que tu as eu trop honte pour descendre.",
+    "As-tu déjà dormi si profondément que tu t'es réveillé au terminus d'un train ou bus ?",
+    "Quelle est la pire odeur que tu aies dû supporter pendant un long trajet ?",
+    "As-tu déjà pris le bagage de quelqu’un d’autre par erreur à l'aéroport ?",
+    "Raconte un moment de panique totale où tu t’es perdu dans une ville étrangère.",
+    "Quelle est la situation la plus embarrassante vécue avec un chauffeur de taxi ?",
+    "As-tu déjà raté un vol ou un train à cause d'une distraction stupide ?",
+
+    // --- SÉLECTION MUSIQUE & ART ---
+    "Raconte la fois où tu as essayé de jouer d'un instrument et que le son était atroce.",
+    "Quelle est la pire critique que tu aies reçue sur un dessin ou une création personnelle ?",
+    "As-tu déjà chanté à tue-tête en pensant être seul, alors que quelqu'un t'écoutait ?",
+    "Quelle est la chanson 'honteuse' que tu adores écouter en secret ?",
+    "Raconte la fois où tu as voulu impressionner quelqu'un avec tes talents artistiques et que ça a échoué.",
+    "As-tu déjà fait semblant de comprendre l'art abstrait dans un musée pour avoir l'air intelligent ?",
+
+    // --- SÉLECTION GEEK & INFORMATIQUE ---
+    "Raconte la fois où tu as passé toute la nuit à chercher un bug qui était juste une faute de frappe.",
+    "As-tu déjà envoyé un message compromettant à la mauvaise personne sur Discord ou WhatsApp ?",
+    "Quelle est la chose la plus 'geek' que tu aies faite par pure passion ?",
+    "As-tu déjà accidentellement supprimé un fichier ultra important sans aucune sauvegarde ?",
+    "Quel est le pseudo le plus ridicule que tu aies utilisé sur Internet quand tu étais plus jeune ?",
+    "Raconte la fois où tu as cru avoir hacké la matrice en changeant le code source d'une page (Inspecter).",
+
+    // --- MÉLANGE ALÉATOIRE (31-100) ---
+    "Si tu étais un super-héros, quel serait ton pouvoir le plus inutile ?",
+    "Raconte une fois où tu as confondu un inconnu avec un ami dans la rue.",
+    "As-tu déjà ri à un moment où il fallait absolument rester sérieux ?",
+    "Quelle est la chose la plus bizarre que tu aies mangée par simple curiosité ?",
+    "Si tu pouvais supprimer une application de la surface de la terre, laquelle choisirais-tu ?",
+    "Raconte la fois où tu as essayé de réparer un objet et que tu l'as encore plus cassé.",
+    "As-tu déjà eu le béguin pour un personnage de dessin animé ?",
+    "Quelle est la situation la plus absurde vécue lors d'une fête de famille ?",
+    "Si tu devais changer de prénom, lequel choisirais-tu ?",
+    "Raconte la fois où tu as eu peur d'un objet inanimé dans le noir.",
+    "As-tu déjà fait semblant d'être au téléphone pour éviter de parler à quelqu'un ?",
+    "Quelle est la règle la plus stupide que tu aies jamais dû suivre ?",
+    "Si tu pouvais parler à un animal, lequel choisirais-tu et que lui demanderais-tu ?",
+    "Raconte la fois où tu as été fier d'un projet que personne d'autre n'a compris.",
+    "As-tu déjà pleuré devant une publicité ou une vidéo idiote ?",
+    "Quelle est la chose la plus ridicule que tu aies achetée sur un coup de tête en ligne ?",
+    "Raconte une fois où tu as été pris en flagrant délit de parler tout seul.",
+    "As-tu déjà utilisé une excuse totalement bidon pour rater un cours ou un travail ?",
+    "Quel est le talent inutile que tu maîtrises à la perfection ?",
+    "Si tu pouvais voyager dans le temps, à quelle époque irais-tu et pourquoi ?",
+    "Raconte la fois où tu as cru voir un fantôme ou un truc paranormal.",
+    "As-tu déjà essayé de reproduire une cascade vue à la télé avec un résultat désastreux ?",
+    "Quelle est la pire coiffure que tu aies jamais eue dans ta vie ?",
+    "Si tu devais vivre dans un jeu vidéo, lequel choisirais-tu ?",
+    "Raconte la fois où tu as eu un fou rire incontrôlable au pire moment possible.",
+    "As-tu déjà menti sur tes goûts musicaux pour plaire à quelqu'un ?",
+    "Quelle est la chose la plus bizarre que tu aies trouvée au fond de ton sac ?",
+    "Raconte une fois où tu as été surpris par un talent caché que tu ne savais pas avoir.",
+    "As-tu déjà essayé de cuisiner un truc sophistiqué et fini par commander une pizza ?",
+    "Quelle est la situation la plus gênante vécue avec ton téléphone (sonnerie, notification...) ?",
+    "Si tu étais un animal, lequel représenterais-tu le mieux ton caractère ?",
+    "Raconte la fois où tu as perdu tes clés alors qu'elles étaient dans ta main.",
+    "As-tu déjà eu peur de ton propre reflet dans un miroir par surprise ?",
+    "Quelle est la chose la plus folle que tu ferais si tu étais invisible pendant une heure ?",
+    "Raconte la fois où tu as demandé ton chemin et que tu n'as rien compris aux explications.",
+    "As-tu déjà fait semblant d'aimer un cadeau horrible pour ne pas vexer quelqu'un ?",
+    "Quelle est la chanson que tu chantes toujours sous la douche avec passion ?",
+    "Raconte la fois où tu as trébuché devant ton 'crush' ou une personne importante.",
+    "As-tu déjà été banni d'un endroit (virtuel ou réel) ? Pourquoi ?",
+    "Quel est le fait divers le plus étrange que tu connaisses ?",
+    "Si tu pouvais poser une seule question à une IA du futur, ce serait quoi ?",
+    "Raconte la fois où tu as cru être observé alors que tu étais seul.",
+    "As-tu déjà eu une discussion imaginaire avec une célébrité ?",
+    "Quelle est la chose la plus ridicule que tu aies faite pour attirer l'attention ?",
+    "Raconte une fois où tu as été extrêmement fier d'une petite victoire personnelle.",
+    "As-tu déjà confondu deux personnes totalement différentes en public ?",
+    "Quelle est l'odeur qui te rappelle immédiatement ton enfance ?",
+    "Raconte la fois où tu as voulu faire une blague et qu'elle s'est retournée contre toi.",
+    "As-tu déjà eu une obsession pour un sujet totalement aléatoire pendant une semaine ?",
+    "Quelle est la chose la plus embarrassante que tes parents aient racontée sur toi ?",
+    "Raconte la fois où tu as essayé de parler une langue que tu ne maîtrisais pas du tout.",
+    "As-tu déjà regretté d'avoir coupé tes cheveux toi-même ?",
+    "Quelle est la pire punition que tu aies jamais reçue ?",
+    "Raconte une situation où tu as dû improviser totalement parce que tu avais oublié tes notes.",
+    "As-tu déjà été jaloux du talent ou de l'objet d'un total inconnu ?",
+    "Quelle est la chose la plus drôle qu'un enfant t'ait jamais dite ?",
+    "Raconte la fois où tu as eu une peur bleue à cause d'un insecte minuscule.",
+    "As-tu déjà fait semblant d'être malade pour rester jouer aux jeux vidéo ?",
+    "Quelle est la chose la plus absurde que tu ferais si tu étais président pour un jour ?",
+    "Raconte la fin de ton dernier voyage ou excursion qui s'est terminée bizarrement."
+];
+
+const actions = [
+    // --- MÉLANGE D'ACTIONS ICONIQUES ---
+    "Mime un explorateur qui découvre une nouvelle espèce d'insecte très collante.",
+    "Fais semblant d'être un serveur dans un restaurant chic mais tu es extrêmement maladroit.",
+    "Imite un personnage de jeu vidéo qui bugge contre un mur.",
+    "Mime quelqu'un qui essaie de manger une pizza brûlante sans utiliser ses mains.",
+    "Fais semblant de diriger un orchestre de bébés qui pleurent.",
+    "Imite un streamer qui fait une crise de nerfs après avoir perdu son équipement.",
+    "Mime un passager dans un bus bondé qui essaie de ne pas tomber sans toucher les barres.",
+    "Fais semblant de peindre un chef-d'œuvre invisible en utilisant tes pieds.",
+    "Imite un chat qui essaie d'attraper un pointeur laser imaginaire.",
+    "Mime un développeur qui trouve enfin l'erreur dans son code après 10 heures.",
+
+    // --- ACTIONS DÉCALÉES (11-100) ---
+    "Fais semblant de marcher sur la lune tout en essayant de boire un verre d'eau.",
+    "Mime quelqu'un qui se rend compte qu'il a mis ses chaussures à l'envers en plein rendez-vous.",
+    "Imite un chanteur d'opéra qui a oublié les paroles et improvise avec des noms de marques.",
+    "Fais semblant d'être une statue de musée qui essaie de se gratter discrètement.",
+    "Mime la réaction de quelqu'un qui goûte un citron ultra acide pour la première fois.",
+    "Fais semblant de brancher une prise USB dans le noir (échec garanti).",
+    "Imite un présentateur météo pendant une tornade géante.",
+    "Mime un guitariste de rock qui fait un solo épique avec un balai.",
+    "Fais semblant de sculpter une statue de glace qui fond beaucoup trop vite.",
+    "Imite un espion qui essaie de traverser une pièce remplie de lasers invisibles.",
+    "Mime quelqu'un qui essaie de mettre un fil dans le chas d'une aiguille en plein tremblement de terre.",
+    "Fais semblant d'être un robot qui essaie d'apprendre à danser la salsa.",
+    "Imite un prof de gym ultra motivé qui fait faire des exercices absurdes à la salle.",
+    "Mime quelqu'un qui a une chaussette trouée et qui essaie de le cacher à tout le monde.",
+    "Fais semblant de pêcher un poisson géant qui finit par t'emporter dans l'eau.",
+    "Imite un DJ de mariage qui essaie de mettre l'ambiance alors que personne ne danse.",
+    "Mime un chef cuisinier qui réalise que son plat est beaucoup trop épicé.",
+    "Fais semblant d'être une fenêtre Windows qui refuse de se fermer.",
+    "Imite la marche d'un pingouin sur une plaque de verglas.",
+    "Mime quelqu'un qui essaie de lire un journal sous un vent hyper violent.",
+    "Fais semblant de te battre contre une abeille invisible avec beaucoup de drama.",
+    "Imite un karatéka qui essaie de couper une brique de beurre gelée.",
+    "Mime un passager d'avion qui a très peur des turbulences.",
+    "Fais semblant d'être un photographe de mode pour des animaux domestiques.",
+    "Imite un zombie qui essaie de se souvenir où il a garé sa voiture.",
+    "Mime quelqu'un qui essaie de mettre un pull trop petit avec beaucoup d'efforts.",
+    "Fais semblant de jouer au tennis contre un adversaire invisible et super rapide.",
+    "Imite un détective qui trouve une preuve capitale : une miette de biscuit.",
+    "Mime quelqu'un qui essaie de ne pas rire pendant un enterrement imaginaire.",
+    "Fais semblant de faire un créneau avec un camion de 40 tonnes.",
+    "Imite un super-héros dont le pouvoir est de faire apparaître des toasts.",
+    "Mime quelqu'un qui marche sur du sable brûlant.",
+    "Fais semblant d'être un commentateur sportif pour une course d'escargots.",
+    "Imite un vampire qui a oublié sa crème solaire.",
+    "Mime la réaction de quelqu'un qui gagne 1 million d'euros mais doit rester discret.",
+    "Fais semblant d'être un coiffeur qui a fait une énorme gaffe sur son client.",
+    "Imite un dinosaure qui essaie de faire son lit avec ses petits bras.",
+    "Mime quelqu'un qui essaie de chuchoter mais qui finit par crier.",
+    "Fais semblant de ramer dans une barque qui coule doucement.",
+    "Imite un boxeur qui se bat contre son propre reflet.",
+    "Mime quelqu'un qui essaie de traverser une rivière de lave imaginaire.",
+    "Fais semblant de peindre une pièce mais tu es coincé dans un coin.",
+    "Imite un chef d'orchestre qui dirige des instruments qui font des bruits de ferme.",
+    "Mime quelqu'un qui essaie de suivre un tuto maquillage raté.",
+    "Fais semblant d'être un alien qui essaie de comprendre comment marche une fourchette.",
+    "Imite une personne qui a trop bu de café et qui essaie de rester calme.",
+    "Mime un plongeur qui rencontre une méduse pas très amicale.",
+    "Fais semblant d'être un cowboy qui a peur des chevaux.",
+    "Imite un mime qui est coincé dans une boîte... qui rétrécit.",
+    "Mime quelqu'un qui essaie d'ouvrir un pot de cornichons impossible.",
+    "Fais semblant de faire du saut à l'élastique mais tu hésites au dernier moment.",
+    "Imite un joueur de bowling qui fait un strike et en fait beaucoup trop.",
+    "Mime quelqu'un qui essaie de dormir avec un moustique dans la chambre.",
+    "Fais semblant d'être un présentateur de JT qui perd ses feuilles.",
+    "Imite un magicien dont le tour de cartes échoue lamentablement.",
+    "Mime quelqu'un qui essaie de faire du patin à glace pour la première fois.",
+    "Fais semblant de manger un piment extra fort sans montrer de douleur.",
+    "Imite un gardien de but qui arrête un ballon avec son ventre.",
+    "Mime un explorateur qui se prend dans une toile d'araignée géante.",
+    "Faias semblant d'être un enfant qui essaie de ne pas manger un cookie interdit.",
+    "Imite un rappeur qui n'arrive plus à s'arrêter de rimer.",
+    "Mime quelqu'un qui essaie de mettre des lentilles de contact.",
+    "Fais semblant d'être un chef de chantier qui donne des ordres contradictoires.",
+    "Imite un astronaute qui essaie de manger une soupe en apesanteur.",
+    "Mime quelqu'un qui a oublié le nom de la personne à qui il parle.",
+    "Fais semblant d'être un loup-garou en pleine transformation.",
+    "Imite un joueur d'échecs qui réfléchit beaucoup trop à un coup simple.",
+    "Mime quelqu'un qui essaie de gonfler un matelas pneumatique à la bouche.",
+    "Fais semblant d'être un candidat de télé-réalité qui pleure pour rien.",
+    "Imite un serveur qui porte trop de plats et qui commence à chanceler.",
+    "Mime la joie de quelqu'un qui trouve enfin une place de parking.",
+    "Fais semblant d'être un mannequin qui tombe sur le podium.",
+    "Imite un singe qui essaie d'utiliser un smartphone.",
+    "Mime quelqu'un qui essaie de déboucher un évier avec dégoût.",
+    "Fais semblant d'être une alarme de voiture qui bugge.",
+    "Imite un grand-père qui essaie de comprendre TikTok.",
+    "Mime quelqu'un qui essaie de rattraper un bus qui s'en va.",
+    "Fais semblant de gagner une médaille d'or aux JO imaginaires.",
+    "Imite un chat qui a une goutte d'eau sur la tête.",
+    "Fais une pose finale de 'Maître du jeu' avec un air mystérieux."
+];
+function newAction(){
+    const randomIndex = Math.floor(Math.random() * actions.length);
+    document.getElementById("challenge").innerText =
+        "🔥 ACTION : " + actions[randomIndex];
+}
+
+function newVerite(){
+    const randomIndex = Math.floor(Math.random() * verites.length);
+    document.getElementById("challenge").innerText =
+        "💬 VÉRITÉ : " + verites[randomIndex];
+}
+</script>
+<footer>
+    <p>© 2026 - Action ou Vérité | A Rone31's Project</p>
+</footer>
+</body>
+</html>
